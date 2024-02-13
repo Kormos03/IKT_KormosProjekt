@@ -7,10 +7,6 @@ import { UpdateBookingDto } from './dto/update-booking.dto';
 export class BookingController {
   constructor(private readonly bookingService: BookingService) { }
 
-  @Post()
-  create(@Body() createBookingDto: CreateBookingDto) {
-    return this.bookingService.create(createBookingDto);
-  }
 
   @Post('/reserved')
   createReserved(@Body() createBookingDto: CreateBookingDto) {
@@ -19,30 +15,47 @@ export class BookingController {
   @Delete('/reserved/:id')
   removeReserved(@Param('id') id: string) {
     return this.bookingService.remove(+id, true);
+
   }
+  @Patch('/reserved/:id')
+  updateReserved(@Param('id') id: string, @Body() updateBookingDto: UpdateBookingDto) {
+    return this.bookingService.update(+id, updateBookingDto, true);
+
+  }
+  @Get(':id')
+  findOneReserved(@Param('id') id: string) {
+    return this.bookingService.findOne(+id, true);
+  }
+
+
+
+  @Post()
+  create(@Body() createBookingDto: CreateBookingDto) {
+    return this.bookingService.create(createBookingDto);
+  }
+
 
   @Get()
   findAll() {
     return this.bookingService.findAll(false);
   }
 
+
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.bookingService.findOne(+id);
+    return this.bookingService.findOne(+id, false);
   }
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookingDto: UpdateBookingDto) {
-    return this.bookingService.update(+id, updateBookingDto);
+    return this.bookingService.update(+id, updateBookingDto, false);
   }
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.bookingService.remove(+id, false);
   }
-
-
-
-
 }
 
