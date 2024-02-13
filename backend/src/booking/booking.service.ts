@@ -10,7 +10,6 @@ export class BookingService {
     try {
       //A kapott intervallumot feldarabolom fél órákra
       const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
-      console.log(halfHourSlots)
       //A feldarabolt intervallumokat beillesztem a not_Reserved táblába
       const notReserved = await Promise.all(halfHourSlots.map(async (time) => {
         let hour = time.split(":")[0];
@@ -19,7 +18,6 @@ export class BookingService {
         start.setHours(Number(hour), Number(minute), 0, 0);
         let end = new Date(start);
         end.setMinutes(start.getMinutes() + 30);
-        console.log(start, end, createBookingDto.name, createBookingDto.type, createBookingDto.extra)
         return this.prisma.not_Reserved.create({
           data: {
             name: createBookingDto.name,
@@ -40,6 +38,21 @@ export class BookingService {
   async createReserved(createBookingDto: CreateBookingDto) {
 
     try {
+      //Lekérdezem az elérhető időintervallumokat
+      const not_ReservedAll = this.prisma.not_Reserved.findMany({
+        where: {
+          AND: [
+            { dateStart: { gte: new Date(createBookingDto.dateStart) } },
+          ]
+        }
+      });
+
+      const isDateAlreadyReserved = (await not_ReservedAll).some((data) => data.dateStart.getTime() === new Date(createBookingDto.dateStart).getTime());
+      console.log(isDateAlreadyReserved);
+      if (isDateAlreadyReserved) {
+        throw new Error("The date already exists in the available time intervals.");
+      }
+
 
       const datestart = new Date(createBookingDto.dateStart);
       const dateScheduleStart = this.prisma.not_Reserved.findMany({
@@ -57,8 +70,7 @@ export class BookingService {
           return data.dateEnd
         }
       })
-      console.log(rightDate)
-      console.log(await dateScheduleStart)
+
       await this.prisma.not_Reserved.deleteMany({
         where: { dateStart: datestart },
       });
@@ -74,15 +86,10 @@ export class BookingService {
         },
       });
 
-
-
-
-
-
       return reserved;
     }
     catch (e) {
-      return e;
+      throw new Error(e);
     }
   }
 
