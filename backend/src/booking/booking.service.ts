@@ -10,6 +10,44 @@ export class BookingService {
     return this.prisma.not_Reserved.create({ data: createBookingDto });
   }
 
+  async createReserved(createBookingDto: CreateBookingDto) {
+    try {
+
+      const datestart = new Date(createBookingDto.dateStart);
+      const dateScheduleStart = this.prisma.not_Reserved.findMany({
+        where: {
+          AND: [
+            { dateStart: { gte: datestart } },
+          ]
+        }
+      })
+      const rightDate = (await dateScheduleStart).map((data) => {
+        if (data.dateEnd < datestart || data.dateEnd > datestart) {
+          return data.dateEnd
+        }
+      })
+      console.log(rightDate)
+      await this.prisma.not_Reserved.deleteMany({
+        where: { dateStart: datestart },
+      });
+
+      const reserved = this.prisma.reserved.create({ data: createBookingDto });
+      const createSlotsToNotReserve = this.prisma.reserved.create({
+        data: {
+          name: createBookingDto.name,
+          dateStart: datestart,
+          dateEnd: new Date(createBookingDto.dateEnd),
+          type: createBookingDto.type,
+          extra: createBookingDto.extra,
+        },
+      });
+      return this.prisma.reserved.create({ data: createBookingDto });
+    }
+    catch (e) {
+      return e;
+    }
+  }
+
   findAll(admin: boolean) {
     if (admin == true) {
       return this.prisma.reserved.findMany();
@@ -26,7 +64,16 @@ export class BookingService {
     return `This action updates a #${id} booking`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} booking`;
+  remove(id: number, reserved: boolean) {
+    if (reserved == true) {
+      return this.prisma.reserved.delete({
+        where: { id: id },
+      })
+    }
+    else {
+      return this.prisma.not_Reserved.delete({
+        where: { id: id },
+      });
+    }
   }
 }

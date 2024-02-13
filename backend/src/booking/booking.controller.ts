@@ -12,6 +12,15 @@ export class BookingController {
     return this.bookingService.create(createBookingDto);
   }
 
+  @Post('/reserved')
+  createReserved(@Body() createBookingDto: CreateBookingDto) {
+    return this.bookingService.createReserved(createBookingDto);
+  }
+  @Delete('/reserved/:id')
+  removeReserved(@Param('id') id: string) {
+    return this.bookingService.remove(+id, true);
+  }
+
   @Get()
   findAll() {
     return this.bookingService.findAll(false);
@@ -29,6 +38,11 @@ export class BookingController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.bookingService.remove(+id);
+    return this.bookingService.remove(+id, false);
   }
+
+
+
+
 }
+
