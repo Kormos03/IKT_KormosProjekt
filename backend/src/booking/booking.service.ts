@@ -41,6 +41,7 @@ export class BookingService {
           extra: createBookingDto.extra,
         },
       });
+      const not_Reserved = 
       return this.prisma.reserved.create({ data: createBookingDto });
     }
     catch (e) {
