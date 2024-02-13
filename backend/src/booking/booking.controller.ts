@@ -8,9 +8,15 @@ export class BookingController {
   constructor(private readonly bookingService: BookingService) { }
 
 
+  //For reserved table
   @Post('/reserved')
   createReserved(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingService.createReserved(createBookingDto);
+  }
+
+  @Get('/reserved')
+  findAllReserved() {
+    return this.bookingService.findAll(true);
   }
   @Delete('/reserved/:id')
   removeReserved(@Param('id') id: string) {
@@ -22,13 +28,13 @@ export class BookingController {
     return this.bookingService.update(+id, updateBookingDto, true);
 
   }
-  @Get(':id')
+  @Get('/reserved/:id')
   findOneReserved(@Param('id') id: string) {
     return this.bookingService.findOne(+id, true);
   }
 
 
-
+  //For not_reserved table
   @Post()
   create(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingService.create(createBookingDto);
