@@ -84,6 +84,7 @@ function App() {
       }`}
       </style>
       <div>
+        <img src="https://as2.ftcdn.net/v2/jpg/05/10/30/99/1000_F_510309956_iyTxPAfQ3edPauULiVVcKUFIk6RhHjn4.jpg" alt="" className='brandLogo' />
         <NavigationBar></NavigationBar>
       </div>
     </>
