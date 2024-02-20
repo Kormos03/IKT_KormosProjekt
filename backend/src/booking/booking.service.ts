@@ -3,6 +3,7 @@ import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { PrismaService } from 'src/prisma.service';
 
+
 @Injectable()
 export class BookingService {
   constructor(private prisma: PrismaService) { }
@@ -30,30 +31,38 @@ export class BookingService {
       }));
     } catch (e) { throw new Error(e) }
   }
+
+
+
   /**
    * 
    * @param createBookingDto 
    * @returns 
    */
   async createReserved(createBookingDto: CreateBookingDto) {
-
     try {
+      const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
       //Lekérdezem az elérhető időintervallumokat
       const not_ReservedAll = this.prisma.not_Reserved.findMany({
         where: {
           AND: [
             { dateStart: { gte: new Date(createBookingDto.dateStart) } },
+            { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
           ]
         }
       });
 
-      const isDateAlreadyReserved = (await not_ReservedAll).some((data) => data.dateStart.getTime() === new Date(createBookingDto.dateStart).getTime());
-      console.log(isDateAlreadyReserved);
-      if (isDateAlreadyReserved) {
-        throw new Error("The date already exists in the available time intervals.");
+      //Ellenőrzések!
+      //Megnézem, hogy az összes slot benne van-e az időintervallumban
+      console.log("Az összes slot ami benne van az időintervallumban foglaláskor: \n");
+      console.log(await not_ReservedAll);
+      if (((await not_ReservedAll).length) < halfHourSlots.length) {
+        throw new Error("The date is not available in the available time intervals.");
       }
+      //Ellenőrízni, hogy létezik-e már a megadott időpont foglaláls a reserved táblába
 
 
+      /*
       const datestart = new Date(createBookingDto.dateStart);
       const dateScheduleStart = this.prisma.not_Reserved.findMany({
         where: {
@@ -73,13 +82,27 @@ export class BookingService {
 
       await this.prisma.not_Reserved.deleteMany({
         where: { dateStart: datestart },
-      });
+      });*/
+      //Kitörlöm a not_Reserved táblából azokat az időintervallumokat, amiket a reserved táblába foglalok(nem műkszik)
 
+      const deleted = this.prisma.not_Reserved.deleteMany({
+        where: {
+          AND: [
+            { dateStart: new Date(createBookingDto.dateStart) },
+            { dateStart: { gte: new Date(createBookingDto.dateStart) } },
+            { dateEnd: new Date(createBookingDto.dateEnd) },
+            { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
+          ]
+        }
+      });
+      console.log("A törölt időintervallumok: \n");
+      console.log(await deleted);
+      //Létrehozom a reserved táblában az időintervallumokat
       const reserved = this.prisma.reserved.create({ data: createBookingDto });
       const createSlotsToNotReserve = this.prisma.reserved.create({
         data: {
           name: createBookingDto.name,
-          dateStart: datestart,
+          dateStart: new Date(createBookingDto.dateStart),
           dateEnd: new Date(createBookingDto.dateEnd),
           type: createBookingDto.type,
           extra: createBookingDto.extra,
@@ -162,3 +185,4 @@ function generateHalfHourSlots(dateStart: Date, dateEnd: Date): string[] {
 
   return halfHourSlots;
 }
+
