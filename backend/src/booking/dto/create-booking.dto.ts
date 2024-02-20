@@ -7,12 +7,12 @@ export class CreateBookingDto {
     name: string;
 
 
-    dateStart: Date;
+    dateStart: string;
 
     @IsNotEmpty({ message: 'A befejező dátum megadása kötelező' })
     // @IsDate({ message: 'A befejező dátum formátuma nem megfelelő' })
     // @MinDate(new Date(), { message: 'A befejező dátum nem lehet kisebb a jelenlegi dátumnál' })
-    dateEnd: Date;
+    dateEnd: string;
 
     type: string;
 

@@ -8,12 +8,14 @@ import { PrismaService } from 'src/prisma.service';
 export class BookingService {
   constructor(private prisma: PrismaService) { }
   async create(createBookingDto: CreateBookingDto) {
+
     try {
       //A kapott intervallumot feldarabolom fél órákra
       const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
       //A feldarabolt intervallumokat beillesztem a not_Reserved táblába
       const notReserved = await Promise.all(halfHourSlots.map(async (time) => {
         let hour = time.split(":")[0];
+        console.log("Hour: " + hour)
         let minute = time.split(":")[1];
         let start = new Date();
         start.setHours(Number(hour), Number(minute), 0, 0);
@@ -40,8 +42,19 @@ export class BookingService {
    * @returns 
    */
   async createReserved(createBookingDto: CreateBookingDto) {
+    console.log("CreateBookingDto dates: " + createBookingDto.dateStart + " - " + createBookingDto.dateEnd)
     try {
-      const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
+      const halfHourSlotsArray = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
+      const halfHourSlots = halfHourSlotsArray.map((time) => {
+        let hour = time.split(":")[0];
+        let minute = time.split(":")[1];
+        let start = new Date();
+        start.setHours(Number(hour), Number(minute), 0, 0);
+        let end = new Date(start);
+        end.setMinutes(start.getMinutes() + 30);
+        return { dateStart: start, dateEnd: end };
+      }
+      )
       //Lekérdezem az elérhető időintervallumokat
       const not_ReservedAll = this.prisma.not_Reserved.findMany({
         where: {
@@ -56,6 +69,11 @@ export class BookingService {
       //Megnézem, hogy az összes slot benne van-e az időintervallumban
       console.log("Az összes slot ami benne van az időintervallumban foglaláskor: \n");
       console.log(await not_ReservedAll);
+
+      for (let i = 0; i < halfHourSlots.length; i++) {
+        console.log("HalfHourSlots: " + halfHourSlots[i].dateStart + " - " + halfHourSlots[i].dateEnd)
+      }
+      console.log("HalfhourSlots.length: " + halfHourSlots.length)
       if (((await not_ReservedAll).length) < halfHourSlots.length) {
         throw new Error("The date is not available in the available time intervals.");
       }
@@ -84,19 +102,37 @@ export class BookingService {
         where: { dateStart: datestart },
       });*/
       //Kitörlöm a not_Reserved táblából azokat az időintervallumokat, amiket a reserved táblába foglalok(nem műkszik)
+      /*
+    const deletedCount = await this.prisma.not_Reserved.count({
+      where: {
+        AND: [
+          { dateStart: { gte: new Date(createBookingDto.dateStart) } },
+          { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
+        ],
+      },
+    });
+    console.log("Deletecount: " + deletedCount)
 
+    if (deletedCount < halfHourSlots.length) {
+      throw new Error("The date is not available in the available time intervals.");
+    }
+*/
       const deleted = this.prisma.not_Reserved.deleteMany({
         where: {
           AND: [
-            { dateStart: new Date(createBookingDto.dateStart) },
+
             { dateStart: { gte: new Date(createBookingDto.dateStart) } },
             { dateEnd: new Date(createBookingDto.dateEnd) },
+            { dateStart: new Date(createBookingDto.dateStart) },
             { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
-          ]
+          ],
         }
       });
       console.log("A törölt időintervallumok: \n");
       console.log(await deleted);
+
+
+
       //Létrehozom a reserved táblában az időintervallumokat
       const reserved = this.prisma.reserved.create({ data: createBookingDto });
       const createSlotsToNotReserve = this.prisma.reserved.create({
@@ -179,6 +215,7 @@ function generateHalfHourSlots(dateStart: Date, dateEnd: Date): string[] {
 
   while (currentTime < dateEnd) {
     halfHourSlots.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    console.log("generateHalfHourSlots currenttime: " + currentTime)
     currentTime.setMinutes(currentTime.getMinutes() + 30); // Add 30 minutes
 
   }
