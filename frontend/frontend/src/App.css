@@ -1,3 +1,10 @@
+body {
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+}
+
 .brandLogo {
   width: 20%;
   margin: 0 auto;
@@ -5,4 +12,17 @@
   margin-top: 5px;
   margin-bottom: 5px;
   justify-content: left;
+}
+
+
+.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
