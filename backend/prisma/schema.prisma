@@ -35,3 +35,4 @@ model Credentials {
   email    String
   admin    Boolean @default(false)
 }
+

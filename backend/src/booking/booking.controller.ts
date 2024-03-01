@@ -7,7 +7,6 @@ import { UpdateBookingDto } from './dto/update-booking.dto';
 export class BookingController {
   constructor(private readonly bookingService: BookingService) { }
 
-
   //For reserved table
   @Post('/reserved')
   createReserved(@Body() createBookingDto: CreateBookingDto) {
