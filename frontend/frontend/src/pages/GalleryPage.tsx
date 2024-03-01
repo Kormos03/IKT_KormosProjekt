@@ -22,3 +22,4 @@ export function GalleryPage() {
         </div>
     </div >
 }
+
