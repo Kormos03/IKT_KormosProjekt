@@ -6,7 +6,7 @@ body {
 }
 
 .brandLogo {
-  width: 20%;
+  width: 10%;
   margin: 0 auto;
   display: flex;
   margin-top: 5px;
@@ -23,6 +23,13 @@ body {
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
+}
 
+.gallery_img{
+  width: 350px;
+}
+
+.gallery{
+  flex-direction: column;
 }

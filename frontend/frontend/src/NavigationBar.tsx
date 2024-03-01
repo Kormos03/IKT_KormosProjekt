@@ -8,7 +8,7 @@ export function NavigationBar() {
 
                     <nav className="navbar navbar-expand-lg bg-body-tertiary ">
                         <div className="container-fluid d-flex justify-content-between">
-                            <img className='navbar-brand brandLogo' src="https://as2.ftcdn.net/v2/jpg/05/10/30/99/1000_F_510309956_iyTxPAfQ3edPauULiVVcKUFIk6RhHjn4.jpg" />
+                            <img className='navbar-brand brandLogo' src="katus_logo.jpeg" />
                             <NavLink className="navbar-brand" to="/">Főoldal</NavLink>
 
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"

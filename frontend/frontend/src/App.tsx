@@ -4,12 +4,20 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
 import { NavLink, Outlet } from 'react-router-dom'
 import { NavigationBar } from './NavigationBar'
-
-
+/*
+async function getBackground(background) {
+  try {
+    const response = await fetch(background);
+    const data = await response;
+    console.log(data);
+    return data.json();
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}*/
 
 
 function App() {
-  const [background, setBackground] = useState("");
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
 
   function toggleDarkMode() {
@@ -19,26 +27,15 @@ function App() {
 
   }
 
-  async function getBackground() {
-    try {
-      const response = await fetch("https://as2.ftcdn.net/v2/jpg/04/81/66/19/1000_F_481661950_DozZV5h8tZO87DN7W6pv0IyAIDRX9MzJ.jpg");
-      const data = await response;
-      console.log(data);
-      setBackground(data.url);
-    } catch (error) {
-      throw new Error(error.message)
-    }
-  }
-
   useEffect(() => {
-    getBackground();
+   
   }, []);
 
   return (
     <>
       <style>
         {`body{
-        background-image: url(${background});
+        background-image: url("https://as2.ftcdn.net/v2/jpg/04/81/66/19/1000_F_481661950_DozZV5h8tZO87DN7W6pv0IyAIDRX9MzJ.jpg");
         }
       }`}
       </style>
