@@ -36,3 +36,8 @@ model Credentials {
   admin    Boolean @default(false)
 }
 
+model Images{
+  id Int @id @default(autoincrement())
+  url String?
+  name String @unique
+}
