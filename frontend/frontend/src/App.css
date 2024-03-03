@@ -27,9 +27,11 @@ body {
 }
 
 .gallery_img{
-  width: 350px;
+  max-width: 300px;
 }
 
 .gallery{
-  flex-direction: column;
+  display: flex;
+  
+  width: 100%;
 }
