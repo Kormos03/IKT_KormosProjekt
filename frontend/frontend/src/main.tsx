@@ -9,6 +9,7 @@ import { ContactPage } from './pages/ContactPage.tsx'
 import { LoginPage } from './pages/LoginPage.tsx'
 import { RegisterPage } from './pages/RegisterPage.tsx'
 import { WelcomePage } from './pages/WelcomePage.tsx'
+import { AdminLoginPage } from './pages/AdminLoginPage.tsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -36,6 +37,9 @@ const router = createBrowserRouter([{
       path: 'register',
       element: <RegisterPage />
 
+    },{
+      path: 'adminLogin',
+      element: <AdminLoginPage />
     }
   ]
 
