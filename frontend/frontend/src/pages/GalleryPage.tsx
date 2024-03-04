@@ -17,7 +17,7 @@ function CardComponent({cards}) {
       </div>
     );
   }
-  
+
 
 
 export function GalleryPage() {
@@ -43,8 +43,6 @@ export function GalleryPage() {
         fetchGallery();
     }, []);
     
-
-
     return (
         <div className="container gallery">
             <div className="row">
@@ -53,6 +51,8 @@ export function GalleryPage() {
             <div className="row">
             <CardComponent cards={gallery as GalleryImg[]} />
         </div>
+
+      
         </div>
     );
 }
