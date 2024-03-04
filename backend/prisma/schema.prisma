@@ -28,12 +28,19 @@ model Reserved {
   extra     Boolean  @default(false)
 }
 
-model Credentials {
-  id       Int     @id @default(autoincrement())
+model User {
+  id Int @id @default(autoincrement())
   username String
   password String
   email    String
   admin    Boolean @default(false)
+  tokens   Token[]
+}
+
+model Token {
+  token String @id
+  user User @relation( fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 }
 
 model Images{
@@ -41,3 +48,4 @@ model Images{
   url String?
   name String @unique
 }
+
