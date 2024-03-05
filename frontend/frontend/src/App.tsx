@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
 import { NavLink, Outlet } from 'react-router-dom'
 import { NavigationBar } from './NavigationBar'
+import { User } from './User'
 /*
 async function getBackground(background) {
   try {
@@ -19,7 +20,7 @@ async function getBackground(background) {
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
-
+  
   function toggleDarkMode() {
     const newDarkMode = !darkMode;
     localStorage.setItem('darkMode', newDarkMode ? '1' : '0');
@@ -27,9 +28,6 @@ function App() {
 
   }
 
-  useEffect(() => {
-   
-  }, []);
 
   return (
     <>

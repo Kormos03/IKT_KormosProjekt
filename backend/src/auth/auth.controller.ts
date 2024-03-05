@@ -14,6 +14,27 @@ export class AuthController {
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
+    if(user.admin){
+      throw new UnauthorizedException('Nem léphetsz be adminisztrátorként ezen a felületen biztonsági okokból!');
+    }
+    if (user == null) {
+      throw new UnauthorizedException('Hibás email vagy jelszó!');
+    }
+    if (!await verify(user.password, loginDto.password)) {
+      throw new UnauthorizedException('Hibás email vagy jelszó!');
+    }
+
+    return {
+      token: await this.authService.generateTokenFor(user)
+    }
+  }
+
+  @Post('katus/admin/login')
+  async adminlogin(@Body() loginDto: LoginDto) {
+    const user = await this.usersService.findByEmail(loginDto.email);
+    if(!user.admin){
+      throw new UnauthorizedException('Nincs jogosultságod ehhez a művelethez!');
+    }
     if (user == null) {
       throw new UnauthorizedException('Hibás email vagy jelszó!');
     }
