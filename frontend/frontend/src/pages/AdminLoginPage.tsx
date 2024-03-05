@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { LoginForm } from "../Components/LoginForm";
 import { User } from "../User";
 import { UserProfile } from "../Components/UserProfile";
 import { Navigate } from "react-router-dom";
+import { LoginFormAdmin } from "../Components/LoginFormAdmin";
 
 export function AdminLoginPage() {
     const [ token, setToken ] = useState('');
   const [ error, setError ] = useState('')
   const [ user, setUser ] = useState(null as User|null)
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [backendRoute, setBackendRoute] = useState("http://localhost:3000/users/me");
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -19,7 +20,7 @@ export function AdminLoginPage() {
 
   useEffect(() => {
     async function loadUserData() {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/me`, {
+      const response = await fetch(backendRoute, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -28,11 +29,6 @@ export function AdminLoginPage() {
       })
       if (response.status === 200) {
         const userData = await response.json();
-
-        if (!userData!.admin) {
-          setError('Access denied. Only admins can access this page.');
-          return;
-        }
         setUser(userData);
         setIsLoggedIn(true);
       } else if (response.status === 401) {
@@ -63,7 +59,7 @@ export function AdminLoginPage() {
         {
             token ?
                 <p>You are logged in. <button onClick={logout}>Log out</button></p>
-            : <LoginForm onSuccessfulLogin={login}/>
+            : <LoginFormAdmin onSuccessfulLogin={login}/>
         }
     {
       error ? <p>{error}</p> : null

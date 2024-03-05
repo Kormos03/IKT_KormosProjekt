@@ -5,10 +5,10 @@ interface Props {
 }
 
 export function UserProfile({ user }: Props) {
-    //const { user } = props;
+    console.log(user)
     return <div>
-        <h2>Email: { user.email }</h2>
+        <h3>Email: { user.email }</h3>
         <p>{ user.username }</p>
-        <p style={{fontStyle: 'italic'}}>Admin: { user.admin? 'yes': 'no' }</p>
+        <p style={{fontStyle: 'italic'}}>Admin: { user.admin? 'yes':'no' }</p>
     </div>
 }

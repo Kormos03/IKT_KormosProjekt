@@ -16,7 +16,7 @@ export class UsersController {
     return {
       email: user.email,
       name: user.username,
-      role: user.admin ? 'admin' : 'user',
+      admin: user.admin,
     }
   }
 
