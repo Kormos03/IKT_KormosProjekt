@@ -29,7 +29,7 @@ export class UsersController {
   @UseGuards(AuthGuard('bearer'))
   findAll(@Request() req) {
     const user: User = req.user;
-    if (!user.admin) {
+    if (user && !user.admin) {
       throw new ForbiddenException();
     }
     // Ezt a függvényt csak admin jogosultságú user tudja meghívni

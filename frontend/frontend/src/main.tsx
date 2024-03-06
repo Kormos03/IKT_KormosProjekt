@@ -12,7 +12,7 @@ import { WelcomePage } from './pages/WelcomePage.tsx'
 import { AdminLoginPage } from './pages/AdminLoginPage.tsx'
 import { AdminPage } from './pages/AdminPage.tsx'
 
-const router = createBrowserRouter([{
+const router1 = createBrowserRouter([{
   path: '/',
   element: <App />,
   children: [
@@ -32,7 +32,7 @@ const router = createBrowserRouter([{
       element: <ContactPage />
     }, {
       path: 'login',
-      element: <LoginPage />
+      element: <LoginPage />,
 
     }, {
       path: 'register',
@@ -40,18 +40,18 @@ const router = createBrowserRouter([{
 
     },{
       path: 'secret/adminLogin',
-      element: <AdminLoginPage />
+      element: <AdminLoginPage />,
+      children:[{
+        path: 'adminPage',
+        element: <AdminPage />
+      }]
     },
-    {
-      path: 'adminPage',
-      element: <AdminPage />
-    }
   ]
 
 }])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router1} />
   </React.StrictMode>,
 )

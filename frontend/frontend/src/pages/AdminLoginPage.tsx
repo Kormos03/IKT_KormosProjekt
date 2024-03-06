@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { User } from "../User";
 import { UserProfile } from "../Components/UserProfile";
 import { Navigate, useNavigate } from "react-router-dom";
 import { LoginFormAdmin } from "../Components/LoginFormAdmin";
 import { AdminPage } from "./AdminPage";
+import { RequestFunc } from "../RequestFunc";
+
+export const UserContext = createContext({ user: null as User|null});
 
 export function AdminLoginPage() {
     const [ token, setToken ] = useState(localStorage.getItem('token') || '');
@@ -14,6 +17,7 @@ export function AdminLoginPage() {
   const navigate = useNavigate();
 
 
+  
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -22,7 +26,9 @@ export function AdminLoginPage() {
   }, []);
 
   useEffect(() => {
- 
+    RequestFunc
+
+
     async function loadUserData() {
       console.log('Token:'+ token)
       const response = await fetch(backendRoute, {
@@ -47,17 +53,19 @@ export function AdminLoginPage() {
     loadUserData();
 
   }, [token]);
+
 useEffect(() => {
-    if(user?.admin){
-        navigate('/adminPage');
+    if(user!.admin){
+    navigate('/adminPage');
     }
-},[])
+},[user])
 
   function login(token: string) {
     setToken(token);
+    setUser(user);
     console.log('Token:'+ localStorage.getItem('token'));
     localStorage.setItem('token', token);
-    navigate('/adminPage');
+    navigate('adminPage');
   }
 
   function logout() {
@@ -68,19 +76,20 @@ useEffect(() => {
   }
 
     return <div className="container login">
+        <UserContext.Provider value={{ user: user}}/>
         <h3>Bejelentkezés admin</h3>
-        {
-          user?.admin? <>{navigate('/adminPage')}</> : null
-        }
-       
+    
              <LoginFormAdmin onSuccessfulLogin={login}/> 
+             {
+              user?.admin ? <>{navigate('adminPage')}</> : 
+             <button onClick={logout}>Kijelentkezés</button>
+            }
+            
         
         
     {
       error ? <>{console.log("Error: "+error)}</> : null
     }
-    {
-      user ? <UserProfile user={user} /> : null
-    }
+   
     </div >
 }

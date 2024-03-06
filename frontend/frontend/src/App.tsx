@@ -1,34 +1,36 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
 import { NavLink, Outlet } from 'react-router-dom'
 import { NavigationBar } from './Components/NavigationBar'
 import { User } from './User'
-/*
-async function getBackground(background) {
-  try {
-    const response = await fetch(background);
-    const data = await response;
-    console.log(data);
-    return data.json();
-  } catch (error) {
-    throw new Error(error.message)
-  }
-}*/
+import { UserContext } from './pages/AdminLoginPage'
+import { AdminNavigationBar } from './Components/AdminNavigationBar'
+
+function getLogoFromBackend(){
+  
+}
 
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
-  
+  const [isAdmin, setIsAdmin] = useState(false);
   function toggleDarkMode() {
     const newDarkMode = !darkMode;
     localStorage.setItem('darkMode', newDarkMode ? '1' : '0');
     setDarkMode(newDarkMode);
 
   }
+  const user = useContext(UserContext);
 
-
+  useEffect(() => { 
+    console.log(user)
+    if(user.user?.admin){
+      setIsAdmin(true);
+    }
+  }, [user]);
+  
   return (
     <>
       <style>
@@ -38,7 +40,10 @@ function App() {
       }`}
       </style>
       <div className={darkMode ? 'dark' : ''}>
-        <NavigationBar></NavigationBar>
+        {
+          isAdmin ? <AdminNavigationBar></AdminNavigationBar> : <NavigationBar></NavigationBar>
+        }
+        
         <main className=''>
           <Outlet />
         </main>

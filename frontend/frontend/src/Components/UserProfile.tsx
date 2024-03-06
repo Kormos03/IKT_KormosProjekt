@@ -5,7 +5,7 @@ interface Props {
 }
 
 export function UserProfile({ user }: Props) {
-    console.log(user)
+    //console.log(user)
     return <div>
         <h3>Email: { user.email }</h3>
         <p>{ user.username }</p>
