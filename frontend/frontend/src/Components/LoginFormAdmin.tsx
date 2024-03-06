@@ -32,16 +32,22 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
             setLoginError(errorObj.message);
             return;
         }
+        if(response.status === 500){
+            setLoginError('Server error');
+            return;
+        }
+        if(response.status == 201){
         const tokenObj = await response.json();
-
+        localStorage.setItem('token', tokenObj.token);
+        console.log('Token:'+ localStorage.getItem('token'));
         onSuccessfulLogin(tokenObj.token);
-
+    }
         setLoginError('');
         setEmail('');
         setPass('');
     }
 
-    return <form onSubmit={login}>
+    return <form onSubmit={login} className="login">
         Email: <input type='email' onChange={e => setEmail(e.currentTarget.value)} />
         Password: <input type='password' onChange={e => setPass(e.currentTarget.value)} />
         <input type='submit' value='Login' />

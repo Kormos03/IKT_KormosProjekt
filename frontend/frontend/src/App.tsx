@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
 import { NavLink, Outlet } from 'react-router-dom'
-import { NavigationBar } from './NavigationBar'
+import { NavigationBar } from './Components/NavigationBar'
 import { User } from './User'
 /*
 async function getBackground(background) {

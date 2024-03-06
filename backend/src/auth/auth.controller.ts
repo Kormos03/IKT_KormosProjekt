@@ -32,6 +32,7 @@ export class AuthController {
   @Post('katus/admin/login')
   async adminlogin(@Body() loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
+    console.log(user);
     if(!user.admin){
       throw new UnauthorizedException('Nincs jogosultságod ehhez a művelethez!');
     }

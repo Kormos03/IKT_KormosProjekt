@@ -25,10 +25,10 @@ export function LoginPage() {
         }
       })
       if (response.status === 401) {
-        setToken('');
+        /*setToken('');
         localStorage.removeItem('token');
         setError('Please login again');
-        return;
+        return;*/
       }
       if (!response.ok) {
         setError('An error occured, try again later');

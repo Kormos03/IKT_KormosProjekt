@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { validateAdmin } from "./validateAdmin";
+
+interface NavigationBarProps {
+    
+}
 
 export function NavigationBar() {
+
     return (<div>
         <div className="container" id="navBarContainer">
             <div className="row">

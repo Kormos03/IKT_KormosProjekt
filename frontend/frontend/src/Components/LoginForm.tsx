@@ -41,7 +41,7 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
         setPass('');
     }
 
-    return <form onSubmit={login}>
+    return <form onSubmit={login} className="login">
         Email: <input type='email' onChange={e => setEmail(e.currentTarget.value)} />
         Password: <input type='password' onChange={e => setPass(e.currentTarget.value)} />
         <input type='submit' value='Login' />
