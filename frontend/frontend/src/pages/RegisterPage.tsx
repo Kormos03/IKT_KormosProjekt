@@ -1,5 +1,9 @@
+import { NavigationBar } from "../Components/NavigationBar";
+
 export function RegisterPage() {
-    return <div className="container">
+    return <>
+    <NavigationBar />
+     <div className="container">
         <h3>Regisztráció</h3>
         <form>
             <label htmlFor="username">Felhasználónév</label><br />
@@ -11,4 +15,5 @@ export function RegisterPage() {
             <button type="submit">Regisztráció</button><br />
         </form>
     </div >
+    </>
 }

@@ -1,5 +1,9 @@
+import { NavigationBar } from "../Components/NavigationBar"
+
 export function WelcomePage() {
-    return <div className="container">
+    return  <>
+    <NavigationBar />
+    <div className="container">
         <table>
             <tr>
                 <h1>Üdvözöljük a körmösszalon oldalán!</h1>
@@ -13,4 +17,5 @@ export function WelcomePage() {
             </tr>
         </table>
     </div >
+    </>
 }

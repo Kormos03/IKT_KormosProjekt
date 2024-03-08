@@ -1,6 +1,6 @@
 export function ContactPage() {
-    return <div className="container">
-
+    return <><NavigationBar/>
+    <div className="container">
         <table>
             <thead>        <h1>Elérhetőségek</h1></thead>
             <tr>
@@ -14,4 +14,5 @@ export function ContactPage() {
             </tr>
         </table>
     </div >
+    </>
 }

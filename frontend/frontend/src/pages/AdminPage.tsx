@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../User";
+import { AdminNavigationBar } from "../Components/AdminNavigationBar";
 
 export function AdminPage(){
     const [ token, setToken ] = useState(localStorage.getItem('token') || '');
@@ -31,16 +32,20 @@ export function AdminPage(){
           const userData = await response.json();
           setUser(userData);
           setIsLoggedIn(true);
+          //If the user is not an admin, redirect to the main page
           if(!userData.admin){
             navigate('/');
           }
         } else if (response.status === 401) {
+          navigate("secret/adminlogin/")
           setToken('');
           localStorage.removeItem('token');
           setError('Please login again');
+          //console.log(error)
           return;
         } else {
           setError('An error occurred, try again later');
+          //console.log(error)
         }
       }
       loadUserData();
@@ -48,9 +53,10 @@ export function AdminPage(){
     }, []);
   
   
-    return (
+    return <>         
+     <AdminNavigationBar/>
         <div>
             <h1>THIS IS THE ADMINPAGE</h1>
         </div>
-    )
+        </>
 }

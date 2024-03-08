@@ -1,5 +1,9 @@
+import { NavigationBar } from "../Components/NavigationBar"
+
 export function PriceListPage() {
-    return <div className="container">
+    return <>
+    <NavigationBar />
+    <div className="container">
 
         <table>
             <thead>        <h1>Árlista</h1></thead>
@@ -25,4 +29,5 @@ export function PriceListPage() {
             </tr>
         </table>
     </div >
+    </>
 }

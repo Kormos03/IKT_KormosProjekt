@@ -4,32 +4,33 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
 import { NavLink, Outlet } from 'react-router-dom'
 import { NavigationBar } from './Components/NavigationBar'
-import { User } from './User'
 import { UserContext } from './pages/AdminLoginPage'
 import { AdminNavigationBar } from './Components/AdminNavigationBar'
 
 function getLogoFromBackend(){
-  
+  //
 }
 
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(null || localStorage.getItem('user'));
   function toggleDarkMode() {
     const newDarkMode = !darkMode;
     localStorage.setItem('darkMode', newDarkMode ? '1' : '0');
     setDarkMode(newDarkMode);
 
   }
-  const user = useContext(UserContext);
+
 
   useEffect(() => { 
-    console.log(user)
-    if(user.user?.admin){
+    setUser(localStorage.getItem('user'));
+    console.log(user);
+    if(user){
       setIsAdmin(true);
     }
-  }, [user]);
+  }, [user] || []);
   
   return (
     <>
@@ -40,9 +41,7 @@ function App() {
       }`}
       </style>
       <div className={darkMode ? 'dark' : ''}>
-        {
-          isAdmin ? <AdminNavigationBar></AdminNavigationBar> : <NavigationBar></NavigationBar>
-        }
+        
         
         <main className=''>
           <Outlet />

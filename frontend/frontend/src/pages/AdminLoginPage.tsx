@@ -1,10 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { User } from "../User";
-import { UserProfile } from "../Components/UserProfile";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { LoginFormAdmin } from "../Components/LoginFormAdmin";
-import { AdminPage } from "./AdminPage";
-import { RequestFunc } from "../RequestFunc";
 
 export const UserContext = createContext({ user: null as User|null});
 
@@ -26,8 +23,7 @@ export function AdminLoginPage() {
   }, []);
 
   useEffect(() => {
-    RequestFunc
-
+   // RequestFunc
 
     async function loadUserData() {
       console.log('Token:'+ token)
@@ -42,6 +38,7 @@ export function AdminLoginPage() {
         const userData = await response.json();
         setUser(userData);
         setIsLoggedIn(true);
+        localStorage.setItem('user', JSON.stringify(user?.admin));
       } else if (response.status === 401) {
         
         setError('Please login again');
@@ -52,41 +49,40 @@ export function AdminLoginPage() {
     }
     loadUserData();
 
-  }, [token]);
+  }, [token] || []);
 
 useEffect(() => {
-    if(user!.admin){
-    navigate('/adminPage');
+    if(user?.admin){
+    localStorage.setItem('user', JSON.stringify(user?.admin));
+    navigate('adminPage');
     }
-},[user])
+},[user] || [])
 
   function login(token: string) {
     setToken(token);
     setUser(user);
     console.log('Token:'+ localStorage.getItem('token'));
     localStorage.setItem('token', token);
-    navigate('adminPage');
+    localStorage.setItem('user', JSON.stringify(user?.admin));
+
   }
+
 
   function logout() {
     setToken('');
     localStorage.removeItem('token');
     setError('');
     setUser(null);
+    localStorage.removeItem('user');
   }
 
     return <div className="container login">
         <UserContext.Provider value={{ user: user}}/>
         <h3>Bejelentkezés admin</h3>
-    
-             <LoginFormAdmin onSuccessfulLogin={login}/> 
-             {
-              user?.admin ? <>{navigate('adminPage')}</> : 
-             <button onClick={logout}>Kijelentkezés</button>
-            }
-            
-        
-        
+    <Outlet/>
+    {
+      user?.admin ? null : <LoginFormAdmin onSuccessfulLogin={login}/> 
+    }        
     {
       error ? <>{console.log("Error: "+error)}</> : null
     }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { GalleryImg } from "../GalleryImg";
+import { NavigationBar } from "../Components/NavigationBar";
 
 function CardComponent({cards}) {
-    console.log(cards);
-    return (
+    return <> <NavigationBar/>
       <div className="container">
         <div className="row">
           {cards!.map((card, index) => (
@@ -15,7 +15,7 @@ function CardComponent({cards}) {
           ))}
         </div>
       </div>
-    );
+      </>
   }
 
 

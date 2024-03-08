@@ -56,7 +56,8 @@ export function LoginPage() {
     localStorage.removeItem('token');
   }
 
-    return <div className="container">
+    return <>
+    <div className="container">
         <h3>Bejelentkezés</h3>
         {
       token ?
@@ -73,4 +74,5 @@ export function LoginPage() {
       user?.admin? <p>Userek listája</p> : null
     }
     </div >
+    </>
 }
