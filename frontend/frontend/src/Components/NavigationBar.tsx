@@ -57,7 +57,10 @@ export function NavigationBar() {
                                             <li>{
                                                 userLoggedIn == '1' ? <button onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
                                                 }</li>
-                                            <li><NavLink className="dropdown-item" to="/register">Regisztráció</NavLink></li>
+                                            <li>{
+                                                userLoggedIn == '1' ? null : <NavLink className="dropdown-item" to="/register">Regisztráció</NavLink>
+                                                }
+                                                </li>
                                             <li>{   
                                                         }</li>
                                         </ul>
