@@ -20,9 +20,9 @@ export class UsersController {
     }
   }
 
-  @Post()
+  @Post('/regist')
   create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return this.usersService.registration(createUserDto);
   }
 
   @Get('all')
