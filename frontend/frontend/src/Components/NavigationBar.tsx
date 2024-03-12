@@ -1,12 +1,36 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { validateAdmin } from "./validateAdmin";
 
 export function NavigationBar() {
     const [user, setUser] = useState(null || localStorage.getItem('user'));
+    const navigate = useNavigate();
     useEffect(() => {
         setUser(localStorage.getItem('user'));
+        if(typeof user == undefined || user == null){
+            console.log('User: '+user);
+            localStorage.removeItem('user');
+
+        }
    }, [user])
+
+   function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.reload();
+    navigate('/login');
+}
+
+   const handleNavigation = () => {
+    if(typeof user === 'undefined') {
+        navigate("/login");
+        console.log('User: '+user)
+    } else {
+        navigate("/bookingUserPage");
+
+        console.log('User: '+user)
+    }
+}
 
     return (<div>
         <div className="container" id="navBarContainer">
@@ -29,9 +53,8 @@ export function NavigationBar() {
                                         <NavLink className="nav-link" aria-current="page" to="/pricelist">Árlista</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        {
-                                            user ? <NavLink className="nav-link" aria-current="page" to="/bookingUserPage">Időpontfoglalás</NavLink> : <NavLink className="nav-link" aria-current="page" to="/login">Időpontfoglalás</NavLink>
-                                        }
+                                    <button className="nav-link" onClick={handleNavigation}>Időpontfoglalás</button>
+
                                     </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link" aria-current="page" to="/gallery">Galéria</NavLink>
@@ -42,8 +65,12 @@ export function NavigationBar() {
                                             Profil
                                         </a>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="/login">Bejelentkezés</a></li>
+                                            <li>{
+                                                user ? <button onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
+                                                }</li>
                                             <li><NavLink className="dropdown-item" to="/register">Regisztráció</NavLink></li>
+                                            <li>{   
+                                                        }</li>
                                         </ul>
                                     </li>
                                     <li className="nav-item">

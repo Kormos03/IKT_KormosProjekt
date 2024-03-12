@@ -4,7 +4,10 @@ import { NavigationBar } from "../Components/NavigationBar"
 
 export function WelcomePage() {
     useEffect(() => {
+        const user = localStorage.getItem('user');
+        if(user){
         console.log(localStorage.getItem('User: '+'user'));
+    }
     }, [])
     return  <>
     

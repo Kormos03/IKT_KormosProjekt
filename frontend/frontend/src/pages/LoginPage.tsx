@@ -50,11 +50,10 @@ export function LoginPage() {
       }
       
       const userData = await response.json() as User;
-      console.log(userData);  
-      if(userData.admin == true){
-        
-      }
+      console.log("userdata admin:" + userData.admin);  
       setUser(userData);
+      localStorage.setItem('user', '0');
+
     }
 
     if (token) {
@@ -68,6 +67,7 @@ export function LoginPage() {
   function login(token: string) {
     setToken(token);
     localStorage.setItem('token', token);
+    localStorage.setItem('user', '0');
     navigate('/');
   }
 
