@@ -75,7 +75,7 @@ export function LoginPage() {
     setToken('');
     localStorage.removeItem('token');
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem('userLoggedIn');
   }
 
     return <>

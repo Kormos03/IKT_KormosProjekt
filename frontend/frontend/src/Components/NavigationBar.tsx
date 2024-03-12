@@ -3,32 +3,21 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { validateAdmin } from "./validateAdmin";
 
 export function NavigationBar() {
-    const [user, setUser] = useState(null || localStorage.getItem('user'));
+    const [userLoggedIn, setUserLoggedIn] = useState(null || localStorage.getItem('userLoggedIn'));
     const navigate = useNavigate();
-    useEffect(() => {
-        setUser(localStorage.getItem('user'));
-        if(typeof user == undefined || user == null){
-            console.log('User: '+user);
-            localStorage.removeItem('user');
-
-        }
-   }, [user])
+  
 
    function logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    window.location.reload();
+    localStorage.removeItem('userLoggedIn');
     navigate('/login');
 }
 
    const handleNavigation = () => {
-    if(typeof user === 'undefined') {
+    if(typeof userLoggedIn === 'undefined' || userLoggedIn === null) {
         navigate("/login");
-        console.log('User: '+user)
-    } else {
+    } else if(userLoggedIn === '1') {
         navigate("/bookingUserPage");
-
-        console.log('User: '+user)
     }
 }
 
@@ -66,7 +55,7 @@ export function NavigationBar() {
                                         </a>
                                         <ul className="dropdown-menu">
                                             <li>{
-                                                user ? <button onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
+                                                userLoggedIn == '1' ? <button onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
                                                 }</li>
                                             <li><NavLink className="dropdown-item" to="/register">Regisztráció</NavLink></li>
                                             <li>{   
