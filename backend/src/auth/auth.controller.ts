@@ -14,7 +14,7 @@ export class AuthController {
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
-    if(user.admin){
+    if(user?.admin){
       throw new UnauthorizedException('Nem léphetsz be adminisztrátorként ezen a felületen biztonsági okokból!');
     }
     if (user == null) {
