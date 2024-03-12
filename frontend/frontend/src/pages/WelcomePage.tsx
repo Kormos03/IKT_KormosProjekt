@@ -1,8 +1,16 @@
+import { useEffect } from "react"
 import { NavigationBar } from "../Components/NavigationBar"
 
+
 export function WelcomePage() {
+    useEffect(() => {
+        console.log(localStorage.getItem('User: '+'user'));
+    }, [])
     return  <>
-    <NavigationBar />
+    
+       <NavigationBar />
+
+
     <div className="container">
         <table>
             <tr>

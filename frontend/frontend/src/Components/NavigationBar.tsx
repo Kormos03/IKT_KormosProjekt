@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { validateAdmin } from "./validateAdmin";
 
 export function NavigationBar() {
+    const [user, setUser] = useState(null || localStorage.getItem('user'));
+    useEffect(() => {
+        setUser(localStorage.getItem('user'));
+   }, [user])
 
     return (<div>
         <div className="container" id="navBarContainer">
@@ -23,7 +27,11 @@ export function NavigationBar() {
                                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
                                     <li className="nav-item">
                                         <NavLink className="nav-link" aria-current="page" to="/pricelist">Árlista</NavLink>
-
+                                    </li>
+                                    <li className="nav-item">
+                                        {
+                                            user ? <NavLink className="nav-link" aria-current="page" to="/bookingUserPage">Időpontfoglalás</NavLink> : <NavLink className="nav-link" aria-current="page" to="/login">Időpontfoglalás</NavLink>
+                                        }
                                     </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link" aria-current="page" to="/gallery">Galéria</NavLink>

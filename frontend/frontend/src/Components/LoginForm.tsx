@@ -33,7 +33,6 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
             return;
         }
         const tokenObj = await response.json();
-
         onSuccessfulLogin(tokenObj.token);
 
         setLoginError('');

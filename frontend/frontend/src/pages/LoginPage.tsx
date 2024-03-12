@@ -2,11 +2,25 @@ import { useEffect, useState } from "react";
 import { LoginForm } from "../Components/LoginForm";
 import { User } from "../User";
 import { UserProfile } from "../Components/UserProfile";
+import { useNavigate } from "react-router-dom";
+import { NavigationBar } from "../Components/NavigationBar";
 
 export function LoginPage() {
     const [ token, setToken ] = useState('');
   const [ error, setError ] = useState('')
   const [ user, setUser ] = useState(null as User|null)
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(user?.admin || localStorage.getItem('user') == 'true'){
+      setToken('');
+      localStorage.removeItem('token');
+      setUser(null);
+      localStorage.removeItem('user');
+      setError('You are an admin');
+      navigate('/login')
+      return;
+    }},[user] || [] || token)
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -34,7 +48,12 @@ export function LoginPage() {
         setError('An error occured, try again later');
         return;
       }
+      
       const userData = await response.json() as User;
+      console.log(userData);  
+      if(userData.admin == true){
+        
+      }
       setUser(userData);
     }
 
@@ -49,14 +68,20 @@ export function LoginPage() {
   function login(token: string) {
     setToken(token);
     localStorage.setItem('token', token);
+    navigate('/');
   }
 
   function logout() {
     setToken('');
     localStorage.removeItem('token');
+    setUser(null);
+    localStorage.removeItem('user');
   }
 
     return <>
+     
+         <NavigationBar />
+    
     <div className="container">
         <h3>Bejelentkezés</h3>
         {

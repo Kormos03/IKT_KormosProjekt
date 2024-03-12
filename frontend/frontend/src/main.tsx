@@ -11,6 +11,7 @@ import { RegisterPage } from './pages/RegisterPage.tsx'
 import { WelcomePage } from './pages/WelcomePage.tsx'
 import { AdminLoginPage } from './pages/AdminLoginPage.tsx'
 import { AdminPage } from './pages/AdminPage.tsx'
+import { BookingUserPage } from './pages/BookingUserPage.tsx'
 
 const router1 = createBrowserRouter([{
   path: '/',
@@ -45,6 +46,10 @@ const router1 = createBrowserRouter([{
         path: 'adminPage',
         element: <AdminPage />
       }]
+    },
+    {
+      path: 'bookingUserPage',
+      element: <BookingUserPage />
     },
   ]
 
