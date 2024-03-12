@@ -52,7 +52,7 @@ export function LoginPage() {
       const userData = await response.json() as User;
       console.log("userdata admin:" + userData.admin);  
       setUser(userData);
-      localStorage.setItem('user', '0');
+      localStorage.setItem('userLoggedIn', '1');
 
     }
 
@@ -67,7 +67,7 @@ export function LoginPage() {
   function login(token: string) {
     setToken(token);
     localStorage.setItem('token', token);
-    localStorage.setItem('user', '0');
+    localStorage.setItem('userLoggedIn', '1');
     navigate('/');
   }
 
