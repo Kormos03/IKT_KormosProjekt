@@ -44,10 +44,10 @@ export function ProfilePage(){
         })
         if (response.status === 401) {
             setError('Please login again');
-          /*setToken('');
+         setToken('');
           localStorage.removeItem('token');
           setError('Please login again');
-          return;*/
+          return;
         }
         if (!response.ok) {
           setError('An error occured, try again later');
@@ -77,12 +77,14 @@ export function ProfilePage(){
     return (
         <>
         <NavigationBar/>
+        <div className="container">
             {
       user? <UserProfile user={user} /> : null
             }
             {
                 error? <p>{error}</p> : null
             }
+            </div>
         </>
     );
 }
