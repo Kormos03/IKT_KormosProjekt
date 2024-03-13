@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { GalleryImg } from "../GalleryImg";
 import { NavigationBar } from "../Components/NavigationBar";
-    //El kell különíteni kategóriákra a képeket
+   
+
+//El kell különíteni kategóriákra a képeket -> Majd a kategóriákra kattintva megjeleníteni a képeket
 function CardComponent({cards}) {
     return <> <NavigationBar/>
       <div className="container">

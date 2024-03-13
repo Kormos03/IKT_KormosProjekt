@@ -1,6 +1,8 @@
 import { NavigationBar } from "../Components/NavigationBar";
+import useAuth from "../Components/useAuth";
 
 export function RegisterPage() {
+    const { token, user,error, setToken, setUser, setError } = useAuth();
     return <>
     <NavigationBar />
      <div className="container">

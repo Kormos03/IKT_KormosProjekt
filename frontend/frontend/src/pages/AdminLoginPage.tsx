@@ -2,13 +2,12 @@ import { createContext, useEffect, useState } from "react";
 import { User } from "../User";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { LoginFormAdmin } from "../Components/LoginFormAdmin";
+import useAuth from "../Components/useAuth";
 
 export const UserContext = createContext({ user: null as User|null});
 
 export function AdminLoginPage() {
-    const [ token, setToken ] = useState(localStorage.getItem('token') || '');
-  const [ error, setError ] = useState('')
-  const [ user, setUser ] = useState(null as User|null)
+  const { token, user,error, setToken, setUser, setError } = useAuth();
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const [backendRoute, setBackendRoute] = useState("http://localhost:3000/users/me");
   const navigate = useNavigate();
@@ -21,35 +20,6 @@ export function AdminLoginPage() {
       setToken(storedToken);
     }
   }, []);
-
-  useEffect(() => {
-   // RequestFunc
-
-    async function loadUserData() {
-      console.log('Token:'+ token)
-      const response = await fetch(backendRoute, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        }
-      })
-      if (response.status === 200) {
-        const userData = await response.json();
-        setUser(userData);
-        setIsLoggedIn(true);
-        localStorage.setItem('user', JSON.stringify(user?.admin));
-      } else if (response.status === 401) {
-        
-        setError('Please login again');
-        return;
-      } else {
-        setError('An error occurred, try again later');
-      }
-    }
-    loadUserData();
-
-  }, [token] || []);
 
 useEffect(() => {
     if(user?.admin){
