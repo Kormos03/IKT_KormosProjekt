@@ -17,10 +17,20 @@ export class BookingService {
         let hour = time.split(":")[0];
         console.log("Hour: " + hour)
         let minute = time.split(":")[1];
+        console.log("Minute: " + minute)
+        console.log('Time: '+time)
+        console.log("Hour: " + hour)
+        console.log("Minute: " + minute)
         let start = new Date();
         start.setHours(Number(hour), Number(minute), 0, 0);
+        console.log("StartDate: " + start)
         let end = new Date(start);
         end.setMinutes(start.getMinutes() + 30);
+        if (isNaN(start.getTime())) {  // start.getTime() will be NaN if start is not a valid date
+          console.error('Invalid start date');
+          return;
+        }
+        
         return this.prisma.not_Reserved.create({
           data: {
             name: createBookingDto.name,
@@ -164,6 +174,7 @@ export class BookingService {
 
 
   findOne(id: number, reserved: boolean) {
+    if(id==null){return;}
     if (reserved) {
       return this.prisma.reserved.findUnique({
         where: { id: id },
@@ -176,6 +187,28 @@ export class BookingService {
   }
 
 
+  findAllByDate(date: string, reserved: boolean) {
+    if (reserved) {
+      return this.prisma.reserved.findMany({
+        where: {
+          AND: [
+            { dateStart: { gte: new Date(date) } },
+            { dateEnd: { lte: new Date(date) } },
+          ],
+        },
+      })
+    }
+    else {
+      return this.prisma.not_Reserved.findMany({
+        where: {
+          AND: [
+            { dateStart: { gte: new Date(date) } },
+            { dateEnd: { lte: new Date(date) } },
+          ],
+        },
+      })
+    }
+  }
 
   update(id: number, updateBookingDto: UpdateBookingDto, reserved: boolean) {
     if (reserved) {
@@ -215,11 +248,10 @@ function generateHalfHourSlots(dateStart: Date, dateEnd: Date): string[] {
 
   while (currentTime < dateEnd) {
     halfHourSlots.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-    console.log("generateHalfHourSlots currenttime: " + currentTime)
     currentTime.setMinutes(currentTime.getMinutes() + 30); // Add 30 minutes
 
   }
-
+  console.log("generateHalfHourSlots halfHourSlots: " + halfHourSlots)
   return halfHourSlots;
 }
 

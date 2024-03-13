@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('booking')
 export class BookingController {
@@ -41,10 +42,15 @@ export class BookingController {
 
 
   @Get()
+  @UseGuards(AuthGuard('bearer'))
   findAll() {
     return this.bookingService.findAll(false);
   }
 
+  @Get('bydate/:date')
+  findAllByDate(@Param('date') date: string) {
+    return this.bookingService.findAllByDate(date, false);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
