@@ -1,0 +1,1 @@
+The auth instead of repeat every time in a new page, I should make a function.

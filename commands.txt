@@ -1,0 +1,5 @@
+
+typedoc:
+  npm i typedoc --save-dev 
+
+  npx typedoc --out docs --entryPointStrategy expand ./src

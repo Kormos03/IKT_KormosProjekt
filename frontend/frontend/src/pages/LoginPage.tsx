@@ -31,7 +31,7 @@ export function LoginPage() {
 
   useEffect(() => {
     async function loadUserData() {
-      const response = await fetch(`http://localhost/3000/users/me`, {
+      const response = await fetch(`http://localhost: 3000/users/me`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
