@@ -4,6 +4,14 @@ import { UpdateBookingDto } from './dto/update-booking.dto';
 import { PrismaService } from 'src/prisma.service';
 
 
+function parseDate(dateString: string): Date {
+  const [date, time] = dateString.split(' ');
+  const [year, month, day] = date.split('-').map(Number);
+  const [hour, minute] = time.split(':').map(Number);
+  return new Date(Date.UTC(year, month - 1, day, hour, minute));
+
+}
+
 @Injectable()
 export class BookingService {
   constructor(private prisma: PrismaService) { }
@@ -21,7 +29,7 @@ export class BookingService {
         console.log('Time: '+time)
         console.log("Hour: " + hour)
         console.log("Minute: " + minute)
-        let start = new Date();
+        let start = parseDate(createBookingDto.dateStart);
         start.setHours(Number(hour), Number(minute), 0, 0);
         console.log("StartDate: " + start)
         let end = new Date(start);
@@ -58,7 +66,7 @@ export class BookingService {
       const halfHourSlots = halfHourSlotsArray.map((time) => {
         let hour = time.split(":")[0];
         let minute = time.split(":")[1];
-        let start = new Date();
+        let start = parseDate(createBookingDto.dateStart);
         start.setHours(Number(hour), Number(minute), 0, 0);
         let end = new Date(start);
         end.setMinutes(start.getMinutes() + 30);
