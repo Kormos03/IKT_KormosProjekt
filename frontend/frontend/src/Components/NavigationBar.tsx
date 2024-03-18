@@ -17,7 +17,7 @@ export function NavigationBar() {
     if(typeof userLoggedIn === 'undefined' || userLoggedIn === null) {
         navigate("/login");
     } else if(userLoggedIn === '1') {
-        navigate("/bookingUserPage");
+        navigate("/bookingUser");
     }
 }
 
@@ -58,7 +58,7 @@ export function NavigationBar() {
                                                 userLoggedIn == '1' ? <button onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
                                                 }</li>
                                             <li>{
-                                                userLoggedIn == '1' ? <NavLink className="dropdown-item" to="/ProfilePage">Profil megtekintése</NavLink>  : <NavLink className="dropdown-item" to="/register">Regisztráció</NavLink>
+                                                userLoggedIn == '1' ? <NavLink className="dropdown-item" to="/Profile">Profil megtekintése</NavLink>  : <NavLink className="dropdown-item" to="/register">Regisztráció</NavLink>
                                                 }
                                                 </li>
                                             <li>{   

@@ -18,7 +18,10 @@ export function AdminPage(){
       if (storedToken) {
         setToken(storedToken);
       }
-    }, []);  
+      else{
+        navigate('/secret/adminlogin');
+    }
+    }, [] || token);  
   
     return <>         
      <AdminNavigationBar/>
