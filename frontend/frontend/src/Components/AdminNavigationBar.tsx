@@ -8,7 +8,7 @@ export function AdminNavigationBar() {
     function logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.reload();
+        localStorage.removeItem('userLoggedIn');
         navigate('/secret/adminlogin');
     }
     return (<div>
@@ -18,7 +18,7 @@ export function AdminNavigationBar() {
 
                     <nav className="navbar navbar-expand-lg bg-body-tertiary">
                         <div className="container-fluid d-flex justify-content-between">
-                            <img className='navbar-brand brandLogo' src="katus_logo.jpeg" />
+                            <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" />
                             <NavLink className="navbar-brand main_nav_link" to="/secret/adminlogin/AdminPage">Admin Főoldal</NavLink>
                             
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"

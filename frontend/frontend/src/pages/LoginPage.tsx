@@ -49,7 +49,7 @@ export function LoginPage() {
      
          <NavigationBar />
     
-    <div className="container">
+    <div className="container login">
         <h3>Bejelentkezés</h3>
         {
       token ?

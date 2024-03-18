@@ -2,9 +2,9 @@ import { IsEmail, IsString, Length, NotContains, contains } from "class-validato
 
 export class LoginDto {
   @IsString()
-  @IsEmail()
+  @IsEmail({}, { message: 'Nem megfelelő email formátum!'})
   @Length(1, 255)
-  @NotContains("'", { message: 'Nem tartalmazhat a mező aposztrófot!'})
+ // @NotContains("'", { message: 'Nem tartalmazhat a mező aposztrófot!'})
   email: string;
  
  

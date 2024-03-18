@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { User } from "../User";
 import { AdminNavigationBar } from "../Components/AdminNavigationBar";
 import useAuth from "../Components/useAuth";
+import { RequestFunc } from "../RequestFunc";
 
 export function AdminPage(){
   //It calls the useAuth function from useAuth.tsx that authenticates the user
