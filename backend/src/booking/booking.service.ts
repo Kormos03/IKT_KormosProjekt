@@ -16,7 +16,7 @@ function parseDate(dateString: string): Date {
 export class BookingService {
   constructor(private prisma: PrismaService) { }
   async create(createBookingDto: CreateBookingDto) {
-
+/*
     try {
       //A kapott intervallumot feldarabolom fél órákra
       const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
@@ -39,6 +39,32 @@ export class BookingService {
           return;
         }
         
+        return this.prisma.not_Reserved.create({
+          data: {
+            name: createBookingDto.name,
+            dateStart: start,
+            dateEnd: end,
+            type: createBookingDto.type,
+            extra: createBookingDto.extra,
+          },
+        });
+      }));
+    } catch (e) { throw new Error(e) }*/
+    try {
+      //A kapott intervallumot feldarabolom fél órákra
+      const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
+      console.log(halfHourSlots)
+      //A feldarabolt intervallumokat beillesztem a not_Reserved táblába
+      const notReserved = await Promise.all(halfHourSlots.map(async (time) => {
+        console.log("Time: " + time)
+        let hour = time.split(":")[0];
+        let minute = time.split(":")[1];
+        let start = new Date(createBookingDto.dateStart);
+        console.log("start: " + start)
+        start.setHours(Number(hour), Number(minute), 0, 0);
+        let end = new Date(start);
+        end.setMinutes(start.getMinutes() + 30);
+        console.log(start, end, createBookingDto.name, createBookingDto.type, createBookingDto.extra)
         return this.prisma.not_Reserved.create({
           data: {
             name: createBookingDto.name,
@@ -259,7 +285,6 @@ function generateHalfHourSlots(dateStart: Date, dateEnd: Date): string[] {
     currentTime.setMinutes(currentTime.getMinutes() + 30); // Add 30 minutes
 
   }
-  console.log("generateHalfHourSlots halfHourSlots: " + halfHourSlots)
+
   return halfHourSlots;
 }
-
