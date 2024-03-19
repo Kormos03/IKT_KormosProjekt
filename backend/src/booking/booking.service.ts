@@ -53,25 +53,26 @@ export class BookingService {
     try {
       //A kapott intervallumot feldarabolom fél órákra
       const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
-      console.log(halfHourSlots)
       //A feldarabolt intervallumokat beillesztem a not_Reserved táblába
       const notReserved = await Promise.all(halfHourSlots.map(async (time) => {
-        console.log("Time: " + time)
         let hour = time.split(":")[0];
         let minute = time.split(":")[1];
         let start = new Date(createBookingDto.dateStart);
-        console.log("start: " + start)
+
         start.setHours(Number(hour), Number(minute), 0, 0);
+        console.log("start: " + start)
         let end = new Date(start);
         end.setMinutes(start.getMinutes() + 30);
-        console.log(start, end, createBookingDto.name, createBookingDto.type, createBookingDto.extra)
+        console.log("end: " + end)
+        const intoTheTableStart = start.toISOString();
+        const intoTheTableEnd = end.toISOString();
         return this.prisma.not_Reserved.create({
           data: {
             name: createBookingDto.name,
-            dateStart: start,
-            dateEnd: end,
-            type: createBookingDto.type,
+            dateStart: intoTheTableStart,
+            dateEnd: intoTheTableEnd,
             extra: createBookingDto.extra,
+            type: '',
           },
         });
       }));
@@ -86,7 +87,6 @@ export class BookingService {
    * @returns 
    */
   async createReserved(createBookingDto: CreateBookingDto) {
-    console.log("CreateBookingDto dates: " + createBookingDto.dateStart + " - " + createBookingDto.dateEnd)
     try {
       const halfHourSlotsArray = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
       const halfHourSlots = halfHourSlotsArray.map((time) => {
@@ -281,10 +281,9 @@ function generateHalfHourSlots(dateStart: Date, dateEnd: Date): string[] {
   let currentTime = new Date(dateStart);
 
   while (currentTime < dateEnd) {
-    halfHourSlots.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    halfHourSlots.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false}));
     currentTime.setMinutes(currentTime.getMinutes() + 30); // Add 30 minutes
 
   }
-
   return halfHourSlots;
 }
