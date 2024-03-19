@@ -36,8 +36,14 @@ export class BookingController {
 
   //For not_reserved table
   @Post()
+  @UseGuards(AuthGuard('bearer'))
   create(@Body() createBookingDto: CreateBookingDto) {
+    if(createBookingDto.admin == true){
     return this.bookingService.create(createBookingDto);
+  }
+  else{
+    return "You are not authorized to create a booking"
+  }
   }
 
 

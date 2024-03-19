@@ -1,6 +1,7 @@
 import { IsBoolean, IsDate, IsDefined, IsNotEmpty, MinDate } from "class-validator";
 
 export class CreateBookingDto {
+    admin: boolean;
     id: number;
     @IsNotEmpty({ message: 'A név megadása kötelező' })
     @IsDefined()

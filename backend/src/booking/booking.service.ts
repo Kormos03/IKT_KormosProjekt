@@ -16,40 +16,6 @@ function parseDate(dateString: string): Date {
 export class BookingService {
   constructor(private prisma: PrismaService) { }
   async create(createBookingDto: CreateBookingDto) {
-/*
-    try {
-      //A kapott intervallumot feldarabolom fél órákra
-      const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
-      //A feldarabolt intervallumokat beillesztem a not_Reserved táblába
-      const notReserved = await Promise.all(halfHourSlots.map(async (time) => {
-        let hour = time.split(":")[0];
-        console.log("Hour: " + hour)
-        let minute = time.split(":")[1];
-        console.log("Minute: " + minute)
-        console.log('Time: '+time)
-        console.log("Hour: " + hour)
-        console.log("Minute: " + minute)
-        let start = parseDate(createBookingDto.dateStart);
-        start.setHours(Number(hour), Number(minute), 0, 0);
-        console.log("StartDate: " + start)
-        let end = new Date(start);
-        end.setMinutes(start.getMinutes() + 30);
-        if (isNaN(start.getTime())) {  // start.getTime() will be NaN if start is not a valid date
-          console.error('Invalid start date');
-          return;
-        }
-        
-        return this.prisma.not_Reserved.create({
-          data: {
-            name: createBookingDto.name,
-            dateStart: start,
-            dateEnd: end,
-            type: createBookingDto.type,
-            extra: createBookingDto.extra,
-          },
-        });
-      }));
-    } catch (e) { throw new Error(e) }*/
     try {
       //A kapott intervallumot feldarabolom fél órákra
       const halfHourSlots = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
@@ -60,10 +26,10 @@ export class BookingService {
         let start = new Date(createBookingDto.dateStart);
 
         start.setHours(Number(hour), Number(minute), 0, 0);
-        console.log("start: " + start)
+
         let end = new Date(start);
         end.setMinutes(start.getMinutes() + 30);
-        console.log("end: " + end)
+        //We need to convert the date to ISO string to store it in the database, because this is the right format for the Prisma ORM
         const intoTheTableStart = start.toISOString();
         const intoTheTableEnd = end.toISOString();
         return this.prisma.not_Reserved.create({
@@ -78,8 +44,6 @@ export class BookingService {
       }));
     } catch (e) { throw new Error(e) }
   }
-
-
 
   /**
    * 
