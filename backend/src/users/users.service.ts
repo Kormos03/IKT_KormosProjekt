@@ -34,7 +34,7 @@ export class UsersService {
     return this.db.user.create({
       data: {
         email: createUserDto.email,
-        username: createUserDto.username,
+        username: createUserDto.name,
         password: hashedPassword,
       }
     })

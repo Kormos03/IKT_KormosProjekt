@@ -38,6 +38,12 @@ function useAuth() {
         
         const userData = await response.json() as User;
         setUser(userData);
+        if (user) {
+          console.log(user.username);
+        } else {
+          console.log('User is not loaded yet');
+        }
+        
         localStorage.setItem('userLoggedIn', '1');
   
      
@@ -48,9 +54,9 @@ function useAuth() {
     if (token) {
       loadUserData();
     } else {
-      setUser(null);
+      //setUser(null);
     }
-  }, [token]);
+  }, [token] || [user] || []);
 
   return { token, user, error, setToken, setUser, setError };
 }

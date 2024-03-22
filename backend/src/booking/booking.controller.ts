@@ -3,6 +3,7 @@ import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from '@prisma/client';
 
 @Controller('booking')
 export class BookingController {
@@ -38,6 +39,7 @@ export class BookingController {
   @Post()
   @UseGuards(AuthGuard('bearer'))
   create(@Body() createBookingDto: CreateBookingDto) {
+    console.log(createBookingDto);
     if(createBookingDto.admin == true){
     return this.bookingService.create(createBookingDto);
   }

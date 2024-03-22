@@ -12,6 +12,7 @@ export class UsersController {
   @Get('me')
   @UseGuards(AuthGuard('bearer'))
   me(@Request() req) {
+    console.log(req.user);
     const user: User = req.user;
     return {
       email: user.email,
