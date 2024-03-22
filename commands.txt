@@ -1,5 +1,29 @@
+Frontend:
+To start the react api in dev mode: npm run dev
+To install the router provider: npm i react-router && npm i react-router-dom
+
+
+
+Backend:
+
+To start the nestjs api: npm run start:debug
+generate CRUD:
+nest g resource
 
 typedoc:
   npm i typedoc --save-dev 
-
   npx typedoc --out docs --entryPointStrategy expand ./src
+
+if the nest command would not work:
+1st: npm install -g @nestjs/cli
+
+if still not working:
+put this command into an admin powershell:
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+File C:\Users\Kormos\AppData\Roaming\npm\nest.ps1 cannot be loaded because running scripts is disabled on this system: solution:
+put this command into an admin powershell:
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+js datetime kezelő library: luxon

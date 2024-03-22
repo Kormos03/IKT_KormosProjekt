@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import { NestFactory, Reflector } from '@nestjs/core';
+import * as helmet from 'helmet';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
@@ -9,6 +10,7 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.use(helmet.frameguard({ action: 'deny' }));   //a module to prevent clickjacking
 
   app.enableCors({
     origin: '*',
