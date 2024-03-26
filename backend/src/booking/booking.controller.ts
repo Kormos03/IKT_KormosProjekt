@@ -17,7 +17,7 @@ export class BookingController {
 
   @Get('/reserved')
   findAllReserved() {
-    return this.bookingService.findAll(true);
+    return this.bookingService.findAllReserved(true);
   }
   @Delete('/reserved/:id')
   removeReserved(@Param('id') id: string) {
@@ -40,7 +40,6 @@ export class BookingController {
   @Post()
   @UseGuards(AuthGuard('bearer'))
   create(@Body() createBookingDto: CreateBookingDto) {
-    console.log(createBookingDto);
     if(createBookingDto.admin == true){
     return this.bookingService.create(createBookingDto);
   }
@@ -50,10 +49,15 @@ export class BookingController {
   }
 
 
-  @Get()
+  @Get("/not_reserved/")
   @UseGuards(AuthGuard('bearer'))
-  findAll() {
-    return this.bookingService.findAll(false);
+  findAll(@Body() user: User) {
+    if(user.admin == true){
+    return this.bookingService.findAllNotReserved(true);
+  }
+  else{
+    return "You are not authorized to see the bookings"
+  }
   }
 
   @Get('bydate/:date')

@@ -73,58 +73,7 @@ export class BookingService {
         }
       });
 
-      //Ellenőrzések!
-      //Megnézem, hogy az összes slot benne van-e az időintervallumban
-      console.log("Az összes slot ami benne van az időintervallumban foglaláskor: \n");
-      console.log(await not_ReservedAll);
-
-      for (let i = 0; i < halfHourSlots.length; i++) {
-        console.log("HalfHourSlots: " + halfHourSlots[i].dateStart + " - " + halfHourSlots[i].dateEnd)
-      }
-      console.log("HalfhourSlots.length: " + halfHourSlots.length)
-      if (((await not_ReservedAll).length) < halfHourSlots.length) {
-        throw new Error("The date is not available in the available time intervals.");
-      }
-      //Ellenőrízni, hogy létezik-e már a megadott időpont foglaláls a reserved táblába
-
-
-      /*
-      const datestart = new Date(createBookingDto.dateStart);
-      const dateScheduleStart = this.prisma.not_Reserved.findMany({
-        where: {
-          AND: [
-            { dateStart: { gte: datestart } },
-          ]
-        }
-      })
-
-      const allNotReserved = this.prisma.not_Reserved.findMany();
-
-      const rightDate = (await dateScheduleStart).map((data) => {
-        if (data.dateEnd < datestart || data.dateEnd > datestart) {
-          return data.dateEnd
-        }
-      })
-
-      await this.prisma.not_Reserved.deleteMany({
-        where: { dateStart: datestart },
-      });*/
-      //Kitörlöm a not_Reserved táblából azokat az időintervallumokat, amiket a reserved táblába foglalok(nem műkszik)
-      /*
-    const deletedCount = await this.prisma.not_Reserved.count({
-      where: {
-        AND: [
-          { dateStart: { gte: new Date(createBookingDto.dateStart) } },
-          { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
-        ],
-      },
-    });
-    console.log("Deletecount: " + deletedCount)
-
-    if (deletedCount < halfHourSlots.length) {
-      throw new Error("The date is not available in the available time intervals.");
-    }
-*/
+  
       const deleted = this.prisma.not_Reserved.deleteMany({
         where: {
           AND: [
@@ -162,11 +111,17 @@ export class BookingService {
 
 
 
-  findAll(admin: boolean) {
-    if (admin) {
+  findAllNotReserved(admin: boolean) {
+    return this.prisma.not_Reserved.findMany();
+  }
+  
+  findAllReserved(admin: boolean) {
+    if(admin){
       return this.prisma.reserved.findMany();
     }
-    return this.prisma.not_Reserved.findMany();
+    else{
+      return "You are not authorized to see the bookings";
+    }
   }
 
 

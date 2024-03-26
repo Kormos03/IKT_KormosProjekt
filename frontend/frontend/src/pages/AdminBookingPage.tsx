@@ -3,6 +3,7 @@ import { AdminNavigationBar } from "../Components/AdminNavigationBar";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../Components/useAuth";
 import { AdminBookingInsert } from "../Components/AdminBookingInsert";
+import { AdminBookingNotReserved } from "../Components/AdminBookingNotReserved";
 
 export function AdminBookingPage() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
@@ -24,8 +25,7 @@ export function AdminBookingPage() {
         <AdminBookingInsert/>
         </div>
         <div className="container">
-        <h1>Szabad időpontok kezelése</h1>
-
+        <AdminBookingNotReserved/>
         </div>
         <div className="container">
         <h1>Foglalások kezelése</h1>
