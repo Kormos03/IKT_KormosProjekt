@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { User } from '../User';
 
 function useAuth() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(localStorage.getItem('token') || ''); // token is stored in local storage
   const [user, setUser] = useState(null as User|null);
   const [ error, setError ] = useState('');
   const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/me');
@@ -39,7 +39,7 @@ function useAuth() {
         const userData = await response.json() as User;
         setUser(userData);
         if (user) {
-          console.log(user.username);
+          console.log(user);
         } else {
           console.log('User is not loaded yet');
         }
@@ -51,11 +51,7 @@ function useAuth() {
     setError('An error occured, try again later');
     console.error(err);
   }}
-    if (token) {
       loadUserData();
-    } else {
-      //setUser(null);
-    }
   }, [token] || [user] || []);
 
   return { token, user, error, setToken, setUser, setError };

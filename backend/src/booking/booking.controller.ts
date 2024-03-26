@@ -34,6 +34,7 @@ export class BookingController {
     return this.bookingService.findOne(+id, true);
   }
 
+  
 
   //For not_reserved table
   @Post()

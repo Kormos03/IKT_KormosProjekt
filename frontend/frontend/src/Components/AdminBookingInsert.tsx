@@ -15,14 +15,16 @@ export function AdminBookingInsert() {
         const endDate = new Date(date);
         const start = timeStart.split(':');
         const end = timeEnd.split(':');
-        startDate.setHours(parseInt(start[0]), parseInt(start[1]), 0);
-        endDate.setHours(parseInt(end[0]), parseInt(end[1]), 0);
+        startDate.setHours(parseInt(start[0]) + 1, parseInt(start[1]), 0);      //somehow the hours are not correct, so I have to add 1 to the hours
+        endDate.setHours(parseInt(end[0]) + 1, parseInt(end[1]), 0);
         if (startDate >= endDate) {
             console.log('A kezdő időpontnak korábbinak kell lennie, mint a befejező időpont!');
             return;
         }
         const toSendStart = startDate.toISOString();
         const toSendEnd = endDate.toISOString();
+        console.log('Start: ', toSendStart);
+        console.log('End: ', toSendEnd);
 
 
         const bookingData = {
@@ -33,6 +35,10 @@ export function AdminBookingInsert() {
             extra: false,
             type: '',
         }
+        if(!user || !user.username || typeof user.username !== 'string'){
+            bookingData.name = '';
+        }
+        console.log('user: ', user)
         console.log(bookingData)
         const response = await fetch('http://localhost:3000/booking', {
             method: 'POST',
@@ -48,8 +54,7 @@ export function AdminBookingInsert() {
             console.log(errorObj);
             return;
         }
-        const bookingObj = await response.json();
-        console.log(bookingObj);
+
     }
 
     return (
