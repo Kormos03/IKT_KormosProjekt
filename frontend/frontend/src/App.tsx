@@ -26,7 +26,6 @@ function App() {
 
   useEffect(() => { 
     setUser(localStorage.getItem('user'));
-    console.log(user);
     if(user){
       setIsAdmin(true);
     }

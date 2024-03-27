@@ -111,17 +111,12 @@ export class BookingService {
 
 
 
-  findAllNotReserved(admin: boolean) {
+  findAllNotReserved() {
     return this.prisma.not_Reserved.findMany();
   }
   
-  findAllReserved(admin: boolean) {
-    if(admin){
+  findAllReserved() {
       return this.prisma.reserved.findMany();
-    }
-    else{
-      return "You are not authorized to see the bookings";
-    }
   }
 
 

@@ -7,7 +7,7 @@ interface Props {
 export function UserProfile({ user }: Props) {
     return <>
         <h3>Email: { user.email }</h3>
-        <p>{ user.username }</p>
+        <p>{ user.name }</p>
         <p>Ez a profil oldal</p>
     </>
 }

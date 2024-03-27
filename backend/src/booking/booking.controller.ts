@@ -4,7 +4,7 @@ import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
-
+  //I don't use admin for authentication, I use the bearer token only
 @Controller('booking')
 export class BookingController {
   constructor(private readonly bookingService: BookingService) { }
@@ -17,7 +17,7 @@ export class BookingController {
 
   @Get('/reserved')
   findAllReserved() {
-    return this.bookingService.findAllReserved(true);
+    return this.bookingService.findAllReserved();
   }
   @Delete('/reserved/:id')
   removeReserved(@Param('id') id: string) {
@@ -49,15 +49,10 @@ export class BookingController {
   }
 
 
-  @Get("/not_reserved/")
+  @Get("/not_reserved/:admin")
   @UseGuards(AuthGuard('bearer'))
-  findAll(@Body() user: User) {
-    if(user.admin == true){
-    return this.bookingService.findAllNotReserved(true);
-  }
-  else{
-    return "You are not authorized to see the bookings"
-  }
+  findAll() {
+    return this.bookingService.findAllNotReserved();
   }
 
   @Get('bydate/:date')

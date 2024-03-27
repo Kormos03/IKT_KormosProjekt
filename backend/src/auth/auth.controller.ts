@@ -32,7 +32,6 @@ export class AuthController {
   @Post('katus/admin/login')
   async adminlogin(@Body() loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
-    console.log(user);
     if (await user == null) {
       throw new UnauthorizedException('Hibás email vagy jelszó!');
     }

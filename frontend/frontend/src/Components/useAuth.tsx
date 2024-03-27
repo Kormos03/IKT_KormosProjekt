@@ -7,21 +7,21 @@ function useAuth() {
   const [ error, setError ] = useState('');
   const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/me');
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+
 
   useEffect(() => {
     async function loadUserData() {
+      const storedToken = localStorage.getItem('token');
+      if (!storedToken) {
+        setError('Please login again');
+        return;
+      }
         try{
         const response = await fetch(backendRoute, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${storedToken}`,
           }
         })
         if (response.status === 401) {
@@ -38,8 +38,8 @@ function useAuth() {
         
         const userData = await response.json() as User;
         setUser(userData);
-        if (user) {
-          console.log(user);
+        if (userData) {
+          //onsole.log(user);
         } else {
           console.log('User is not loaded yet');
         }
@@ -52,8 +52,8 @@ function useAuth() {
     console.error(err);
   }}
       loadUserData();
-  }, [token] || [user] || []);
-
+  }, []);
+//  console.log('User: ', user);
   return { token, user, error, setToken, setUser, setError };
 }
 
