@@ -11,11 +11,13 @@ export class BookingController {
 
   //For reserved table
   @Post('/reserved')
+  @UseGuards(AuthGuard('bearer'))
   createReserved(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingService.createReserved(createBookingDto);
   }
 
   @Get('/reserved')
+  @UseGuards(AuthGuard('bearer')) 
   findAllReserved() {
     return this.bookingService.findAllReserved();
   }

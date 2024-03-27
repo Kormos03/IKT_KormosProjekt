@@ -50,6 +50,8 @@ export class BookingService {
    * @param createBookingDto 
    * @returns 
    */
+
+  //A createReserved functiont módosítani szükséges, ugyanis a jelenlegi állapota nem működik rendesen, mert ez egy régebbi verzió
   async createReserved(createBookingDto: CreateBookingDto) {
     try {
       const halfHourSlotsArray = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
