@@ -51,7 +51,7 @@ export class BookingController {
   }
 
 
-  @Get("/not_reserved/:admin")
+  @Get("/not_reserved/")
   @UseGuards(AuthGuard('bearer'))
   findAll() {
     return this.bookingService.findAllNotReserved();
