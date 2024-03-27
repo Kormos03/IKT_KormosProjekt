@@ -29,6 +29,25 @@ export function AdminBookingNotReserved() {
         getAllNotReserved();
     }, [bookingData] || [user] || [token] || []);
 
+    function deleteBooking(id: number) {
+        async function deleteBookingFetch() {
+            const response = await fetch('http://localhost:3000/booking/not_reserved/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+            if (!response.ok) {
+                const errorObj = await response.json();
+                console.log(errorObj);
+                return;
+            }
+    }
+    deleteBookingFetch();
+}
+
     return (
         <>
         <div className="container login">
@@ -37,7 +56,7 @@ export function AdminBookingNotReserved() {
             bookingData.map((booking: any) => {
                 return (
                     <div key={booking.id}>
-                        <p>{booking.name} - {booking.dateStart} - {booking.dateEnd}</p>
+                        <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteBooking(booking.id)} >Törlés</button></p>
                     </div>
                 )
             })

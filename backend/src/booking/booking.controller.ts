@@ -60,7 +60,7 @@ export class BookingController {
     return this.bookingService.findAllByDate(date, false);
   }
 
-  @Get(':id')
+  @Get('/not_reserved/:id')
   findOne(@Param('id') id: string) {
     return this.bookingService.findOne(+id, false);
   }
@@ -72,7 +72,7 @@ export class BookingController {
   }
 
 
-  @Delete(':id')
+  @Delete('/not_reserved/:id')
   remove(@Param('id') id: string) {
     return this.bookingService.remove(+id, false);
   }
