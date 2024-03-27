@@ -5,6 +5,7 @@ import useAuth from "./useAuth";
 export function BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
+    const allofthebookings = [];
     const [type, setType] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
@@ -40,11 +41,9 @@ export function BookingForm(){
                 return;
             }
             const bookingObj = await response.json();
-            await setGetBooking(bookingObj);
             console.log(bookingObj);
             const convertedBookings = convertISOToHTMLDateAndTimeString(bookingObj);
-            console.log('Converted:',convertedBookings);    //2024-03-05T18:30:00.000Z
-
+            setGetBooking(convertedBookings);
         }
         function getDatesFromBackendNotAsync(){
             getDatesFromBackend();
@@ -54,7 +53,6 @@ export function BookingForm(){
     }, [] || [getBooking] || [type]);
 
     function convertISOToHTMLDateAndTimeString(bookings: GetBooking[]) {
-        console.log('Bookings inside the function: ',bookings);
         const allofthebookings = [];
         bookings.map((booking) => {
         console.log('Booking inside the map: ',booking.dateStart);
@@ -62,6 +60,7 @@ export function BookingForm(){
         const htmlDate = date.toISOString().split('T')[0];
         const time = date.toTimeString().split(' ')[0].substring(0, 5);
         allofthebookings.push( { htmlDate, time });
+        allofthebookings.push({ htmlDate, time});
         })
         return allofthebookings;
     }
@@ -87,6 +86,14 @@ export function BookingForm(){
         <input type="time" id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}/><br />
 
         <button type="submit">Foglalás</button><br />
+        {
+            allofthebookings!.length > 0 ?
+            allofthebookings.map((booking) => {
+                return <div>
+                    <p>{booking}</p>
+                </div>
+            }) : <p>Nincs elérhető időpont</p>
+        }
     </form>
     </>
 }
