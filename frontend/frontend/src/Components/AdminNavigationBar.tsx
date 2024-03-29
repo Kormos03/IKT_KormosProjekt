@@ -10,6 +10,7 @@ export function AdminNavigationBar() {
         localStorage.removeItem('user');
         localStorage.removeItem('userLoggedIn');
         navigate('/secret/adminlogin');
+        navigate(0);
     }
     return (<div>
         <div className="container" id="navBarContainer">

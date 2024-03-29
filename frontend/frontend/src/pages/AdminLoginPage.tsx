@@ -8,25 +8,37 @@ export const UserContext = createContext({ user: null as User|null});
 
 export function AdminLoginPage() {
   const { token, user,error, setToken, setUser, setError } = useAuth();
-  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ isLoggedIn, setIsLoggedIn ] = useState('0');
   const [backendRoute, setBackendRoute] = useState("http://localhost:3000/users/me");
   const navigate = useNavigate();
 
 
   
   useEffect(() => {
+
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
+
     }
-  }, []);
+    else{
+      localStorage.removeItem('user');
+      //localStorage.removeItem('userLoggedIn');          
+
+      console.log('1')
+      navigate('/secret/adminlogin');
+    }
+
+  }, [user] || [token]);
 
 useEffect(() => {
     if(user?.admin){
     localStorage.setItem('user', JSON.stringify(user?.admin));
+    setIsLoggedIn('1');
+    localStorage.setItem('userLoggedIn', '1');
     navigate('adminPage');
     }
-},[user] || [])
+},[user] || [] || [token])
 
   function login(token: string) {
     setToken(token);
@@ -34,7 +46,7 @@ useEffect(() => {
     console.log('Token:'+ localStorage.getItem('token'));
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user?.admin));
-
+    navigate('adminPage');
   }
 
 
@@ -51,7 +63,7 @@ useEffect(() => {
         <h3>Bejelentkezés admin</h3>
     <Outlet/>
     {
-      user?.admin ? null : <LoginFormAdmin onSuccessfulLogin={login}/> 
+      isLoggedIn == '1' ? null : <LoginFormAdmin onSuccessfulLogin={login}/> 
     }        
     {
       error ? <>{console.log("Error: "+error)}</> : null

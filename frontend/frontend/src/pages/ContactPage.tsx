@@ -1,3 +1,5 @@
+import { NavigationBar } from "../Components/NavigationBar";
+
 export function ContactPage() {
     return <><NavigationBar/>
     <div className="container">

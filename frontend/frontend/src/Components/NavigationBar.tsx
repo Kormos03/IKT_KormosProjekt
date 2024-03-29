@@ -16,7 +16,7 @@ export function NavigationBar() {
    const handleNavigation = () => {
     if(typeof userLoggedIn === 'undefined' || userLoggedIn === null) {
         navigate("/login");
-    } else if(userLoggedIn === '1') {
+    } else if(userLoggedIn == '1') {
         navigate("/bookingUser");
     }
 }
