@@ -60,7 +60,7 @@ useEffect(() => {
 
     return <div className="container login">
         <UserContext.Provider value={{ user: user}}/>
-        <h3>Bejelentkezés admin</h3>
+
     <Outlet/>
     {
       isLoggedIn == '1' ? null : <LoginFormAdmin onSuccessfulLogin={login}/> 

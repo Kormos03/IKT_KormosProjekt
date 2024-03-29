@@ -8,6 +8,8 @@ export function RegisterPage() {
      <div className="container">
         <h3>Regisztráció</h3>
         <form>
+            <label htmlFor="email">Email cím</label><br />
+            <input type="email" id="email" name="email" /><br />
             <label htmlFor="username">Felhasználónév</label><br />
             <input type="text" id="username" name="username" /><br />
             <label htmlFor="password">Jelszó</label><br />
