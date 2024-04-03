@@ -137,27 +137,22 @@ export class BookingService {
       })
   }
 
-  findAllByDate(date: string, reserved: boolean) {
-    if (reserved) {
-      return this.prisma.reserved.findMany({
+  //A findAllByDateNotReserved függvényt módosítani szükséges, ugyanis a jelenlegi állapota nem működik rendesen, mert ez egy régebbi verzió
+  findAllByDateNotReserved(date: string) {
+    if(date==null){throw new Error("Date is null")};
+    if(isNaN(Date.parse(date))){throw new Error("Date is not valid")};
+    const targetDate = new Date(date);
+    const nextDay = new Date(targetDate);
+    nextDay.setDate(targetDate.getDate() + 1);
+
+    return this.prisma.not_Reserved.findMany({
         where: {
-          AND: [
-            { dateStart: { gte: new Date(date) } },
-            { dateEnd: { lte: new Date(date) } },
-          ],
+            AND: [
+                { dateStart: { gte: targetDate   } },
+                { dateEnd: { lt: nextDay } },
+            ],
         },
-      })
-    }
-    else {
-      return this.prisma.not_Reserved.findMany({
-        where: {
-          AND: [
-            { dateStart: { gte: new Date(date) } },
-            { dateEnd: { lte: new Date(date) } },
-          ],
-        },
-      })
-    }
+    })
   }
 
   update(id: number, updateBookingDto: UpdateBookingDto, reserved: boolean) {

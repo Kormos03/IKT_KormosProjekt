@@ -33,7 +33,7 @@ export class BookingController {
   }
   @Get('/reserved/:id')
   findOneReserved(@Param('id') id: string) {
-    return this.bookingService.findOne(+id, true);
+    return this.bookingService.findOne(+id);
   }
 
   
@@ -57,14 +57,18 @@ export class BookingController {
     return this.bookingService.findAllNotReserved();
   }
 
-  @Get('bydate/:date')
-  findAllByDate(@Param('date') date: string) {
-    return this.bookingService.findAllByDate(date, false);
+
+  //This endpoint is for the frontend to get the available times for a given date
+  @Post('/not_reserved/bydate/')
+  @UseGuards(AuthGuard('bearer'))
+  findAllByDate(@Body('date') date: string) {
+    console.log('Date in function:', date);
+    return this.bookingService.findAllByDateNotReserved(date);
   }
 
   @Get('/not_reserved/:id')
   findOne(@Param('id') id: string) {
-    return this.bookingService.findOne(+id, false);
+    return this.bookingService.findOne(+id);
   }
 
 

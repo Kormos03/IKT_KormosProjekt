@@ -5,7 +5,7 @@ export function RegisterPage() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
     return <>
     <NavigationBar />
-     <div className="container">
+     <div className="container login">
         <h3>Regisztráció</h3>
         <form>
             <label htmlFor="email">Email cím</label><br />

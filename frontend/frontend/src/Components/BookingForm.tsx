@@ -11,10 +11,30 @@ export function BookingForm(){
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
 
+    //post request to get all timestamps for a given date
+    async function postRequestForfindAllByDate(dateInFunction: string){
+        //I need to send the date in the format of yyyy-mm-dd
+        const response = await fetch('http://localhost:3000/booking/not_reserved/bydate/', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ date: dateInFunction }),
+        });
 
-    async function getDatesFromBackend(){
-        
+        if (!response.ok) {
+            const errorObj = await response.json();
+            setError(errorObj.message);
+            console.log('Date in function:',dateInFunction);
+            return;
+        }
+        const bookingObj = await response.json();
+        console.log('Chosen date:',bookingObj);
     }
+
+
     //ellenőrzés
     useEffect(() => {
         console.log(type);
@@ -68,7 +88,10 @@ export function BookingForm(){
     return <>
     <form className="login">
     <label htmlFor="type">Típus</label><br />
-    <select onChange={ e => setType(e.currentTarget.value)}>
+    <select onChange={ e => {
+        setType(e.currentTarget.value)
+        //PostRequestFor();
+    }}>
      <option value="manikur">Manikűr</option>
      <option value="pedikur">Pedikűr</option>
      <option disabled>-----------------</option>
@@ -81,7 +104,13 @@ export function BookingForm(){
         <label htmlFor="extra">Extra</label>
         <input type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/><br />
         <label htmlFor="date">Dátum</label><br />
-        <input type="date" id="date" name="date" onChange={ e => setDate(e.currentTarget.value)}/><br />
+        <input type="date" id="date" name="date" onChange={ e => 
+        {
+            setDate(e.currentTarget.value);
+            console.log('Date:',e.currentTarget.value);
+            postRequestForfindAllByDate(e.currentTarget.value);
+        }
+        }/><br />
         <label htmlFor="time">Időpont</label><br />
         <input type="time" id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}/><br />
 
