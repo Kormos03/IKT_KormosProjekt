@@ -31,7 +31,7 @@ export function BookingForm(){
             return;
         }
         const bookingObj = await response.json();
-        console.log('Chosen date:',bookingObj);
+       await console.log('Chosen date:',bookingObj);
     }
 
 

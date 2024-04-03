@@ -137,14 +137,13 @@ export class BookingService {
       })
   }
 
-  //A findAllByDateNotReserved függvényt módosítani szükséges, ugyanis a jelenlegi állapota nem működik rendesen, mert ez egy régebbi verzió
+  //This function is for the frontend to get the available times for a given date
   findAllByDateNotReserved(date: string) {
     if(date==null){throw new Error("Date is null")};
-    if(isNaN(Date.parse(date))){throw new Error("Date is not valid")};
+    if(date.length != 10){throw new Error("Date is not in the right format")}
     const targetDate = new Date(date);
     const nextDay = new Date(targetDate);
     nextDay.setDate(targetDate.getDate() + 1);
-
     return this.prisma.not_Reserved.findMany({
         where: {
             AND: [

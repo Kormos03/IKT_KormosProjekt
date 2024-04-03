@@ -62,7 +62,6 @@ export class BookingController {
   @Post('/not_reserved/bydate/')
   @UseGuards(AuthGuard('bearer'))
   findAllByDate(@Body('date') date: string) {
-    console.log('Date in function:', date);
     return this.bookingService.findAllByDateNotReserved(date);
   }
 
