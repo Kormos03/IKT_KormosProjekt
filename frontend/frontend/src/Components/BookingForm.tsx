@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { GetBooking } from "../GetBooking";
 import useAuth from "./useAuth";
+import { BookingModel } from "../BookingModel";
+import { TimeModel } from "../TimeModel";
 
 export function BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
+    const [availableTimes, setAvailableTimes] = useState([] as TimeModel[] || []);
     const allofthebookings = [];
     const [type, setType] = useState('');
     const [date, setDate] = useState('');
@@ -32,6 +35,10 @@ export function BookingForm(){
         }
         const bookingObj = await response.json();
        await console.log('Chosen date:',bookingObj);
+       const times: TimeModel[] = await bookingObj.map((booking: BookingModel) => booking.dateStart);
+       await setAvailableTimes(times);
+       await console.log('Available times:', availableTimes);
+        
     }
 
 
@@ -72,6 +79,7 @@ export function BookingForm(){
 
     }, [] || [getBooking] || [type]);
 
+    //convert ISO date to HTML date
     function convertISOToHTMLDateAndTimeString(bookings: GetBooking[]) {
         const allofthebookings = [];
         bookings.map((booking) => {
@@ -112,7 +120,12 @@ export function BookingForm(){
         }
         }/><br />
         <label htmlFor="time">Időpont</label><br />
-        <input type="time" id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}/><br />
+
+        <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
+    {availableTimes.map((time, index) => (
+        <option key={index} value={time}>{time}</option>
+    ))}
+</select><br />
 
         <button type="submit">Foglalás</button><br />
         {
