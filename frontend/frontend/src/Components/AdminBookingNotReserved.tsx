@@ -67,7 +67,7 @@ const handleCheckboxChange = (bookingId, e) => {
         <div className="container login">
         <h1>Szabad időpontok kezelése</h1> Összes kijelölése <input type="checkbox" onChange={handleMasterCheckboxChange} />
         {
-            bookingData.sort().map((booking: any) => {
+            bookingData.sort((a, b) => new Date(a.dateStart).getTime() - new Date(b.dateStart).getTime()).map((booking: any) => {
                 return (
                     <div key={booking.id}>
                                           <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteCheckedBookings()} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
