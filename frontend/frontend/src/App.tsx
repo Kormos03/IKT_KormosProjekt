@@ -33,12 +33,7 @@ function App() {
   
   return (
     <>
-      <style>
-        {`body{
-        background-image: url("https://as2.ftcdn.net/v2/jpg/04/81/66/19/1000_F_481661950_DozZV5h8tZO87DN7W6pv0IyAIDRX9MzJ.jpg");
-        }
-      }`}
-      </style>
+     
       <div className={darkMode ? 'dark' : ''}>
         
         
