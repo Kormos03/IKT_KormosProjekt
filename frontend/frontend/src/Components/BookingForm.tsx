@@ -35,9 +35,10 @@ export function BookingForm(){
         }
         const bookingObj = await response.json();
        await console.log('Chosen date:',bookingObj);
-       const times: TimeModel[] = await bookingObj.map((booking: BookingModel) => booking.dateStart);
+       let times = await bookingObj.map((booking: BookingModel) => booking.dateStart);
+       //show only the available times, but not the last 4
+       times = times.sort().slice(0, -4)
        await setAvailableTimes(times);
-       await console.log('Available times:', availableTimes);
         
     }
 
@@ -134,7 +135,7 @@ export function BookingForm(){
 </select><br />
 
         <button type="submit">Foglalás</button><br />
-       
+
     </form>
     </>
 }
