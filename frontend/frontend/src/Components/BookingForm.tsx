@@ -128,19 +128,13 @@ export function BookingForm(){
         <label htmlFor="time">Időpont</label><br />
 
         <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
-    {availableTimes.map((time, index) => (
+    {availableTimes.sort().map((time, index) => (
         <option key={index} value={time}>{timesToReadableFormat(time)}</option>
     ))}
 </select><br />
 
         <button type="submit">Foglalás</button><br />
-        {
-            availableTimes.map((booking) => {
-                return <div>
-                    <p>{booking}</p>
-                </div>
-            })
-        }
+       
     </form>
     </>
 }
