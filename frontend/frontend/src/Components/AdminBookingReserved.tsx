@@ -4,6 +4,23 @@ import useAuth from "./useAuth";
 export function AdminBookingReserved() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [bookingData, setBookingData] = useState([]);
+    const [checkedStates, setCheckedStates] = useState({});
+
+    const handleMasterCheckboxChange = (e) => {
+     const isChecked = e.target.checked;
+     const newCheckedStates = {};
+     bookingData.forEach((booking) => {
+         newCheckedStates[booking.id] = isChecked;
+     });
+     setCheckedStates(newCheckedStates);
+ };
+ 
+ const handleCheckboxChange = (bookingId, e) => {
+     setCheckedStates({
+         ...checkedStates,
+         [bookingId]: e.target.checked,
+     });
+ };
 
     useEffect(() => {
         async function getAllReserved() {
@@ -28,34 +45,34 @@ export function AdminBookingReserved() {
         getAllReserved();
     }, [bookingData] || [user] || [token] || []);
 
-    function deleteBooking(id: number) {
-        async function deleteBookingFetch() {
-            const response = await fetch('http://localhost:3000/booking/reserved/' + id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            if (!response.ok) {
-                const errorObj = await response.json();
-                console.log(errorObj);
-                return;
-            }
-    }
-    deleteBookingFetch();
+   //delete booking
+   async function deleteCheckedBookings() {
+    for(const bookingId in checkedStates){
+        const response = await fetch('http://localhost:3000/booking/not_reserved/' + bookingId, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        if (!response.ok) {
+            const errorObj = await response.json();
+            console.log(errorObj);
+            return;
+        }}
 }
 
     return (
         <>
         <div className="container login">
-        <h1>Lefoglald időpontok kezelése</h1>
+        <h1>Lefoglalt időpontok kezelése</h1> Összes kijelölése <input type="checkbox" onChange={handleMasterCheckboxChange} />
         {
-            bookingData.map((booking: any) => {
+            bookingData.sort((a, b) => new Date(a.dateStart).getTime() - new Date(b.dateStart).getTime()).map((booking: any) => {
                 return (
                     <div key={booking.id}>
-                        <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteBooking(booking.id)} >Törlés</button></p>
+                                          <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteCheckedBookings()} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
+
                     </div>
                 )
             })
