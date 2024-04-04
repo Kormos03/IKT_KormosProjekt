@@ -7,7 +7,7 @@ import { TimeModel } from "../TimeModel";
 export function BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
-    const [availableTimes, setAvailableTimes] = useState([] as TimeModel[] || []);
+    const [availableTimes, setAvailableTimes] = useState([]);
     const allofthebookings = [];
     const [type, setType] = useState('');
     const [date, setDate] = useState('');
@@ -39,6 +39,12 @@ export function BookingForm(){
        await setAvailableTimes(times);
        await console.log('Available times:', availableTimes);
         
+    }
+
+    //convert times into a readable format
+    function timesToReadableFormat(time: string) {
+        const timeToReturn = time.split('T')[1].substring(0, 5);
+        return timeToReturn;
     }
 
 
@@ -123,18 +129,17 @@ export function BookingForm(){
 
         <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
     {availableTimes.map((time, index) => (
-        <option key={index} value={time}>{time}</option>
+        <option key={index} value={time}>{timesToReadableFormat(time)}</option>
     ))}
 </select><br />
 
         <button type="submit">Foglalás</button><br />
         {
-            allofthebookings!.length > 0 ?
-            allofthebookings.map((booking) => {
+            availableTimes.map((booking) => {
                 return <div>
                     <p>{booking}</p>
                 </div>
-            }) : <p>Nincs elérhető időpont</p>
+            })
         }
     </form>
     </>
