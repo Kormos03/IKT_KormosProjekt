@@ -52,7 +52,7 @@ export function AdminBookingNotReserved() {
         <div className="container login">
         <h1>Szabad időpontok kezelése</h1>
         {
-            bookingData.map((booking: any) => {
+            bookingData.sort().map((booking: any) => {
                 return (
                     <div key={booking.id}>
                         <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteBooking(booking.id)} >Törlés</button></p>
