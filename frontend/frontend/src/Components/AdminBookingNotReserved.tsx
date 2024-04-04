@@ -50,12 +50,12 @@ export function AdminBookingNotReserved() {
     return (
         <>
         <div className="container login">
-        <h1>Szabad időpontok kezelése</h1>
+        <h1>Szabad időpontok kezelése</h1> Összes kijelölése <input type="checkbox" />
         {
             bookingData.sort().map((booking: any) => {
                 return (
                     <div key={booking.id}>
-                        <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteBooking(booking.id)} >Törlés</button></p>
+                        <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteBooking(booking.id)} >Törlés</button> <input type="checkbox"/> </p>
                     </div>
                 )
             })
