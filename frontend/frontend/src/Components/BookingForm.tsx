@@ -192,11 +192,9 @@ export function BookingForm(){
      </select><br />
         <label htmlFor="extra">Extra</label>
         <input type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/><br />
-        <label htmlFor="date">Dátum</label><br />
-        <input type="date" id="date" name="date" onChange={ e => 
+        <label htmlFor="date">Dátum</label>
        
-
-        }/><br />
+  
        <DayPicker selected={new Date(date)} onDayClick={onDayClick} disabledDays={disabledDates} /><br />
 
 
