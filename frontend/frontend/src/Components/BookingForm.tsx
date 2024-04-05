@@ -121,7 +121,7 @@ export function BookingForm(){
         let dateEndTemp = 2;
         const dateEnd = new Date(date);
         if(type == 'manikur' || type == 'pedikur' || type == 'akrel'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
-        else{dateEnd.setHours(dateEnd.setHours(dateEnd.getHours() + 2));}
+        else{dateEnd.setHours(dateEnd.getHours() + 2);}
         console.log('type:',type);  
         const reservationData = {
             name: user!.name,
