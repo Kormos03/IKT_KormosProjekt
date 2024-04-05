@@ -3,9 +3,9 @@ import { GetBooking } from "../GetBooking";
 import useAuth from "./useAuth";
 import { BookingModel } from "../BookingModel";
 import { TimeModel } from "../TimeModel";
-import { DayPicker } from "react-day-picker";
+import { DayModifiers, DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
-
+//This part of the project was difficulty, because of the converts and requests and new components, I had to make a custom modifier for the react-dday-picker component
 export function BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
@@ -15,9 +15,17 @@ export function BookingForm(){
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
-    const availableDates = getBooking.map(dateStr => new Date(dateStr));
 
-  
+
+// Convert the availableDates array to an object where the keys are the dates in 'YYYY-MM-DD' format
+const highlights = getBooking.map((bookingDate) => {
+    allofthebookings.push(bookingDate);
+    return { from: new Date(allofthebookings[0]),
+    to: new Date(allofthebookings[allofthebookings.length - 1]),
+    }
+})
+
+
     //post request to get all timestamps for a given date
     async function postRequestForfindAllByDate(dateInFunction: string){
         //I need to send the date in the format of yyyy-mm-dd
@@ -70,7 +78,10 @@ export function BookingForm(){
         console.log(extra);
         console.log(date);
         console.log(time);
-    }, [type] || [extra] || [date] || [time] || []);
+        console.log('availableTimes:',availableTimes);  
+        console.log('Modifiers:',modifiers);
+
+    }, [type] || [extra] || [date] || [time] || [] || [availableTimes]);
 
     //get all dates from backend
     useEffect(() => {
@@ -154,13 +165,12 @@ export function BookingForm(){
     }
 
     // DayPicker component callback to handle day clicks. If the date is not disabled, then it sets the date and sends a post request to get all available times for that date.
-    const onDayClick = (day, { selected, disabled }) => {
-        if (!disabled) {
+    const onDayClick = (day, { selected }) => {
+
             let date = selected ? null : `${day.getFullYear()}-${('0' + (day.getMonth() + 1)).slice(-2)}-${('0' + day.getDate()).slice(-2)}`;
-            console.log(`clicked on ${date}`);
+          //  console.log(`clicked on ${date}`);
             setDate(date?.toString().split('T')[0]); // Convert date to 'yyyy-mm-dd' format
             postRequestForfindAllByDate(date?.toString().split('T')[0]);
-        }
     };
 
     return <>
@@ -188,7 +198,7 @@ export function BookingForm(){
             //This is a react component that shows the dates and can disable the dates that are not available
         }
         <label htmlFor="date">Dátum</label>
-       <DayPicker selected={new Date(date)} onDayClick={onDayClick}  modifiers={availableDates}  /><br />
+    <DayPicker selected={new Date(date)} onDayClick={onDayClick} modifiers={highlights} /><br />
 
 
         <label htmlFor="time">Időpont</label><br />
