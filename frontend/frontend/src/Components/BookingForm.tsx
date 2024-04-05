@@ -11,23 +11,23 @@ export function BookingForm(){
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
     const [availableTimes, setAvailableTimes] = useState([]);
     const allofthebookings = [];
-    const availableDates = [];
     const [type, setType] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
+    const availableDates = getBooking.map(dateStr => new Date(dateStr));
+
     const earliestDate = new Date(Math.min(...availableDates));
-const latestDate = new Date(Math.max(...availableDates));
-
-let currentDate = new Date(earliestDate);
-const allDates = [];
-while (currentDate <= latestDate) {
-    allDates.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
-}
-
-const disabledDates = allDates.filter(date => !availableDates.some(availableDate => availableDate.getTime() === date.getTime()));
-
+    const latestDate = new Date(Math.max(...availableDates));
+    
+    let currentDate = new Date(earliestDate);
+    const allDates = [];
+    while (currentDate <= latestDate) {
+        allDates.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+    
+    const disabledDates = allDates.filter(date => !availableDates.some(availableDate => availableDate.getTime() === date.getTime()));
     //post request to get all timestamps for a given date
     async function postRequestForfindAllByDate(dateInFunction: string){
         //I need to send the date in the format of yyyy-mm-dd
@@ -163,6 +163,16 @@ const disabledDates = allDates.filter(date => !availableDates.some(availableDate
         }
     }
 
+    // DayPicker component callback to handle day clicks. If the date is not disabled, then it sets the date and sends a post request to get all available times for that date.
+    const onDayClick = (day, { selected, disabled }) => {
+        if (!disabled) {
+            let date = selected ? null : `${day.getFullYear()}-${('0' + (day.getMonth() + 1)).slice(-2)}-${('0' + day.getDate()).slice(-2)}`;
+            console.log(`clicked on ${date}`);
+            setDate(date?.toString().split('T')[0]); // Convert date to 'yyyy-mm-dd' format
+            postRequestForfindAllByDate(date?.toString().split('T')[0]);
+        }
+    };
+
     return <>
     <form onSubmit={sendReservation} className="login">
     <label htmlFor="type">Típus</label><br />
@@ -184,21 +194,13 @@ const disabledDates = allDates.filter(date => !availableDates.some(availableDate
         <input type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/><br />
         <label htmlFor="date">Dátum</label><br />
         <input type="date" id="date" name="date" onChange={ e => 
-        {
-            setDate(e.currentTarget.value);
-            console.log('Date:',e.currentTarget.value);
-            postRequestForfindAllByDate(e.currentTarget.value);
-        }
-        
+       
 
         }/><br />
-       <DayPicker wrapperClassName="datePicker" selected={new Date(date)} onDayClick={(date: Date) => {
-    setDate(date.toISOString().split('T')[0]); // Convert date to 'yyyy-mm-dd' format
-    console.log('Date:', date.toISOString().split('T')[0]);
-    postRequestForfindAllByDate(date.toISOString().split('T')[0]);
-}} disabledDays={disabledDates} /><br />
-        <label htmlFor="time">Időpont</label><br />
+       <DayPicker selected={new Date(date)} onDayClick={onDayClick} disabledDays={disabledDates} /><br />
 
+
+        <label htmlFor="time">Időpont</label><br />
         <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
     {availableTimes.sort().map((time, index) => (
         <option key={index} value={time}>{timesToReadableFormat(time)}</option>
