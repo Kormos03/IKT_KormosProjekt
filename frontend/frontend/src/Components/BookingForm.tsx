@@ -188,7 +188,7 @@ export function BookingForm(){
             //This is a react component that shows the dates and can disable the dates that are not available
         }
         <label htmlFor="date">Dátum</label>
-       <DayPicker selected={new Date(date)} onDayClick={onDayClick}  /><br />
+       <DayPicker selected={new Date(date)} onDayClick={onDayClick}  modifiers={availableDates}  /><br />
 
 
         <label htmlFor="time">Időpont</label><br />

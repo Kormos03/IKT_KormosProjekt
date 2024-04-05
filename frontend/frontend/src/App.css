@@ -57,3 +57,6 @@ body {
   justify-content: center;
   width: 100%;
 }
+.DayPicker-Day--available {
+  background-color: #abcdef;
+}
