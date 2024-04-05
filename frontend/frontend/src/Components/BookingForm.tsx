@@ -17,6 +17,7 @@ export function BookingForm(){
     const [extra, setExtra] = useState(false);
     const availableDates = getBooking.map(dateStr => new Date(dateStr));
 
+    //to disable the dates that are not available
     const earliestDate = new Date(Math.min(...availableDates));
     const latestDate = new Date(Math.max(...availableDates));
     
@@ -28,6 +29,8 @@ export function BookingForm(){
     }
     
     const disabledDates = allDates.filter(date => !availableDates.some(availableDate => availableDate.getTime() === date.getTime()));
+    console.log('Disabled dates:',disabledDates);
+
     //post request to get all timestamps for a given date
     async function postRequestForfindAllByDate(dateInFunction: string){
         //I need to send the date in the format of yyyy-mm-dd
@@ -190,11 +193,11 @@ export function BookingForm(){
      <option disabled>-----------------</option>
      <option value="egyeb">Egyéb</option>
      </select><br />
+
         <label htmlFor="extra">Extra</label>
         <input type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/><br />
+
         <label htmlFor="date">Dátum</label>
-       
-  
        <DayPicker selected={new Date(date)} onDayClick={onDayClick} disabledDays={disabledDates} /><br />
 
 
@@ -203,8 +206,9 @@ export function BookingForm(){
     {availableTimes.length == 0 ? <option>Nincs szabad időpont ezen a napon</option> :
     availableTimes.sort().map((time, index) => (
         <option key={index} value={time}>{timesToReadableFormat(time)}</option>
-    ))}
-</select><br />
+        ))}
+        </select><br />
+
 
         <button type="submit">Foglalás</button><br />
 
