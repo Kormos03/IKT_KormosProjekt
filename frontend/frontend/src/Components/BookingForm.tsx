@@ -17,20 +17,7 @@ export function BookingForm(){
     const [extra, setExtra] = useState(false);
     const availableDates = getBooking.map(dateStr => new Date(dateStr));
 
-    //to disable the dates that are not available
-    const earliestDate = new Date(Math.min(...availableDates));
-    const latestDate = new Date(Math.max(...availableDates));
-    
-    let currentDate = new Date(earliestDate);
-    const allDates = [];
-    while (currentDate <= latestDate) {
-        allDates.push(new Date(currentDate));
-        currentDate.setDate(currentDate.getDate() + 1);
-    }
-    
-    const disabledDates = allDates.filter(date => !availableDates.some(availableDate => availableDate.getTime() === date.getTime()));
-    console.log('Disabled dates:',disabledDates);
-
+  
     //post request to get all timestamps for a given date
     async function postRequestForfindAllByDate(dateInFunction: string){
         //I need to send the date in the format of yyyy-mm-dd
@@ -103,7 +90,7 @@ export function BookingForm(){
                 return;
             }
             const bookingObj = await response.json();
-            console.log(bookingObj);
+          //  console.log(bookingObj);
             const convertedBookings = convertISOToHTMLDateAndTimeString(bookingObj);
             setGetBooking(convertedBookings);
             
@@ -119,7 +106,7 @@ export function BookingForm(){
     function convertISOToHTMLDateAndTimeString(bookings: GetBooking[]) {
         const allofthebookings = [];
         bookings.map((booking) => {
-        console.log('Booking inside the map: ',booking.dateStart);
+        //console.log('Booking inside the map: ',booking.dateStart);
         const date = new Date(booking.dateStart);
         const htmlDate = date.toISOString().split('T')[0];
         const time = date.toTimeString().split(' ')[0].substring(0, 5);
@@ -197,8 +184,11 @@ export function BookingForm(){
         <label htmlFor="extra">Extra</label>
         <input type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/><br />
 
+        {
+            //This is a react component that shows the dates and can disable the dates that are not available
+        }
         <label htmlFor="date">Dátum</label>
-       <DayPicker selected={new Date(date)} onDayClick={onDayClick} disabledDays={disabledDates} /><br />
+       <DayPicker selected={new Date(date)} onDayClick={onDayClick}  /><br />
 
 
         <label htmlFor="time">Időpont</label><br />
