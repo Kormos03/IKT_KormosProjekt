@@ -200,7 +200,8 @@ export function BookingForm(){
 
         <label htmlFor="time">Időpont</label><br />
         <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
-    {availableTimes.sort().map((time, index) => (
+    {availableTimes.length == 0 ? <option>Nincs szabad időpont ezen a napon</option> :
+    availableTimes.sort().map((time, index) => (
         <option key={index} value={time}>{timesToReadableFormat(time)}</option>
     ))}
 </select><br />
