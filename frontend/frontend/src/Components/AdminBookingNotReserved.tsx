@@ -50,7 +50,7 @@ const handleCheckboxChange = (bookingId, e) => {
 
     //delete booking
    async function deleteCheckedBookings(bookingIDOfButton: BookingModel) {
-        navigate(0);
+        console.log(Object.keys(checkedStates).length)
         if(Object.keys(checkedStates).length !== 0){
         for(const bookingId in checkedStates){
             const response = await fetch('http://localhost:3000/booking/not_reserved/' + bookingId, {
@@ -80,6 +80,7 @@ const handleCheckboxChange = (bookingId, e) => {
                     console.log(errorObj);
                     return;
                 }}
+                navigate(0);
 }
 
     return (

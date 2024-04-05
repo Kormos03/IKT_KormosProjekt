@@ -36,7 +36,7 @@ useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user?.admin));
     setIsLoggedIn('1');
     localStorage.setItem('userLoggedIn', '1');
-    navigate('adminPage');
+    //navigate('adminPage');
     }
 },[user] || [] || [token])
 
