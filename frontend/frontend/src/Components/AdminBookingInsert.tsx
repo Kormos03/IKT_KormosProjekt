@@ -15,8 +15,8 @@ export function AdminBookingInsert() {
         const endDate = new Date(date);
         const start = timeStart.split(':');
         const end = timeEnd.split(':');
-        startDate.setHours(parseInt(start[0]) + 1, parseInt(start[1]), 0);      //somehow the hours are not correct, so I have to add 1 to the hours
-        endDate.setHours(parseInt(end[0]) + 1, parseInt(end[1]), 0);
+        startDate.setHours(parseInt(start[0]) + 2, parseInt(start[1]), 0);      //somehow the hours are not correct, so I have to add 1 to the hours
+        endDate.setHours(parseInt(end[0]) + 2, parseInt(end[1]), 0);
         if (startDate >= endDate) {
             console.log('A kezdő időpontnak korábbinak kell lennie, mint a befejező időpont!');
             return;

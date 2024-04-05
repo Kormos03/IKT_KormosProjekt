@@ -37,7 +37,7 @@ export function BookingForm(){
        await console.log('Chosen date:',bookingObj);
        let times = await bookingObj.map((booking: BookingModel) => booking.dateStart);
        //show only the available times, but not the last 4
-       times = times.sort().slice(0, -4)
+       times = times.sort().slice(0, -3)
        await setAvailableTimes(times);
         
     }
@@ -48,7 +48,18 @@ export function BookingForm(){
         return timeToReturn;
     }
 
-
+    //set the first available time
+    useEffect(() => {
+        if (availableTimes.length > 0) {
+            setTime(availableTimes[0]);
+        }
+    }, [availableTimes] || [time] || [] );
+    //set the first type
+    useEffect(() => {
+        if (getBooking.length > 0) {
+            setType(getBooking[0].type);
+        }
+    }, [getBooking]  || [time] || []);
     //ellenőrzés
     useEffect(() => {
         console.log(type);
@@ -100,13 +111,51 @@ export function BookingForm(){
         return allofthebookings;
     }
 
+    async function sendReservation(e: any) {
+        /*"name":"Betti",
+        "dateStart": "2024-03-13T10:00:00Z",
+        "dateEnd": "2024-03-13T12:00:00Z",
+        "extra":true,
+        "type":"műköröm"*/
+        e.preventDefault();
+        let dateEndTemp = 2;
+        const dateEnd = new Date(date);
+        if(type == 'manikur' || type == 'pedikur' || type == 'akrel'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
+        else{dateEnd.setHours(dateEnd.setHours(dateEnd.getHours() + 2));}
+        console.log('type:',type);  
+        const reservationData = {
+            name: user!.name,
+            dateStart: time,
+            dateEnd: dateEnd.toISOString(),
+            extra: extra,
+            type: type,
+
+        }
+        console.log('Reservation data:',reservationData);
+        const response = await fetch('http://localhost:3000/booking/reserved', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(reservationData),
+        });
+        if (!response.ok) {
+            const errorObj = await response.json();
+            setError(errorObj.message);
+            return;
+        }
+    }
+
     return <>
-    <form className="login">
+    <form onSubmit={sendReservation} className="login">
     <label htmlFor="type">Típus</label><br />
     <select onChange={ e => {
         setType(e.currentTarget.value)
         //PostRequestFor();
     }}>
+        <option value=""></option>
      <option value="manikur">Manikűr</option>
      <option value="pedikur">Pedikűr</option>
      <option disabled>-----------------</option>

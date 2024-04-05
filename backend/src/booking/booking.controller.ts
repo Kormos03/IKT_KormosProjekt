@@ -13,8 +13,10 @@ export class BookingController {
   @Post('/reserved')
   @UseGuards(AuthGuard('bearer'))
   createReserved(@Body() createBookingDto: CreateBookingDto) {
+    console.log(createBookingDto);
     return this.bookingService.createReserved(createBookingDto);
   }
+
 
   @Get('/reserved')
   @UseGuards(AuthGuard('bearer')) 

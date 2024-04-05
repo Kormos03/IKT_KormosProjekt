@@ -172,6 +172,7 @@ export class BookingService {
 
 
   remove(id: number, reserved: boolean) {
+    console.log('id: ', id)
     if (reserved) {
       return this.prisma.reserved.delete({
         where: { id: id },

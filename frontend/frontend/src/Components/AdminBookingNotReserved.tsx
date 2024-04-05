@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
+import { BookingModel } from "../BookingModel";
+import { useNavigate } from "react-router-dom";
 
 export function AdminBookingNotReserved() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
-    const [bookingData, setBookingData] = useState([]);
+    const [bookingData, setBookingData] = useState([] as BookingModel[]);
    // const [not_reserved_AllChecked, set_Not_reserved_AllChecked] = useState(false);
    const [checkedStates, setCheckedStates] = useState({});
+   const navigate = useNavigate();
 
    const handleMasterCheckboxChange = (e) => {
     const isChecked = e.target.checked;
@@ -38,6 +41,7 @@ const handleCheckboxChange = (bookingId, e) => {
                  return;
              }
              const data = await response.json();
+
             await setBookingData(data);
          }
 
@@ -45,7 +49,9 @@ const handleCheckboxChange = (bookingId, e) => {
     }, [bookingData] || [user] || [token] || []);
 
     //delete booking
-   async function deleteCheckedBookings() {
+   async function deleteCheckedBookings(bookingIDOfButton: BookingModel) {
+        navigate(0);
+        if(Object.keys(checkedStates).length !== 0){
         for(const bookingId in checkedStates){
             const response = await fetch('http://localhost:3000/booking/not_reserved/' + bookingId, {
                 method: 'DELETE',
@@ -59,7 +65,21 @@ const handleCheckboxChange = (bookingId, e) => {
                 const errorObj = await response.json();
                 console.log(errorObj);
                 return;
-            }}
+            }}}
+            else{
+                const response = await fetch('http://localhost:3000/booking/not_reserved/' + bookingIDOfButton, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
+                if (!response.ok) {
+                    const errorObj = await response.json();
+                    console.log(errorObj);
+                    return;
+                }}
 }
 
     return (
@@ -70,7 +90,7 @@ const handleCheckboxChange = (bookingId, e) => {
             bookingData.sort((a, b) => new Date(a.dateStart).getTime() - new Date(b.dateStart).getTime()).map((booking: any) => {
                 return (
                     <div key={booking.id}>
-                                          <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteCheckedBookings()} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
+                                          <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteCheckedBookings(booking.id)} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
 
                     </div>
                 )

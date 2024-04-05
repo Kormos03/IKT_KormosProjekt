@@ -48,7 +48,7 @@ export function AdminBookingReserved() {
    //delete booking
    async function deleteCheckedBookings() {
     for(const bookingId in checkedStates){
-        const response = await fetch('http://localhost:3000/booking/not_reserved/' + bookingId, {
+        const response = await fetch('http://localhost:3000/booking/reserved/' + bookingId, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',
