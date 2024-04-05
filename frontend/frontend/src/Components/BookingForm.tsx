@@ -79,7 +79,7 @@ const highlights = getBooking.map((bookingDate) => {
         console.log(date);
         console.log(time);
         console.log('availableTimes:',availableTimes);  
-        console.log('Modifiers:',modifiers);
+        console.log('getBooking:',getBooking);
 
     }, [type] || [extra] || [date] || [time] || [] || [availableTimes]);
 
@@ -198,8 +198,16 @@ const highlights = getBooking.map((bookingDate) => {
             //This is a react component that shows the dates and can disable the dates that are not available
         }
         <label htmlFor="date">Dátum</label>
-    <DayPicker selected={new Date(date)} onDayClick={onDayClick} modifiers={highlights} /><br />
-
+    <DayPicker selected={new Date(date)} onDayClick={onDayClick}/><br />
+    Elérhető napok:<br />
+        {
+            //avaliable dates:
+          getBooking.reduce((unique, bookingDate) => {
+        return unique.includes(bookingDate.htmlDate) ? unique : [...unique, bookingDate.htmlDate];
+    }, []).map((date) => {
+        return <p>{date}</p>
+    }) 
+        }
 
         <label htmlFor="time">Időpont</label><br />
         <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
