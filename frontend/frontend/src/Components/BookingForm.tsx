@@ -3,16 +3,30 @@ import { GetBooking } from "../GetBooking";
 import useAuth from "./useAuth";
 import { BookingModel } from "../BookingModel";
 import { TimeModel } from "../TimeModel";
+import { DayPicker } from "react-day-picker";
+import 'react-day-picker/dist/style.css';
 
 export function BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
     const [availableTimes, setAvailableTimes] = useState([]);
     const allofthebookings = [];
+    const availableDates = [];
     const [type, setType] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
+    const earliestDate = new Date(Math.min(...availableDates));
+const latestDate = new Date(Math.max(...availableDates));
+
+let currentDate = new Date(earliestDate);
+const allDates = [];
+while (currentDate <= latestDate) {
+    allDates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+}
+
+const disabledDates = allDates.filter(date => !availableDates.some(availableDate => availableDate.getTime() === date.getTime()));
 
     //post request to get all timestamps for a given date
     async function postRequestForfindAllByDate(dateInFunction: string){
@@ -89,6 +103,7 @@ export function BookingForm(){
             console.log(bookingObj);
             const convertedBookings = convertISOToHTMLDateAndTimeString(bookingObj);
             setGetBooking(convertedBookings);
+            
         }
         function getDatesFromBackendNotAsync(){
             getDatesFromBackend();
@@ -174,7 +189,14 @@ export function BookingForm(){
             console.log('Date:',e.currentTarget.value);
             postRequestForfindAllByDate(e.currentTarget.value);
         }
+        
+
         }/><br />
+       <DayPicker wrapperClassName="datePicker" selected={new Date(date)} onDayClick={(date: Date) => {
+    setDate(date.toISOString().split('T')[0]); // Convert date to 'yyyy-mm-dd' format
+    console.log('Date:', date.toISOString().split('T')[0]);
+    postRequestForfindAllByDate(date.toISOString().split('T')[0]);
+}} disabledDays={disabledDates} /><br />
         <label htmlFor="time">Időpont</label><br />
 
         <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
