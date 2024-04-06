@@ -60,6 +60,8 @@ const highlights = getBooking.map((bookingDate) => {
         return timeToReturn;
     }
 
+    
+
     //set the first available time
     useEffect(() => {
         if (availableTimes.length > 0) {
