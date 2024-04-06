@@ -2,6 +2,7 @@ import { Injectable, Param } from '@nestjs/common';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { PrismaService } from 'src/prisma.service';
+import { removeIfPresent } from 'typedoc/dist/lib/utils';
 
 
 function parseDate(dateString: string): Date {
@@ -51,7 +52,7 @@ export class BookingService {
    * @returns 
    */
 
-  //A createReserved functiont módosítani szükséges, ugyanis a jelenlegi állapota nem működik rendesen, mert ez egy régebbi verzió
+  //This function is for the frontend that the user can create a reservation
   async createReserved(createBookingDto: CreateBookingDto) {
     try {
       const halfHourSlotsArray = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
@@ -65,32 +66,18 @@ export class BookingService {
         return { dateStart: start, dateEnd: end };
       }
       )
-      //Lekérdezem az elérhető időintervallumokat
-      const not_ReservedAll = this.prisma.not_Reserved.findMany({
-        where: {
-          AND: [
-            { dateStart: { gte: new Date(createBookingDto.dateStart) } },
-            { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
-          ]
-        }
-      });
+      halfHourSlots.forEach(async (element) => {
+       console.log(element) });    
+    
+      //Delete the not reserved slots that are in the same time interval
+      //First I need to find the slots that are in the same time interval
+      //Then I have to itaretate through the array and delete the slots
+      //With the remove function
 
-  
-      const deleted = this.prisma.not_Reserved.deleteMany({
-        where: {
-          AND: [
-
-            { dateStart: { gte: new Date(createBookingDto.dateStart) } },
-            { dateEnd: new Date(createBookingDto.dateEnd) },
-            { dateStart: new Date(createBookingDto.dateStart) },
-            { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
-          ],
-        }
-      });
-      console.log("A törölt időintervallumok: \n");
-      console.log(await deleted);
-
-
+      //I have to check if the date is in the right format
+      if (createBookingDto.dateStart < createBookingDto.dateEnd || createBookingDto.dateStart == null || createBookingDto.dateEnd == null) {
+        throw new Error("Date is null, or the start date is later than the end date!");
+      }
 
       //Létrehozom a reserved táblában az időintervallumokat
       const reserved = this.prisma.reserved.create({ data: createBookingDto });

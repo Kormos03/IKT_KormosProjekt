@@ -11,7 +11,7 @@ export function BookingForm(){
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
     const [availableTimes, setAvailableTimes] = useState([]);
     const allofthebookings = [];
-    const [type, setType] = useState('');
+    const [type, setType] = useState('' || null);
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
@@ -133,12 +133,16 @@ const highlights = getBooking.map((bookingDate) => {
         "dateEnd": "2024-03-13T12:00:00Z",
         "extra":true,
         "type":"műköröm"*/
-        e.preventDefault();
-        let dateEndTemp = 2;
-        const dateEnd = new Date(date);
+        //Error handling
+        if(await type == '' || await typeof type == undefined || await type == null){setError('Nem választottál típust!'); e.preventDefault();  return;}
+        if(time == ''){setError('Nem választottál időpontot!');  e.preventDefault(); return;}
+        const dateEnd = new Date(time);
         if(type == 'manikur' || type == 'pedikur' || type == 'akrel'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
         else{dateEnd.setHours(dateEnd.getHours() + 2);}
-        console.log('type:',type);  
+        e.preventDefault();
+        console.log('time:',time);  
+        console.log('dateEnd:',dateEnd);
+
         const reservationData = {
             name: user!.name,
             dateStart: time,
@@ -221,7 +225,7 @@ const highlights = getBooking.map((bookingDate) => {
         ))}
         </select><br />
 
-
+        <p>{error}</p>
         <button type="submit">Foglalás</button><br />
 
     </form>
