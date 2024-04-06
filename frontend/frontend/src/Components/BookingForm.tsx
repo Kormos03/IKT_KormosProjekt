@@ -5,7 +5,7 @@ import { BookingModel } from "../BookingModel";
 import { TimeModel } from "../TimeModel";
 import { DayModifiers, DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
-//This part of the project was difficulty, because of the converts and requests and new components, I had to make a custom modifier for the react-dday-picker component
+//This part of the project was difficulty, because of the converts and requests and new components, I have to make a custom modifier for the react-dday-picker component
 export function BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
@@ -174,7 +174,9 @@ const highlights = getBooking.map((bookingDate) => {
     };
 
     return <>
+
     <form onSubmit={sendReservation} className="login">
+    <h1>Foglalás</h1>
     <label htmlFor="type">Típus</label><br />
     <select onChange={ e => {
         setType(e.currentTarget.value)
@@ -199,7 +201,9 @@ const highlights = getBooking.map((bookingDate) => {
         }
         <label htmlFor="date">Dátum</label>
     <DayPicker selected={new Date(date)} onDayClick={onDayClick}/><br />
-    Elérhető napok:<br />
+    {
+        getBooking.length == 0 ? <p>Nincs elérhető dátum</p> : <h2>Elérhető napok</h2>
+    }
         {
             //avaliable dates:
           getBooking.reduce((unique, bookingDate) => {
