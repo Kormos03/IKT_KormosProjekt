@@ -55,27 +55,23 @@ export class BookingService {
   //This function is for the frontend that the user can create a reservation
   async createReserved(createBookingDto: CreateBookingDto) {
     try {
-      const halfHourSlotsArray = generateHalfHourSlots(new Date(createBookingDto.dateStart), new Date(createBookingDto.dateEnd));
-      const halfHourSlots = halfHourSlotsArray.map((time) => {
-        let hour = time.split(":")[0];
-        let minute = time.split(":")[1];
-        let start = parseDate(createBookingDto.dateStart);
-        start.setHours(Number(hour), Number(minute), 0, 0);
-        let end = new Date(start);
-        end.setMinutes(start.getMinutes() + 30);
-        return { dateStart: start, dateEnd: end };
-      }
-      )
-      halfHourSlots.forEach(async (element) => {
-       console.log(element) });    
-    
       //Delete the not reserved slots that are in the same time interval
       //First I need to find the slots that are in the same time interval
       //Then I have to itaretate through the array and delete the slots
       //With the remove function
 
+      const slotsToDelete = await this.prisma.not_Reserved.findMany({
+        where: {
+          AND: [
+            { dateStart: { gte: new Date(createBookingDto.dateStart) } },
+            { dateEnd: { lte: new Date(createBookingDto.dateEnd) } },
+          ],
+        },
+      });
+      slotsToDelete.forEach(async (slot) => {this.remove(slot.id, false); console.log('Slot deleted: ', slot.id)});
+
       //I have to check if the date is in the right format
-      if (createBookingDto.dateStart < createBookingDto.dateEnd || createBookingDto.dateStart == null || createBookingDto.dateEnd == null) {
+      if (createBookingDto.dateStart > createBookingDto.dateEnd || createBookingDto.dateStart == null || createBookingDto.dateEnd == null) {
         throw new Error("Date is null, or the start date is later than the end date!");
       }
 
@@ -157,21 +153,25 @@ export class BookingService {
   }
 
 
-
-  remove(id: number, reserved: boolean) {
-    console.log('id: ', id)
-    if (reserved) {
-      return this.prisma.reserved.delete({
-        where: { id: id },
-      })
+  async remove(id: number, reserved: boolean) {
+    console.log('id: ', id);
+    try {
+        let result;
+        if (reserved) {
+            result = await this.prisma.reserved.delete({
+                where: { id: id },
+            });
+        } else {
+            result = await this.prisma.not_Reserved.delete({
+                where: { id: id },
+            });
+        }
+        console.log('Delete result: ', result);
+        return result;
+    } catch (error) {
+        console.error('An error occurred while deleting the record:', error);
     }
-    else {
-      return this.prisma.not_Reserved.delete({
-        where: { id: id },
-      });
-    }
-  }
-}
+  }}
 
 
 function generateHalfHourSlots(dateStart: Date, dateEnd: Date): string[] {

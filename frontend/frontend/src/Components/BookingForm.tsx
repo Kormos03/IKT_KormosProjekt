@@ -139,10 +139,6 @@ const highlights = getBooking.map((bookingDate) => {
         const dateEnd = new Date(time);
         if(type == 'manikur' || type == 'pedikur' || type == 'akrel'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
         else{dateEnd.setHours(dateEnd.getHours() + 2);}
-        e.preventDefault();
-        console.log('time:',time);  
-        console.log('dateEnd:',dateEnd);
-
         const reservationData = {
             name: user!.name,
             dateStart: time,
