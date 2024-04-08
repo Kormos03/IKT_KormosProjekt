@@ -5,6 +5,7 @@ import useAuth from "../Components/useAuth";
 import { CardComponent } from "../Components/CardComponent";
 import { GalleryImg } from "../GalleryImg";
 import { CardComponentForAdmin } from "../Components/CardComponentForAdmin";
+import SingleFileUploader from "../Components/SingleFileUploader";
 
 export function AdminGalleryPage() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
@@ -28,7 +29,9 @@ export function AdminGalleryPage() {
                 const response = await fetch(backendRoute, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 });
                 const data = await response.json();
@@ -40,7 +43,9 @@ export function AdminGalleryPage() {
     },[])
 
     return <>
+
         <AdminNavigationBar />
+        <SingleFileUploader />
         <div className="container gallery">
             <div className="row">
                 <h1 className="col">Képek módosítása</h1>

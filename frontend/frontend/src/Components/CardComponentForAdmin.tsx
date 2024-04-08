@@ -26,7 +26,13 @@ export function CardComponentForAdmin({cards}) {
             console.log('Sikertelen törlés')
           }
     }
+
+    function addImage(){
+        navigate('/secret/admin/addimage')
+    }
+
     return <> 
+            <input className="addImage" type="button" value='Kép hozzáadása' onClick={addImage}/>
       <div className="container">
         <div className="row">
           {cards!.map((card, index) => (
@@ -39,6 +45,7 @@ export function CardComponentForAdmin({cards}) {
             </div>
           ))}
         </div>
+
       </div>
       </>
   }

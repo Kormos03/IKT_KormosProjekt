@@ -28,6 +28,10 @@ body {
 
 .gallery_img{
   max-width: 300px;
+  width: 400px;
+  height: 400px; 
+
+  object-fit: cover; 
 }
 
 .gallery{
@@ -59,4 +63,12 @@ body {
 }
 .DayPicker-Day--available {
   background-color: #abcdef;
+}
+
+.addImage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }

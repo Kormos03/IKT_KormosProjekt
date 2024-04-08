@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class ImagesService {
  constructor( private readonly db : PrismaService) {}
+ 
   create(createImageDto: CreateImageDto) {
     if (!createImageDto.url) {
       createImageDto.url = "http://localhost:3000/images/" + createImageDto.name;
