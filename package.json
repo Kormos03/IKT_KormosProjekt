@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "argon2": "^0.40.1"
+    "@nestjs/swagger": "^7.3.1",
+    "argon2": "^0.40.1",
+    "swagger": "^0.7.5"
   }
 }

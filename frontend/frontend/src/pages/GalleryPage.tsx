@@ -3,7 +3,7 @@ import { GalleryImg } from "../GalleryImg";
 import { NavigationBar } from "../Components/NavigationBar";
    
 
-//El kell különíteni kategóriákra a képeket -> Majd a kategóriákra kattintva megjeleníteni a képeket
+//El kell különíteni kategóriákra a képeket -> Majd a kategóriákra kattintva megjeleníteni a képeket, de ezt már csak a vizsga után fogom megcsinálni
 function CardComponent({cards}) {
     return <> <NavigationBar/>
       <div className="container">

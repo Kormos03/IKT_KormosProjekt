@@ -11,6 +11,7 @@ export class AuthController {
     private readonly usersService: UsersService
   ) {}
 
+  //This endpoint is for the user to login
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
@@ -29,6 +30,7 @@ export class AuthController {
     }
   }
 
+  //This endpoint is for the admin to login
   @Post('katus/admin/login')
   async adminlogin(@Body() loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
