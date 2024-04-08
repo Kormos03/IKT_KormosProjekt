@@ -1,25 +1,6 @@
 import { useEffect, useState } from "react";
 import { GalleryImg } from "../GalleryImg";
-import { NavigationBar } from "../Components/NavigationBar";
-   
-
-//El kell különíteni kategóriákra a képeket -> Majd a kategóriákra kattintva megjeleníteni a képeket, de ezt már csak a vizsga után fogom megcsinálni
-function CardComponent({cards}) {
-    return <> <NavigationBar/>
-      <div className="container">
-        <div className="row">
-          {cards!.map((card, index) => (
-            <div className="col-md-4" key={index}>
-              <div className="card">
-                  <img src={card.url} alt="" className="card-body gallery_img"/>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      </>
-  }
-
+import { CardComponent } from "../Components/CardComponent";
 
 
 export function GalleryPage() {
