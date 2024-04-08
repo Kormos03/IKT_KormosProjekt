@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../Components/useAuth";
 import { CardComponent } from "../Components/CardComponent";
 import { GalleryImg } from "../GalleryImg";
+import { CardComponentForAdmin } from "../Components/CardComponentForAdmin";
 
 export function AdminGalleryPage() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
@@ -45,7 +46,7 @@ export function AdminGalleryPage() {
                 <h1 className="col">Képek módosítása</h1>
             
             <div className="row">
-            <CardComponent cards={gallery as GalleryImg[]} />
+            <CardComponentForAdmin cards={gallery as GalleryImg[]} />
         </div>
         </div>
         </div>

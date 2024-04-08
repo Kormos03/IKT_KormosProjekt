@@ -32,8 +32,10 @@ export class ImagesController {
   }
 
   //This endpoint is for the frontend to delete an image by name, admin only
-  @Delete(':name')
-  remove(@Param('name') name: string) {
-    return this.imagesService.remove(name);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    
+    const parsedId = parseInt(id);
+    return this.imagesService.remove(parsedId);
   }
 }

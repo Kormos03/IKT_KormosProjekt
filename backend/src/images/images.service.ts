@@ -32,9 +32,9 @@ export class ImagesService {
     });
   }
 
-  remove(name: string) {
+  remove(id: number) {
     return this.db.images.delete({
-      where: {name}
+      where: {id}
     });
   }
 }

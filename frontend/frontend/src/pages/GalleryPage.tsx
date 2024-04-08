@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { GalleryImg } from "../GalleryImg";
 import { CardComponent } from "../Components/CardComponent";
+import { NavigationBar } from "../Components/NavigationBar";
 
 
 export function GalleryPage() {
     const [gallery, setGallery] = useState([]);
-    const [backendRoute, setBackendRoute] = useState("http://localhost:3000/images");
+    const [backendRoute, setBackendRoute] = useState("http://localhost:3000/images/");
     console.log("gallery:" +gallery)
     async function fetchGallery() {
         try {
@@ -26,7 +27,8 @@ export function GalleryPage() {
         fetchGallery();
     }, []);
     
-    return (
+    return <>
+        <NavigationBar  />
         <div className="container gallery">
             <div className="row">
                 <h1 className="col">Képek</h1>
@@ -37,6 +39,6 @@ export function GalleryPage() {
 
       
         </div>
-    );
+        </>
 }
 
