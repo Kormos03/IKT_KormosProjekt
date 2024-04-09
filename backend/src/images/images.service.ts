@@ -56,7 +56,7 @@ export class ImagesService {
   await lastImage.map((image) => {
     tempImagename = image.name;
   });
-  return (parseInt(tempImagename) + 1).toString();
+  return (parseInt(tempImagename) + 1);
   }
 }
 

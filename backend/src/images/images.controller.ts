@@ -5,6 +5,7 @@ import { UpdateImageDto } from './dto/update-image.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express/multer';
 import * as path from 'path';
+import * as fs from 'fs';
 import { diskStorage } from 'multer';
 import { EventEmitter } from 'events';
 
@@ -54,8 +55,6 @@ export class ImagesController {
     fileUploadEmitter.emit('fileUploaded', file);
   }
  
-
-  
   async uploadFile(@UploadedFile() file) {
     console.log(file);
     return {
