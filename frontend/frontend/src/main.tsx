@@ -15,6 +15,7 @@ import { BookingUserPage } from './pages/BookingUserPage.tsx'
 import { ProfilePage } from './pages/ProfilePage.tsx'
 import { AdminGalleryPage } from './pages/AdminGalleryPage.tsx'
 import { AdminBookingPage } from './pages/AdminBookingPage.tsx'
+import { AdminProfilePage } from './pages/AdminProfilePage.tsx'
 
 const router1 = createBrowserRouter([{
   path: '/',
@@ -48,6 +49,10 @@ const router1 = createBrowserRouter([{
       children:[{
         path: 'adminPage',
         element: <AdminPage />
+      },
+      {
+        path: 'adminProfile',
+        element: <AdminProfilePage/>
       },
     {
       path: 'gallery',
