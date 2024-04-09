@@ -3,9 +3,15 @@ import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { FileInterceptor } from '@nestjs/platform-express/multer';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express/multer';
 import * as path from 'path';
 import { diskStorage } from 'multer';
+import { EventEmitter } from 'events';
+
+class FileUploadEmitter extends EventEmitter {}
+
+const fileUploadEmitter = new FileUploadEmitter();
+
 
 const multer = require('multer');
 
@@ -21,7 +27,9 @@ const upload = multer({ storage: storage });
 
 @Controller('images')
 export class ImagesController {
-  constructor(private readonly imagesService: ImagesService) {}
+  constructor(private imagesService: ImagesService) {
+    fileUploadEmitter.on('fileUploaded', this.renameFile.bind(this));
+  }
 
   //This endpoint is for the frontend to create an image, admin only
   @Post()
@@ -30,26 +38,22 @@ export class ImagesController {
     return this.imagesService.create(createImageDto);
   }
 
+
   //This endpoint is for the frontend to upload an image to the server, admin only
   @Post('fileupload')
   @UseGuards(AuthGuard('bearer'))
-  createImageName(@UploadedFile() file) {
-    this.imagesService.createImage(file);
-    console.log(file);
-    
-  }
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './public/images',
       filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        const name = path.basename(file.originalname, ext);
-        cb(null, `${name}${ext}`);
+        cb(null, file.originalname);
       }
     })
-    
+  }))
+  async createImageName(@UploadedFile() file) {
+    fileUploadEmitter.emit('fileUploaded', file);
   }
-))
+ 
 
   
   async uploadFile(@UploadedFile() file) {
@@ -86,6 +90,16 @@ export class ImagesController {
     
     const parsedId = parseInt(id);
     return this.imagesService.remove(parsedId);
+  }
+
+  async renameFile(file) {
+    const correctName = await this.imagesService.createImage(file);
+    const ext = path.extname(file.originalname);
+    const oldPath = path.join('./public/images', file.originalname);
+    const newPath = path.join('./public/images', `${correctName}${ext}`);
+    fs.rename(oldPath, newPath, err => {
+      if (err) throw err;
+    });
   }
 }
 
