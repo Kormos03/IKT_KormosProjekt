@@ -43,26 +43,20 @@ export class ImagesService {
     });
   }
 
-  createImage(createImageDto: CreateImageDto) {
+ async createImage(createImageDto: CreateImageDto) {
  
-    const lastImage = this.getTheHighestName();
-    console.log("lastImage: " + lastImage); 
-    
+    const lastImage = await this.getTheHighestName();
+    await console.log("lastImage: " + lastImage); 
 
-
-    return this.db.images.create({
-      data: createImageDto
-    });
   }
- 
+ //This function is helping the createImage function to get the highest name from the database and return the correct name
   async getTheHighestName(){ 
-
-      const lastImage = await this.db.images.findFirst({
-    orderBy: {
-      name: 'desc'
-    }
+    let tempImagename = '';
+      const lastImage = await this.db.images.findMany();
+  await lastImage.map((image) => {
+    tempImagename = image.name;
   });
-  return lastImage.name.toString();
+  return (parseInt(tempImagename) + 1).toString();
   }
 }
 
