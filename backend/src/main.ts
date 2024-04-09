@@ -8,15 +8,19 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
 
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(helmet.frameguard({ action: 'deny' }));   //a module to prevent clickjacking
-
+  //I had to increase the limit of the body parser to 100mb because the images were too big
+  app.use(bodyParser.json({limit: '100mb'}));
+  app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     preflightContinue: false,
     optionsSuccessStatus: 204,
   });

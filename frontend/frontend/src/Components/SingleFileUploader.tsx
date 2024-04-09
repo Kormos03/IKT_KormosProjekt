@@ -43,7 +43,7 @@ const SingleFileUploader = () => {
               'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-              name: thecorrectname,
+              filename: thecorrectname,
               url: "http://localhost:3000/images/" + thecorrectname + ".jpeg",
             }),
             });
@@ -65,9 +65,8 @@ const SingleFileUploader = () => {
                   const result = await fetch("http://localhost:3000/images/fileupload", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
                         'Accept': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`,
                     },
                     body: formData,
                   });
@@ -78,8 +77,20 @@ const SingleFileUploader = () => {
                   console.error(error);
                 }
               }
-
-
+                const responsefordb = await fetch("http://localhost:3000/images", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      'Accept': 'application/json',
+                      'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                      name: thecorrectname,
+                      url: "http://localhost:3000/images/" + thecorrectname + ".jpeg",
+                    }),
+                    });
+                    const datafordb = await responsefordb.json();
+                    console.log("datafordb:", datafordb);
 
   };
 

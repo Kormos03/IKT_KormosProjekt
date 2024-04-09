@@ -3,7 +3,6 @@ import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class CreateImageDto {
 
-    @IsNumber()
     @ApiProperty({
         description: 'A kép azonosítója',
         example: '20'
@@ -19,9 +18,9 @@ export class CreateImageDto {
 
     @IsNotEmpty({ message: 'A kép nevének megadása kötelező' })
     @ApiProperty({
-        description: 'A kép neve, ugyanis erre a névre lehet rákeresni a frontend oldalon',
-        example: 'nailimg.jpg'
+        description: 'A kép neve, ugyanis erre a névre lehet rákeresni a frontend oldalon, ami számokból állhat, de lehet szöveg is, de nem lehet üres',
+        example: '1'
     })
-    name: string;  
+    name: any;  
 
 }

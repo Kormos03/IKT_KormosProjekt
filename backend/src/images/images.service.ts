@@ -11,8 +11,12 @@ export class ImagesService {
     if (!createImageDto.url) {
       createImageDto.url = "http://localhost:3000/images/" + createImageDto.name;
     }
+    const convertedName = createImageDto.name.toString();
     return this.db.images.create({
-      data: createImageDto
+      data: {
+        url: createImageDto.url,
+        name: convertedName
+      }
     });
   }
 
