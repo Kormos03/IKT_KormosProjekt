@@ -2,7 +2,7 @@ import { useState } from "react";
 import useAuth from "./useAuth";
 
 export function AdminBookingInsert() {
-    const { token, user,error, setToken, setUser, setError } = useAuth();
+    const { token, user,error, setToken, setUser, setError } = useAuth(true);
     const [date, setDate] = useState(new Date());
     const [timeStart, setTimeStart] = useState('');
     const [timeEnd, setTimeEnd] = useState('');

@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { UsersService } from 'src/users/users.service';
 import { verify } from 'argon2';
+import { contentSecurityPolicy } from 'helmet';
 
 @Controller('auth')
 export class AuthController {
@@ -43,9 +44,10 @@ export class AuthController {
     if(await !user.admin){
       throw new UnauthorizedException('Nincs jogosultságod ehhez a művelethez!');
     }
-
+    const adminToken = await this.authService.generateTokenForAdmin(user);
+  
     return {
-      token: await this.authService.generateTokenFor(user)
+      token: await adminToken
     }
   }
 }

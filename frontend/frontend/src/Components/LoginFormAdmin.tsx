@@ -33,7 +33,9 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
             return;
         }
         if(response.status === 500){
-            setLoginError('Server error');
+            const errorObj = await response.json();
+            setLoginError(errorObj.message);
+            
             return;
         }
         if(response.status == 201){

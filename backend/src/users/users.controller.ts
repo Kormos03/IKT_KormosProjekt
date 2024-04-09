@@ -20,6 +20,20 @@ export class UsersController {
     }
   }
 
+  @Get('adminMe')
+  @UseGuards(AuthGuard('bearer'))
+  adminMe(@Request() req) {
+    const user: User = req.user;
+    if (!user.admin) {
+      throw new ForbiddenException();
+    }
+    return {
+      email: user.email,
+      name: user.username,
+      admin: user.admin,
+    }
+  }
+
   @Post('/regist')
   @UseGuards(AuthGuard('bearer'))
   create(@Body() createUserDto: CreateUserDto) {

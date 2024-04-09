@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
 import { User } from '../User';
 
-function useAuth() {
+function useAuth(admin: boolean = false) {
   const [token, setToken] = useState(localStorage.getItem('token') || ''); // token is stored in local storage
   const [user, setUser] = useState(null as User|null);
   const [ error, setError ] = useState('');
   const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/me');
 
 
-
+ 
+  
   useEffect(() => {
+    if (admin) {
+      setBackendRoute('http://localhost:3000/users/adminMe');
+    }
+    else{
+      setBackendRoute('http://localhost:3000/users/me');
+    }
     async function loadUserData() {
       const storedToken = localStorage.getItem('token');
       if (!storedToken) {
@@ -26,9 +33,6 @@ function useAuth() {
         })
         if (response.status === 401) {
             setError('Please login again');
-         setToken('');
-          localStorage.removeItem('token');
-          setError('Please login again');
           return;
         }
         if (!response.ok) {
