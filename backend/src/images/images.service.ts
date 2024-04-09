@@ -43,7 +43,27 @@ export class ImagesService {
     });
   }
 
+  createImage(createImageDto: CreateImageDto) {
  
+    const lastImage = this.getTheHighestName();
+    console.log("lastImage: " + lastImage); 
+    
+
+
+    return this.db.images.create({
+      data: createImageDto
+    });
+  }
+ 
+  async getTheHighestName(){ 
+
+      const lastImage = await this.db.images.findFirst({
+    orderBy: {
+      name: 'desc'
+    }
+  });
+  return lastImage.name.toString();
+  }
 }
 
 //This function is helping the createImage function to get the highest name from the database

@@ -32,13 +32,11 @@ const SingleFileUploader = () => {
     getImages();
   }
  
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('The correct name:',thecorrectname)
-    if (e.target.files) {
-        const newFileName = thecorrectname.toString() + ".jpeg";
-        const fileWithNewName = new File([e.target.files[0]], newFileName, { type: e.target.files[0].type });
-        setFile(fileWithNewName);
-    }
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+               const file = e.target.files[0];
+                setFile(file);
+        }
 };
 
   const handleUpload = async () => {
@@ -65,7 +63,7 @@ const SingleFileUploader = () => {
               }
               
               if (file) {
-                console.log("Uploading file...");
+                console.log("Kép feltöltése...");
             
                 const formData = new FormData();
                 formData.append(thecorrectname.toString() + '.jpeg', file);

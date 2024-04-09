@@ -27,12 +27,10 @@ export function CardComponentForAdmin({cards}) {
           }
     }
 
-    function addImage(){
-        navigate('/secret/admin/addimage')
-    }
+
 
     return <> 
-            <input className="addImage" type="button" value='Kép hozzáadása' onClick={addImage}/>
+
       <div className="container">
         <div className="row">
           {cards!.map((card, index) => (
