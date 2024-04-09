@@ -83,10 +83,23 @@ export class ImagesController {
   //This endpoint is for the frontend to delete an image by name, admin only
   @Delete(':id')
   @UseGuards(AuthGuard('bearer'))
-  remove(@Param('id') id: string) {
-    
+async  remove(@Param('id') id: string) {
+  
     const parsedId = parseInt(id);
-    return this.imagesService.remove(parsedId);
+    const therecord = await this.imagesService.findOne(parsedId); //This is to get the name of the image
+    console.log('therecord:', await therecord);
+    const filePath = await join(__dirname, '..', '..', 'public', 'images', therecord.name + '.jpeg');
+    try {
+      fs.unlinkSync(filePath);
+      return this.imagesService.remove(parsedId);
+      //file removed
+    }
+    catch(err) {
+      console.error(err);
+    }
+
+
+   // return this.imagesService.remove(parsedId);
   }
 
  /* async renameFile(file) {

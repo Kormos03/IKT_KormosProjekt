@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "./useAuth";
+import { useNavigate } from "react-router-dom";
 
 const SingleFileUploader = () => {
     const { token, user,error, setToken, setUser, setError } = useAuth();
+    const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
     let thecorrectname = 0;
 
@@ -41,6 +43,7 @@ const SingleFileUploader = () => {
                   });
                     if (result.ok) {
                         console.log("Upload successful");
+                        navigate(0);
                         //setFile(null);
                     } else {
                         console.error("Upload failed");

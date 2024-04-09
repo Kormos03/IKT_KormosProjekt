@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { NavigationBar } from "./NavigationBar";
 import { useNavigate } from "react-router-dom";
+import useAuth from "./useAuth";
 
 //El kell különíteni kategóriákra a képeket -> Majd a kategóriákra kattintva megjeleníteni a képeket, de ezt már csak a vizsga után fogom megcsinálni
 export function CardComponentForAdmin({cards}) {
+  const { token, user,error, setToken, setUser, setError } = useAuth();
 
     const [backendRoute, setBackendRoute] = useState("http://localhost:3000/images/");
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ export function CardComponentForAdmin({cards}) {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({id: id})
         })

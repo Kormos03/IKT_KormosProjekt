@@ -27,9 +27,9 @@ export class ImagesService {
     return this.db.images.findMany();
   }
 
-  findOne(name: string) {
+  findOne(id) {
     return this.db.images.findFirst({
-      where: {name}
+      where: {id}
     });
   }
 
@@ -41,6 +41,7 @@ export class ImagesService {
   }
 
   remove(id: number) {
+    
     return this.db.images.delete({
       where: {id}
     });
