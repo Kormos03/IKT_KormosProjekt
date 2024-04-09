@@ -4,6 +4,7 @@ import { User } from "../User";
 import { NavLink, useNavigate } from "react-router-dom";
 import { NavigationBar } from "../Components/NavigationBar";
 import useAuth from "../Components/useAuth";
+import { AdminNavigationBar } from "../Components/AdminNavigationBar";
 
 export function AdminProfilePage(){
   const { token, user,error, setToken, setUser, setError } = useAuth();
@@ -19,22 +20,20 @@ export function AdminProfilePage(){
       }, []);
 
  
-      function changeProfile(){
-        //send a request to the backend to change the profile name, or email, maybe the password
-      }
+     
 
     return (
         <>
-        <NavigationBar/>
+        <AdminNavigationBar />
         <div className="container">
             {
-      user? <UserProfile user={user} /> : null
+      user? <UserProfile/> : null
             }
             {
                 error? <p>{error}</p> : null
             }
 
-        <input type="button" value="Profil szerkesztése" onClick={changeProfile}/>
+
             </div>
         </>
     );

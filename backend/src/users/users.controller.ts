@@ -21,6 +21,7 @@ export class UsersController {
   }
 
   @Post('/regist')
+  @UseGuards(AuthGuard('bearer'))
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.registration(createUserDto);
   }
@@ -41,9 +42,9 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch(':email')
+  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(email, updateUserDto);
   }
 
   @Delete(':id')

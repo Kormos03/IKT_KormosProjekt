@@ -43,7 +43,6 @@ export function ProfilePage(){
                 error? <p>{error}</p> : null
             }
 
-        <NavLink to="/editProfile">Profil szerkesztése</NavLink>
             </div>
         </>
     );

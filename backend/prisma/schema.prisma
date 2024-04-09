@@ -35,9 +35,15 @@ model User {
   email    String @unique
   admin    Boolean @default(false)
   tokens   Token[]
+  adminTokens AdminToken[]
 }
 
 model Token {
+  token String @id
+  user User @relation( fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+model AdminToken {
   token String @id
   user User @relation( fields: [userId], references: [id], onDelete: Cascade)
   userId Int

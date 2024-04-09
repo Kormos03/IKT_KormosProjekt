@@ -26,7 +26,7 @@ export class UsersService {
     })
   }
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+   
   }
 
   async registration(createUserDto: CreateUserDto) {
@@ -48,8 +48,14 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(email: string, updateUserDto: UpdateUserDto) {
+    return this.db.user.update({
+      where: {email: updateUserDto.email},
+      data: {
+        username: updateUserDto.name,
+        email: updateUserDto.email,
+      }
+    })
   }
 
   remove(id: number) {
