@@ -7,6 +7,17 @@ import { FileInterceptor } from '@nestjs/platform-express/multer';
 import * as path from 'path';
 import { diskStorage } from 'multer';
 
+const multer = require('multer');
+
+
+const storage = multer.diskStorage({
+  destination: './public/images',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
 
 @Controller('images')
 export class ImagesController {
@@ -26,14 +37,13 @@ export class ImagesController {
     storage: diskStorage({
       destination: './public/images',
       filename: (req, file, cb) => {
-        const fileName: string = path.parse(file.originalname).name.replace(/\s/g, '') + Date.now();
-        const extension: string = path.parse(file.originalname).ext;
-
-        cb(null, `${fileName}${extension}`)
+        const ext = path.extname(file.originalname);
+        const name = path.basename(file.originalname, ext);
+        cb(null, `${name}${ext}`);
       }
-    }),
-    limits: { fileSize: 100 * 1024 * 1024 }, // limit to 100MB
+    })
   }))
+  
   async uploadFile(@UploadedFile() file) {
     console.log(file);
     return {

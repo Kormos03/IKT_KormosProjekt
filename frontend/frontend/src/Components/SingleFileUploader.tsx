@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "./useAuth";
 
 const SingleFileUploader = () => {
     const { token, user,error, setToken, setUser, setError } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [imageNames, setImageNames] = useState<string[]>([]);
+    let thecorrectname = 0;
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  };
-
-  const handleUpload = async () => {
+            //This a function to get the correct name for the image, because the image name is a number and we need to increment it by one
+  function getCorrectName() {
+   async function getImages() {
     const response = await fetch("http://localhost:3000/images", {
         method: "GET",
         headers: {
@@ -23,17 +20,29 @@ const SingleFileUploader = () => {
         });
         const data = await response.json();
         setImageNames(data);
-
-
-        //This a function to get the correct name for the image, because the image name is a number and we need to increment it by one
-        let thecorrectname = 0;
-       imageNames.forEach(async (imageName: string) => {
+        console.log("data",data);
+        await data.forEach(async (imageName: any) => {
             thecorrectname = parseInt(imageName.name);
-            thecorrectname++;
-          return thecorrectname;
+            return thecorrectname;
         });
 
-        console.log(thecorrectname);
+        thecorrectname = thecorrectname + 1;
+        console.log('The correct name for the file:', thecorrectname);
+    }
+    getImages();
+  }
+ 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('The correct name:',thecorrectname)
+    if (e.target.files) {
+        const newFileName = thecorrectname.toString() + ".jpeg";
+        const fileWithNewName = new File([e.target.files[0]], newFileName, { type: e.target.files[0].type });
+        setFile(fileWithNewName);
+    }
+};
+
+  const handleUpload = async () => {
+        getCorrectName();
         //This is the post request to upload the image into the database to the images table
         const responseforPost = await fetch("http://localhost:3000/images", {
             method: "POST",
@@ -43,8 +52,8 @@ const SingleFileUploader = () => {
               'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-              filename: thecorrectname,
-              url: "http://localhost:3000/images/" + thecorrectname + ".jpeg",
+              filename: file?.name + ".jpeg",
+              url: "http://localhost:3000/images/" + file?.name + ".jpeg",
             }),
             });
             const dataforPost = await responseforPost.json();
@@ -59,9 +68,10 @@ const SingleFileUploader = () => {
                 console.log("Uploading file...");
             
                 const formData = new FormData();
-                formData.append("file", file);
-            
-                try {
+                formData.append(thecorrectname.toString() + '.jpeg', file);
+
+                console.log("formData:", formData.get(file?.name));
+                try {0
                   const result = await fetch("http://localhost:3000/images/fileupload", {
                     method: "POST",
                     headers: {
