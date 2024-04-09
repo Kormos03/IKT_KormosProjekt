@@ -42,4 +42,8 @@ export class ImagesService {
       where: {id}
     });
   }
+
+ 
 }
+
+//This function is helping the createImage function to get the highest name from the database

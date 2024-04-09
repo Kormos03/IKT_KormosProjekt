@@ -33,6 +33,7 @@ export class ImagesController {
   //This endpoint is for the frontend to upload an image to the server, admin only
   @Post('fileupload')
   @UseGuards(AuthGuard('bearer'))
+ 
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './public/images',
@@ -42,7 +43,10 @@ export class ImagesController {
         cb(null, `${name}${ext}`);
       }
     })
-  }))
+    
+  }
+))
+
   
   async uploadFile(@UploadedFile() file) {
     console.log(file);

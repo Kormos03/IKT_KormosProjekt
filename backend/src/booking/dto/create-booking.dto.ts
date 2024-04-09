@@ -8,7 +8,6 @@ export class CreateBookingDto {
     })
     admin: boolean;
 
-    @IsNumber()
     @ApiProperty({
         description: 'A foglalás azonosítója',
         example: '140'
