@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GalleryImg } from "../GalleryImg";
 import { CardComponent } from "../Components/CardComponent";
 import { NavigationBar } from "../Components/NavigationBar";
+import useAuth from "../Components/useAuth";
 
 
 export function GalleryPage() {

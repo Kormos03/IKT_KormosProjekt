@@ -41,7 +41,7 @@ export function AdminNavigationBar() {
                                             Profil
                                         </a>
                                         <ul className="dropdown-menu">
-                                            <li><NavLink className="dropdown-item" to="/secret/adminlogin/AdminProfileManage">Profil módosítás</NavLink></li>
+                                            <li><NavLink className="dropdown-item" to="/Profile">Profil módosítás</NavLink></li>
                                             <li><button onClick={logout}>Kijelentkezés</button></li>
                                         </ul>
                                     </li>
