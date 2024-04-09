@@ -8,6 +8,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { diskStorage } from 'multer';
 import { EventEmitter } from 'events';
+import { writeFileSync } from 'fs';
+import { join } from 'path';
 
 class FileUploadEmitter extends EventEmitter {}
 
@@ -42,13 +44,17 @@ export class ImagesController {
   @Post('fileupload')
   @UseGuards(AuthGuard('bearer'))
   @UseInterceptors(FileInterceptor('file')) // 'file' should match the name you used in formData.append() in your client-side code
-  uploadFile(@UploadedFile() file) {
+  async uploadFile(@UploadedFile() file) {
     console.log(file);
-    const filename = this.imagesService.createImageName(file.name);
-    async function logthename() {
-      console.log('filename:', await filename);
-    }
-    logthename();
+    const filename  = this.imagesService.createImageName(file.originalname);
+
+      const fileforsave = file
+      fileforsave.originalname = await filename
+      console.log('file after name change:', await fileforsave);
+      const savePath = path.join(__dirname, '..','..', 'public', 'images', fileforsave.originalname);
+      writeFileSync(savePath, file.buffer);
+
+      console.log(`File saved at ${savePath}`);
   
   }
   

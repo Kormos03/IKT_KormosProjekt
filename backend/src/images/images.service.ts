@@ -46,7 +46,8 @@ export class ImagesService {
  async createImageName(createImageDto: CreateImageDto) {
 
     const lastImage = await this.getTheHighestName();
-    return await lastImage;
+    const thecorrectname = lastImage + ".jpeg";
+    return await thecorrectname.toString();
 
   }
  //This function is helping the createImage function to get the highest name from the database and return the correct name
