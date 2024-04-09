@@ -55,7 +55,8 @@ export class ImagesController {
       writeFileSync(savePath, file.buffer);
 
       console.log(`File saved at ${savePath}`);
-  
+      
+      return this.imagesService.create(fileforsave);
   }
   
 

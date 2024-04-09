@@ -7,15 +7,18 @@ import { PrismaService } from 'src/prisma.service';
 export class ImagesService {
  constructor( private readonly db : PrismaService) {}
  
-  create(createImageDto: CreateImageDto) {
+  create(createImageDto: any) {
+    //If the url is not provided, then the url will be the localhost url
     if (!createImageDto.url) {
-      createImageDto.url = "http://localhost:3000/images/" + createImageDto.name;
+      createImageDto.url = "http://localhost:3000/images/" + createImageDto.originalname;
     }
-    const convertedName = createImageDto.name.toString();
+    //The name of the image is provided with the .jpeg extension, so we need to remove it to save it to the database
+    const correctname = createImageDto.originalname.split(".")[0];
+    //The image is saved to the database
     return this.db.images.create({
       data: {
         url: createImageDto.url,
-        name: convertedName
+        name: correctname
       }
     });
   }
