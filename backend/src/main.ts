@@ -15,8 +15,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(helmet.frameguard({ action: 'deny' }));   //a module to prevent clickjacking
   //I had to increase the limit of the body parser to 100mb because the images were too big
-  app.use(bodyParser.json({limit: '100mb'}));
-  app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+  //app.use(bodyParser.json({limit: '100mb'}));
+  //pp.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',

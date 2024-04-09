@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UploadedFile, UseInterceptors, Req } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
@@ -28,9 +28,7 @@ const upload = multer({ storage: storage });
 
 @Controller('images')
 export class ImagesController {
-  constructor(private imagesService: ImagesService) {
-    fileUploadEmitter.on('fileUploaded', this.renameFile.bind(this));
-  }
+  constructor(private imagesService: ImagesService) {}
 
   //This endpoint is for the frontend to create an image, admin only
   @Post()
@@ -40,27 +38,15 @@ export class ImagesController {
   }
 
 
-  //This endpoint is for the frontend to upload an image to the server, admin only
+  //This endpoint is for the frontend to upload an image to the server, and the database admin only
   @Post('fileupload')
   @UseGuards(AuthGuard('bearer'))
-  @UseInterceptors(FileInterceptor('file', {
-    storage: diskStorage({
-      destination: './public/images',
-      filename: (req, file, cb) => {
-        cb(null, file.originalname);
-      }
-    })
-  }))
-  async createImageName(@UploadedFile() file) {
-    fileUploadEmitter.emit('fileUploaded', file);
-  }
- 
-  async uploadFile(@UploadedFile() file) {
+  @UseInterceptors(FileInterceptor('file')) // 'file' should match the name you used in formData.append() in your client-side code
+  uploadFile(@UploadedFile() file) {
     console.log(file);
-    return {
-      url: `http://localhost:3000/images/${file.filename}`
-    };
+    
   }
+  
 
   //This endpoint is for the frontend to get all images
   @Get()
@@ -91,7 +77,7 @@ export class ImagesController {
     return this.imagesService.remove(parsedId);
   }
 
-  async renameFile(file) {
+ /* async renameFile(file) {
     const correctName = await this.imagesService.createImage(file);
     const ext = path.extname(file.originalname);
     const oldPath = path.join('./public/images', file.originalname);
@@ -99,7 +85,7 @@ export class ImagesController {
     fs.rename(oldPath, newPath, err => {
       if (err) throw err;
     });
-  }
+  }*/
 }
 
 
