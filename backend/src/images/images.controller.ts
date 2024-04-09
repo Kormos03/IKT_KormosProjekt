@@ -44,7 +44,12 @@ export class ImagesController {
   @UseInterceptors(FileInterceptor('file')) // 'file' should match the name you used in formData.append() in your client-side code
   uploadFile(@UploadedFile() file) {
     console.log(file);
-    
+    const filename = this.imagesService.createImageName(file.name);
+    async function logthename() {
+      console.log('filename:', await filename);
+    }
+    logthename();
+  
   }
   
 

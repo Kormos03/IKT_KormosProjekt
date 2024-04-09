@@ -43,8 +43,8 @@ export class ImagesService {
     });
   }
 
- async createImage(createImageDto: CreateImageDto) {
- 
+ async createImageName(createImageDto: CreateImageDto) {
+
     const lastImage = await this.getTheHighestName();
     return await lastImage;
 
