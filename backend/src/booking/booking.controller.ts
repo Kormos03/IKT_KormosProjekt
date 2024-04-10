@@ -4,6 +4,7 @@ import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
+import { error } from 'console';
   //I don't use admin for authentication, I use the bearer token only
 @Controller('booking')
 export class BookingController {
@@ -49,9 +50,12 @@ export class BookingController {
   //This endpoint is for the frontend to create a booking in the not_reserved table
   @Post()
   @UseGuards(AuthGuard('bearer'))
-  create(@Body() createBookingDto: CreateBookingDto) {
+ async create(@Body() createBookingDto: CreateBookingDto) {
     if(createBookingDto.admin == true){
-    return this.bookingService.create(createBookingDto);
+    const result = this.bookingService.create(createBookingDto);
+    if(await result == "Booking already exists"){
+      return "Booking already exists"
+    }
   }
   else{
     return "You are not authorized to create a booking"

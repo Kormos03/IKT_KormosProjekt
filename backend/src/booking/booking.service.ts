@@ -43,7 +43,7 @@ export class BookingService {
           },
         });
       }));
-    } catch (e) { throw new Error(e) }
+    } catch (e) { return "Booking already exists" }
   }
 
   /**
@@ -70,6 +70,7 @@ export class BookingService {
       if (createBookingDto.dateStart > createBookingDto.dateEnd || createBookingDto.dateStart == null || createBookingDto.dateEnd == null) {
         throw new Error("Date is null, or the start date is later than the end date!");
       }
+
       //I have to make the alone slot problem in the reservation table
       const not_reservedSlotsLowerThanDto = await this.prisma.not_Reserved.findMany({
         where: {
@@ -88,6 +89,7 @@ export class BookingService {
         }
 
       //This one is creating the reservation
+      
       const reserved = this.prisma.reserved.create({ data: createBookingDto });
       const createSlotsToNotReserve = this.prisma.reserved.create({
         data: {
@@ -112,10 +114,10 @@ export class BookingService {
     const notReserved = await this.prisma.not_Reserved.findMany();
     const exactDay = new Date();
     exactDay.setHours(exactDay.getHours() +2);
-    console.log('exactDay:', exactDay);
     notReserved.map((slot) => {
       if(slot.dateStart < exactDay){
         this.remove(slot.id, false);
+        console.log('Slot deleted because, it was in a past: ', slot.id);
       }
     })
     return this.prisma.not_Reserved.findMany();

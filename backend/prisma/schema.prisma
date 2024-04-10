@@ -17,6 +17,7 @@ model Not_Reserved {
   dateEnd   DateTime
   type      String
   extra     Boolean  @default(false)
+    @@unique([dateStart, dateEnd])
 }
 
 model Reserved {
@@ -26,6 +27,7 @@ model Reserved {
   dateEnd   DateTime
   type      String
   extra     Boolean  @default(false)
+    @@unique([dateStart, dateEnd])
 }
 
 model User {
