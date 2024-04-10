@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { User } from '../User';
 import { useNavigate } from 'react-router-dom';
 
-function useAuth() {
+function useAuthAdmin() {
   const [token, setToken] = useState(localStorage.getItem('token') || ''); // token is stored in local storage
   const [user, setUser] = useState(null as User|null);
   const [ error, setError ] = useState('');
-  const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/meAdmin');
+  const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/adminMe');
  const navigate = useNavigate(); 
 
   useEffect(() => {
@@ -20,38 +20,31 @@ function useAuth() {
         const response = await fetch(backendRoute, {
           method: 'GET',
           headers: {
-            'Accept': 'application/json',
+            'Accept': '*/*',
             'Authorization': `Bearer ${storedToken}`,
           }
         })
-        /*if (response.status === 401) {
-            setError('Please login again');
+
+        if(response.ok) {
+          const userData = await response.json();
+          await console.log('userdata',userData);
+          setUser(userData);
+        }
+        if(response.status === 401) {
+          setError('Please login again');
+          //setToken('');
+          //localStorage.removeItem('token');
+          //  navigate('/secret/adminlogin');
           return;
         }
-        if (!response.ok) {
-          setError('An error occured, try again later');
-          return;
-        }*/
-        if(response.status === 200) {
-          console.log('Response: ', response);
-        }
-        const userData = await response.json() as User;
-        console.log('userdata',userData);
-        setUser(userData);
-        if(await userData.admin == false) {
-            setError('You are not an admin');
-            setUser(null);
-            setToken('');
-            localStorage.removeItem('token');
-            console.log('You are not an admin');
-            //navigate('/secret/adminlogin');
+        if(response.status === 500) {
+          setError('Nincs jogosultságod az oldal megtekintéséhez');
+          setToken('');
+          localStorage.removeItem('token');
+          navigate('/secret/adminlogin');
           return;
         }
-        if (userData) {
-          console.log(user);
-        } else {
-          console.log('User is not loaded yet');
-        }
+       
         
         localStorage.setItem('userLoggedIn', '1');
   
@@ -66,10 +59,16 @@ function useAuth() {
         navigate('/secret/adminlogin');
         return;
       }
-      
   }, [token]);
+  useEffect(() => {
+    if (user) {
+      console.log('user',user);
+    } else {
+      console.log('User is not loaded yet');
+    }
+  }, [user])
 //  console.log('User: ', user);
   return { token, user, error, setToken, setUser, setError };
 }
 
-export default useAuth;
+export default useAuthAdmin;

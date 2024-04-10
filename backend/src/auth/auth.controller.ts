@@ -44,7 +44,7 @@ export class AuthController {
     if(await !user.admin){
       throw new UnauthorizedException('Nincs jogosultságod ehhez a művelethez!');
     }
-    const adminToken = await this.authService.generateTokenForAdmin(user);
+    const adminToken = await this.authService.generateTokenFor(user);
   
     return {
       token: await adminToken

@@ -33,7 +33,6 @@ export function AdminLoginPage() {
     setUser(user);
     localStorage.setItem('token', token);
     console.log('Token:'+ localStorage.getItem('token'));
-    localStorage.setItem('user', JSON.stringify(user?.admin));
     navigate('adminPage');
   }
 
@@ -51,7 +50,7 @@ export function AdminLoginPage() {
 
     <Outlet/>
     {
-      isLoggedIn == '1' ? null : <LoginFormAdmin onSuccessfulLogin={login}/> 
+      token ? null : <LoginFormAdmin onSuccessfulLogin={login}/> 
     }        
     {
       error ? <>{console.log("Error: "+error)}</> : null

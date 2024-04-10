@@ -9,8 +9,6 @@ import useAuthAdmin from "../Components/useAuthAdmin";
 export function AdminPage(){
   //It calls the useAuth function from useAuth.tsx that authenticates the user
   const { token, user,error, setToken, setUser, setError } = useAuthAdmin();
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
-    const [backendRoute, setBackendRoute] = useState("http://localhost:3000/users/me");
     const navigate = useNavigate();
   
   

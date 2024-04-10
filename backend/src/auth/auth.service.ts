@@ -22,22 +22,7 @@ export class AuthService {
     return randomString;
   }
 
-  async generateTokenForAdmin(user: User) {
-    if(!user.admin){
-      throw new Error('Nincs jogosultságod ehhez a művelethez!');
-    }
-    const randomBuffer = randomBytes(32);
-    const randomString = randomBuffer.toString('hex');
-
-    await this.db.adminToken.create({
-      data: {
-        token: randomString,
-        userId: user.id,
-      }
-    })
-
-    return randomString;
-  }
+  
 
   async findUserByToken(token: string) {
     const tokenObj = await this.db.token.findUnique({
