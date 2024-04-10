@@ -55,10 +55,6 @@ export class BookingService {
   //This function is for the frontend that the user can create a reservation
   async createReserved(createBookingDto: CreateBookingDto) {
     try {
-      //Delete the not reserved slots that are in the same time interval
-      //First I need to find the slots that are in the same time interval
-      //Then I have to itaretate through the array and delete the slots
-      //With the remove function
 
       const slotsToDelete = await this.prisma.not_Reserved.findMany({
         where: {
@@ -74,8 +70,24 @@ export class BookingService {
       if (createBookingDto.dateStart > createBookingDto.dateEnd || createBookingDto.dateStart == null || createBookingDto.dateEnd == null) {
         throw new Error("Date is null, or the start date is later than the end date!");
       }
+      //I have to make the alone slot problem in the reservation table
+      const not_reservedSlotsLowerThanDto = await this.prisma.not_Reserved.findMany({
+        where: {
+          AND: [
+            { dateStart: { lte: new Date(createBookingDto.dateStart) } },
+          ],
+        },
+      });
+      if(await not_reservedSlotsLowerThanDto.length < 4)
+        {
 
-      //Létrehozom a reserved táblában az időintervallumokat
+          not_reservedSlotsLowerThanDto.map(async (slot) => {
+            this.remove(slot.id, false);
+          });
+          //this.remove(reservedSlotsLowerThanDto[0].id, false);
+        }
+
+      //This one is creating the reservation
       const reserved = this.prisma.reserved.create({ data: createBookingDto });
       const createSlotsToNotReserve = this.prisma.reserved.create({
         data: {
@@ -122,6 +134,7 @@ export class BookingService {
 
   //This function is for the frontend to get the available times for a given date
   findAllByDateNotReserved(date: string) {
+    console.log('date',date)
     if(date==null){throw new Error("Date is null")};
     if(date.length != 10){throw new Error("Date is not in the right format")}
     const targetDate = new Date(date);

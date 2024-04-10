@@ -6,7 +6,7 @@ import { TimeModel } from "../TimeModel";
 import { DayModifiers, DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
 //This part of the project was difficulty, because of the converts and requests and new components, I have to make a custom modifier for the react-dday-picker component
-export function BookingForm(){
+export function     BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
     const [availableTimes, setAvailableTimes] = useState([]);
