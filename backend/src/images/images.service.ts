@@ -50,7 +50,13 @@ export class ImagesService {
  async createImageName(createImageDto: CreateImageDto) {
 
     const lastImage = await this.getTheHighestName();
-    const thecorrectname = lastImage + ".jpeg";
+    let thecorrectname = '';
+   if(await isNaN(lastImage)){
+    thecorrectname = "0.jpeg";
+   } 
+   else{
+    thecorrectname = await lastImage + ".jpeg";
+   }
     return await thecorrectname.toString();
 
   }

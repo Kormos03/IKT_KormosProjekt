@@ -44,7 +44,7 @@ const SingleFileUploader = () => {
                     if (result.ok) {
                         console.log("Upload successful");
                         navigate(0);
-                        //setFile(null);
+                        setFile(null);
                     } else {
                         console.error("Upload failed");
                     }
