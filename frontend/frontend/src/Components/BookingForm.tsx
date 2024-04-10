@@ -219,7 +219,7 @@ const highlights = getBooking.map((bookingDate) => {
         }
 
         <label htmlFor="time">Időpont</label><br />
-        <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}>
+        <select id="time" name="time" onChange={ e => setTime(e.currentTarget.value)}  className="custom-select">
     {availableTimes.length == 0 ? <option>Nincs szabad időpont ezen a napon</option> :
     availableTimes.sort().map((time, index) => (
         <option key={index} value={time}>{timesToReadableFormat(time)}</option>
