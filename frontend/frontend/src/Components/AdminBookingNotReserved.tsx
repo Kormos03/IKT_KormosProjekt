@@ -46,7 +46,7 @@ const handleCheckboxChange = (bookingId, e) => {
          }
 
         getAllNotReserved();
-    }, [bookingData] || [user] || [token] || []);
+    },  []);
 
     //delete booking
    async function deleteCheckedBookings(bookingIDOfButton: BookingModel) {

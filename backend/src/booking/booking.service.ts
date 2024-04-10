@@ -108,7 +108,16 @@ export class BookingService {
 
 
 
-  findAllNotReserved() {
+  async findAllNotReserved() {
+    const notReserved = await this.prisma.not_Reserved.findMany();
+    const exactDay = new Date();
+    exactDay.setHours(exactDay.getHours() +2);
+    console.log('exactDay:', exactDay);
+    notReserved.map((slot) => {
+      if(slot.dateStart < exactDay){
+        this.remove(slot.id, false);
+      }
+    })
     return this.prisma.not_Reserved.findMany();
   }
   

@@ -45,7 +45,7 @@ export function AdminBookingReserved() {
          }
 
         getAllReserved();
-    }, [bookingData] || [user] || [token] || []);
+    }, []);
 
    //delete booking
    async function deleteCheckedBookings(bookingIDOfButton: BookingModel) {
