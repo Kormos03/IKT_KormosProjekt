@@ -17,7 +17,7 @@ function useAuth() {
         setError('Please login again');
         setToken('');
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
         return;
       }
         try{

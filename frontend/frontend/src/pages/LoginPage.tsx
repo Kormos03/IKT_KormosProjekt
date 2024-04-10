@@ -7,10 +7,10 @@ import { NavigationBar } from "../Components/NavigationBar";
 import useAuth from "../Components/useAuth";
 
 export function LoginPage() {
-  const { token, user,error, setToken, setUser, setError } = useAuth();
+ //const { token, user,error, setToken, setUser, setError } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
+ /* useEffect(() => {
     if(user?.admin || localStorage.getItem('user') == 'true'){
       setToken('');
       localStorage.removeItem('token');
@@ -26,24 +26,19 @@ export function LoginPage() {
     if (storedToken) {
       setToken(storedToken);
     }
-  }, []);
+  }, []);*/
 
   
 
   
   function login(token: string) {
-    setToken(token);
+   // setToken(token);
     localStorage.setItem('token', token);
     localStorage.setItem('userLoggedIn', '1');
     navigate('/');
   }
 
-  function logout() {
-    setToken('');
-    localStorage.removeItem('token');
-    setUser(null);
-    localStorage.removeItem('userLoggedIn');
-  }
+
 
     return <>
      
@@ -51,12 +46,7 @@ export function LoginPage() {
     
     <div className="container login">
         <h3>Bejelentkezés</h3>
-        {
-      token ?
-        <p>You are logged in. <button onClick={logout}>Log out</button></p>
-      : <LoginForm onSuccessfulLogin={login} />
-    }
-
+      <LoginForm onSuccessfulLogin={login} />
     </div >
     </>
 }
