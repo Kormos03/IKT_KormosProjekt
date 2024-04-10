@@ -7,10 +7,6 @@ import { NavigationBar } from './Components/NavigationBar'
 import { UserContext } from './pages/AdminLoginPage'
 import { AdminNavigationBar } from './Components/AdminNavigationBar'
 
-function getLogoFromBackend(){
-  //
-}
-
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
