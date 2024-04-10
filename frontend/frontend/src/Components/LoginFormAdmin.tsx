@@ -51,8 +51,8 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
 
     return <form onSubmit={login} className="login">
         Email: <input type='email' onChange={e => setEmail(e.currentTarget.value)} />
-        Password: <input type='password' onChange={e => setPass(e.currentTarget.value)} />
-        <input type='submit' value='Login' />
+        Password: <input type='password' onChange={e => setPass(e.currentTarget.value)} /> <br />
+        <input className="btn btn-primary btn-md" type='submit' value='Login' />
         <p>{loginError}</p>
     </form>
 }

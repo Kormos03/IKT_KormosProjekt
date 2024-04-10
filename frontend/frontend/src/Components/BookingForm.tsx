@@ -195,14 +195,17 @@ const highlights = getBooking.map((bookingDate) => {
      <option value="egyeb">Egyéb</option>
      </select><br />
 
-        <label htmlFor="extra">Extra</label>
-        <input type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/><br />
-
+        <div className="form-check form-switch">
+        
+        <input className="form-check-input" type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/>
+        <label htmlFor="extra">Kérsz hozzá extrát? (például: kövek)</label> 
+        </div>
         {
             //This is a react component that shows the dates and can disable the dates that are not available
         }
+        <br />
         <label htmlFor="date">Dátum</label>
-    <DayPicker selected={new Date(date)} onDayClick={onDayClick}/><br />
+        <DayPicker selected={new Date(date)} onDayClick={onDayClick}/><br />
     {
         getBooking.length == 0 ? <p>Nincs elérhető dátum</p> : <h2>Elérhető napok</h2>
     }
@@ -224,7 +227,7 @@ const highlights = getBooking.map((bookingDate) => {
         </select><br />
 
         <p>{error}</p>
-        <button type="submit">Foglalás</button><br />
+        <button className="btn btn-primary btn-lg" type="submit">Foglalás</button><br />
 
     </form>
     </>

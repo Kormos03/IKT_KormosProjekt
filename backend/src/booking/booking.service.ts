@@ -123,7 +123,16 @@ export class BookingService {
     return this.prisma.not_Reserved.findMany();
   }
   
-  findAllReserved() {
+ async findAllReserved() {
+    const reserved = await this.prisma.reserved.findMany();
+    const exactDay = new Date();
+    exactDay.setHours(exactDay.getHours() +2);
+    reserved.map((slot) => {
+      if(slot.dateStart < exactDay){
+        this.remove(slot.id, true);
+        console.log('Slot deleted because, it was in a past: ', slot.id);
+      }
+    })
       return this.prisma.reserved.findMany();
   }
 

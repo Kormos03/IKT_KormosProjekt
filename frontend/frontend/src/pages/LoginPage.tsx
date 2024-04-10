@@ -56,15 +56,7 @@ export function LoginPage() {
         <p>You are logged in. <button onClick={logout}>Log out</button></p>
       : <LoginForm onSuccessfulLogin={login} />
     }
-    {
-      error ? <p>{error}</p> : null
-    }
-    {
-      user ? <UserProfile user={user} /> : null
-    }
-    {
-      user?.admin? <p>Userek listája</p> : null
-    }
+
     </div >
     </>
 }
