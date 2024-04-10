@@ -5,9 +5,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { NavigationBar } from "../Components/NavigationBar";
 import useAuth from "../Components/useAuth";
 import { AdminNavigationBar } from "../Components/AdminNavigationBar";
+import useAuthAdmin from "../Components/useAuthAdmin";
 
 export function AdminProfilePage(){
-  const { token, user,error, setToken, setUser, setError } = useAuth();
+  const { token, user,error, setToken, setUser, setError } = useAuthAdmin();
 
     const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/me');
     const navigate = useNavigate();
@@ -18,10 +19,6 @@ export function AdminProfilePage(){
           setToken(storedToken);
         }
       }, []);
-
- 
-     
-
     return (
         <>
         <AdminNavigationBar />

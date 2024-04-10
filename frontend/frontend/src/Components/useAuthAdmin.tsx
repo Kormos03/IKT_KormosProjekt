@@ -6,22 +6,17 @@ function useAuth() {
   const [token, setToken] = useState(localStorage.getItem('token') || ''); // token is stored in local storage
   const [user, setUser] = useState(null as User|null);
   const [ error, setError ] = useState('');
-  const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/me');
-  const navigate = useNavigate();
-
+  const [backendRoute, setBackendRoute] = useState('http://localhost:3000/users/meAdmin');
+ const navigate = useNavigate(); 
 
   useEffect(() => {
     async function loadUserData() {
       const storedToken = localStorage.getItem('token');
-      if (!storedToken) {
-        setError('Please login again');
-        setToken('');
-        localStorage.removeItem('token');
-        navigate('/login');
-        return;
+      if (storedToken) {
+        setToken(storedToken);
       }
+
         try{
-          console.log('Token: ', storedToken);
         const response = await fetch(backendRoute, {
           method: 'GET',
           headers: {
@@ -29,22 +24,31 @@ function useAuth() {
             'Authorization': `Bearer ${storedToken}`,
           }
         })
-        if (response.status === 401) {
+        /*if (response.status === 401) {
             setError('Please login again');
-         setToken('');
-          localStorage.removeItem('token');
-          setError('Please login again');
           return;
         }
         if (!response.ok) {
           setError('An error occured, try again later');
           return;
+        }*/
+        if(response.status === 200) {
+          console.log('Response: ', response);
         }
-        
         const userData = await response.json() as User;
+        console.log('userdata',userData);
         setUser(userData);
+        if(await userData.admin == false) {
+            setError('You are not an admin');
+            setUser(null);
+            setToken('');
+            localStorage.removeItem('token');
+            console.log('You are not an admin');
+            //navigate('/secret/adminlogin');
+          return;
+        }
         if (userData) {
-          //onsole.log(user);
+          console.log(user);
         } else {
           console.log('User is not loaded yet');
         }
@@ -53,15 +57,16 @@ function useAuth() {
   
      
   } catch (err) {
-    setError('An error occured, try again later');
-    console.error(err);
+    setError(err.message);
+    console.error('Error',err);
   }}
       loadUserData();
-      if(!token){
-        localStorage.removeItem('token');
-        localStorage.removeItem('userLoggedIn');
-        localStorage.removeItem('user');
+      if (!token) {
+        setError('Please login again');
+        navigate('/secret/adminlogin');
+        return;
       }
+      
   }, [token]);
 //  console.log('User: ', user);
   return { token, user, error, setToken, setUser, setError };

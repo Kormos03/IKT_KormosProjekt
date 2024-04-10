@@ -5,9 +5,10 @@ import useAuth from "../Components/useAuth";
 import { AdminBookingInsert } from "../Components/AdminBookingInsert";
 import { AdminBookingNotReserved } from "../Components/AdminBookingNotReserved";
 import { AdminBookingReserved } from "../Components/AdminBookingReserved";
+import useAuthAdmin from "../Components/useAuthAdmin";
 
 export function AdminBookingPage() {
-    const { token, user,error, setToken, setUser, setError } = useAuth();
+    const { token, user,error, setToken, setUser, setError } = useAuthAdmin();
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [backendRoute, setBackendRoute] = useState("http://localhost:3000/booking");
@@ -16,10 +17,7 @@ export function AdminBookingPage() {
         if (storedToken) {
             setToken(storedToken);
         }
-        else{
-            navigate('/secret/adminlogin');
-        }
-    }, [] || token);
+    }, []);
     return (<>
         <AdminNavigationBar />
         <div className="container">

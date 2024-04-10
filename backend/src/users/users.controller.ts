@@ -24,8 +24,9 @@ export class UsersController {
   @UseGuards(AuthGuard('bearer'))
   adminMe(@Request() req) {
     const user: User = req.user;
+    
     if (!user.admin) {
-      throw new ForbiddenException();
+      throw new Error('Nincs jogosultságod ehhez a művelethez!');
     }
     return {
       email: user.email,

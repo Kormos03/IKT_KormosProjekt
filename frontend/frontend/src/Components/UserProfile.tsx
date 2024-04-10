@@ -38,11 +38,11 @@ export function UserProfile() {
         }
     }
 
-
+    
     useEffect(() => {
         setUser(userFromAuth); // Update the local user state when the user from the auth context changes
     }, [userFromAuth]);
-
+    //We need to add 3 input field for password change(Old password, new password, new password again)
     return <>
     <strong>Teljes név</strong>
     { 
@@ -50,12 +50,8 @@ export function UserProfile() {
             <input type="text" value={user?.name} onChange={(e) => setUser(user? {...user, name: e.currentTarget.value}: user)} /> 
             : <p>{ user?.name }</p> 
     }
-    <strong>Felhasználónév</strong>
-    { 
-        modify ? 
-            <input type="text" value={user?.username} onChange={(e) => setUser(user? {...user, username: e.currentTarget.value}: user)} /> 
-            : <p>{ user?.username }</p> 
-    }
+    
+   
     <strong>Email cím</strong>
     
         <p>{ user?.email }</p>
