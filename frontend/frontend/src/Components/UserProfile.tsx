@@ -7,19 +7,20 @@ export function UserProfile() {
     const { token, user: userFromAuth, setError } = useAuth();
     const [user, setUser] = useState(userFromAuth); // Create a local state for the user
     const [modify, setModify] = useState(false);
+    const [isNameChanged, setIsNameChanged] = useState(false);
 
    async function changeProfile() {
     modify ? setModify(false) : setModify(true);
         console.log('modify:',modify);
  
-        if(modify){
+        if(modify && isNameChanged){
             const modifyauthorization = window.confirm('Biztosan módosítja a profilját?');
-            if(!modifyauthorization){
+            if(!modifyauthorization || !isNameChanged){
                 return;
             }
         }
         if(modify && user && user.name && user.email){
-          
+            
             console.log('user:', user);
             //send the new data to the backend
             const response = await fetch('http://localhost:3000/users/' + user.email, {
@@ -31,6 +32,7 @@ export function UserProfile() {
                 },
                 body: JSON.stringify(user),
             });
+            setIsNameChanged(false);
             if(!response.ok){
                 setError('Nem sikerült a profil frissítése');
             }
@@ -47,7 +49,12 @@ export function UserProfile() {
     <strong>Teljes név</strong>
     { 
         modify ? 
-            <input type="text" value={user?.name} onChange={(e) => setUser(user? {...user, name: e.currentTarget.value}: user)} /> 
+            <input type="text" value={user?.name} onChange={(e) => 
+                {
+                setUser(user? {...user, name: e.currentTarget.value}: user);
+                 setIsNameChanged(true)
+                }}
+                  /> 
             : <p>{ user?.name }</p> 
     }
     
