@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { StyledInput } from "./StyledInput";
 
 export function RegistComponent(){
     const [email, setEmail] = useState('');
@@ -81,20 +82,23 @@ export function RegistComponent(){
         
     }
 
+
+
     return <div>
     <div className="container login">
         <h3>Regisztráció</h3>
         <form>
             <label htmlFor="email">Email cím</label><br />
-            <input type="email" id="email" name="email"  onChange={e => setEmail(e.currentTarget.value)}/><br />
+            <StyledInput type="email" id="email" name="email"  onChange={e => setEmail(e.currentTarget.value)} placeholder="kiss.jani@gmail.com"/><br />
 
             <label htmlFor="name">Teljes név</label><br />
-            <input type="text" id="name" name="name" onChange={e => setName(e.currentTarget.value)} /><br />
+            <StyledInput type="text" id="name" name="name" onChange={e => setName(e.currentTarget.value)} placeholder="Kiss János"/><br />
+
             <label htmlFor="password">Jelszó</label><br />
-            <input type="password" id="password" name="password"  onChange={e => setPass(e.currentTarget.value)}/><br />
+            <StyledInput type="password" id="password" name="password"  onChange={e => setPass(e.currentTarget.value)} placeholder="Jelszó"/><br />
 
             <label htmlFor="password-again">Jelszó újra</label><br />
-            <input type="password" id="password-again" name="password-again"  onChange={e => setPassAgain(e.currentTarget.value)} /><br />
+            <StyledInput type="password" id="password-again" name="password-again"  onChange={e => setPassAgain(e.currentTarget.value)} placeholder="Jelszó újra"/><br />
 
             <button className="btn btn-primary btn-lg" type="submit" onClick={registration}>Regisztráció</button><br />
 

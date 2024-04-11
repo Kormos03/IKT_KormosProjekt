@@ -55,7 +55,7 @@ export function NavigationBar() {
                                         </a>
                                         <ul className="dropdown-menu">
                                             <li>{
-                                                localStorage.getItem('token')  ? <button className="btn btn-primary btn-lg" onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
+                                                localStorage.getItem('token')  ? <button className="btn btn-lg" onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
                                                 }</li>
                                             <li>{
                                                localStorage.getItem('token')  ? <NavLink className="dropdown-item" to="/Profile">Profil megtekintése</NavLink>  : <NavLink className="dropdown-item" to="/register">Regisztráció</NavLink>

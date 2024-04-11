@@ -12,6 +12,7 @@ export function AdminNavigationBar() {
         navigate('/secret/adminlogin');
         navigate(0);
     }
+
     return (<div>
         <div className="container" id="navBarContainer">
             <div className="row">
@@ -42,7 +43,7 @@ export function AdminNavigationBar() {
                                         </a>
                                         <ul className="dropdown-menu">
                                             <li><NavLink className="dropdown-item" to="/secret/adminlogin/AdminProfile">Profil módosítás</NavLink></li>
-                                            <li><button onClick={logout}>Kijelentkezés</button></li>
+                                            <li><button className="btn" onClick={logout}>Kijelentkezés</button></li>
                                         </ul>
                                     </li>
                                     

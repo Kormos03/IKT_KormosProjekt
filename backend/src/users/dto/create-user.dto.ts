@@ -1,8 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty } from "class-validator";
+import { IsEmail, IsNotEmpty } from "class-validator";
 
 export class CreateUserDto {
     @IsNotEmpty({ message: 'Az email cím megadása kötelező' })
+    @IsEmail({}, { message: 'Az email cím formátuma nem megfelelő' })
     @ApiProperty({
         description: 'Az email cím a felhasználó azonosítására szolgál',
         example: 'someone@email.com'

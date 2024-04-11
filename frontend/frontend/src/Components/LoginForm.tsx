@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { StyledInput } from "./StyledInput";
 
 interface Props {
     onSuccessfulLogin: (token: string) => void;
@@ -13,6 +14,18 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
 
     async function login(e: FormEvent) {
         e.preventDefault();
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if(!emailRegex.test(email)){
+            setLoginError('Kérjük, adjon meg egy érvényes e-mail címet!');
+            return;
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if(!passwordRegex.test(pass)){
+            setLoginError('Nem megfelelő a jelszó formátuma!');
+            //return;
+        }
+
 
         const loginData = {
             email: email,
@@ -40,10 +53,18 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
         setPass('');
     }
 
-    return <form onSubmit={login} className="login">
-        Email: <input type='email' onChange={e => setEmail(e.currentTarget.value)} />
-        Password: <input type='password' onChange={e => setPass(e.currentTarget.value)} /> <br />
+    return <div className="container login">
+    <form onSubmit={login}>
+    <h3>Bejelentkezés</h3>
+        <label htmlFor="email">Email cím</label><br />
+        <StyledInput type="email" id="email" name="email"  onChange={e => setEmail(e.currentTarget.value)} placeholder="email cím"/><br />
+
+        <label htmlFor="password">Jelszó</label><br />
+        <StyledInput type="password" id="password" name="password"  onChange={e => setPass(e.currentTarget.value)} placeholder="jelszó"/><br />
+
         <input className="btn btn-primary btn-md" type='submit' value='Login' />
+        <p>{loginError}</p>
     </form>
+    </div>
 }
 
