@@ -96,7 +96,7 @@ export function RegistComponent(){
             <label htmlFor="password-again">Jelszó újra</label><br />
             <input type="password" id="password-again" name="password-again"  onChange={e => setPassAgain(e.currentTarget.value)} /><br />
 
-            <button type="submit" onClick={registration}>Regisztráció</button><br />
+            <button className="btn btn-primary btn-lg" type="submit" onClick={registration}>Regisztráció</button><br />
 
         </form>
         <p>{registError}</p> 

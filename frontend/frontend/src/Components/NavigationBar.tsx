@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { validateAdmin } from "./validateAdmin";
+import useAuth from "./useAuth";
 
 export function NavigationBar() {
-    
-    const [userLoggedIn, setUserLoggedIn] = useState(null || localStorage.getItem('userLoggedIn'));
+    //const { token, user, error, setToken, setUser, setError } = useAuth();
     const navigate = useNavigate();
   
 
@@ -14,10 +13,10 @@ export function NavigationBar() {
     navigate('/login');
 }
 
-   const handleNavigation = () => {
-    if(typeof userLoggedIn === 'undefined' || userLoggedIn === null) {
+   const handleNavigationForReservation = () => {
+    if(localStorage.getItem('token') == null || localStorage.getItem('token')  == '' || typeof localStorage.getItem('token')  == undefined){
         navigate("/login");
-    } else if(userLoggedIn == '1') {
+    } else{
         navigate("/bookingUser");
     }
 }
@@ -43,7 +42,7 @@ export function NavigationBar() {
                                         <NavLink className="nav-link" aria-current="page" to="/pricelist">Árlista</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                    <button className="nav-link" onClick={handleNavigation}>Időpontfoglalás</button>
+                                    <button className="nav-link" onClick={handleNavigationForReservation}>Időpontfoglalás</button>
 
                                     </li>
                                     <li className="nav-item">
@@ -56,10 +55,10 @@ export function NavigationBar() {
                                         </a>
                                         <ul className="dropdown-menu">
                                             <li>{
-                                                userLoggedIn == '1' ? <button onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
+                                                localStorage.getItem('token')  ? <button className="btn btn-primary btn-lg" onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
                                                 }</li>
                                             <li>{
-                                                userLoggedIn == '1' ? <NavLink className="dropdown-item" to="/Profile">Profil megtekintése</NavLink>  : <NavLink className="dropdown-item" to="/register">Regisztráció</NavLink>
+                                               localStorage.getItem('token')  ? <NavLink className="dropdown-item" to="/Profile">Profil megtekintése</NavLink>  : <NavLink className="dropdown-item" to="/register">Regisztráció</NavLink>
                                                 }
                                                 </li>
                                             <li>{   
