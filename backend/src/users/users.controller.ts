@@ -35,7 +35,6 @@ export class UsersController {
   }
 
   @Post('/regist')
-  @UseGuards(AuthGuard('bearer'))
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.registration(createUserDto);
   }

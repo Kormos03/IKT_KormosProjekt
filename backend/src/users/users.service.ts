@@ -30,6 +30,12 @@ export class UsersService {
   }
 
   async registration(createUserDto: CreateUserDto) {
+    try {
+      const user = await this.findByEmail(createUserDto.email);
+      if (user) {
+        throw new Error('Ez az email cím már használatban van!');
+      }
+    
     const hashedPassword = await hashPassword(createUserDto.password);
     return this.db.user.create({
       data: {
@@ -38,7 +44,10 @@ export class UsersService {
         password: hashedPassword,
       }
     })
-  }
+  }catch (err) {
+    console.log(err.message)
+    return err.message;
+  }} 
 
   findAll() {
     return `This action returns all users`;
