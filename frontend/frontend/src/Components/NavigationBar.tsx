@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { validateAdmin } from "./validateAdmin";
 
 export function NavigationBar() {
+    
     const [userLoggedIn, setUserLoggedIn] = useState(null || localStorage.getItem('userLoggedIn'));
     const navigate = useNavigate();
   

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaClient } from '@prisma/client';
@@ -33,7 +33,7 @@ export class UsersService {
     try {
       const user = await this.findByEmail(createUserDto.email);
       if (user) {
-        throw new Error('Ez az email cím már használatban van!');
+        throw new HttpException('Ez az email cím már foglalt!', HttpStatus.BAD_REQUEST);
       }
     
     const hashedPassword = await hashPassword(createUserDto.password);
@@ -42,11 +42,12 @@ export class UsersService {
         email: createUserDto.email,
         username: createUserDto.name,
         password: hashedPassword,
+        admin: false,
       }
     })
   }catch (err) {
     console.log(err.message)
-    return err.message;
+    throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
   }} 
 
   findAll() {
