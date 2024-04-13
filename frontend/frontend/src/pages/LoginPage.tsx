@@ -41,6 +41,6 @@ export function LoginPage() {
     return <>
          <NavigationBar />
       <LoginForm onSuccessfulLogin={login} />
-    
+      
     </>
 }

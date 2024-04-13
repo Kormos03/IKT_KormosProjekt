@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { StyledInput } from "./StyledInput";
+import { NavLink } from "react-router-dom";
 
 interface Props {
     onSuccessfulLogin: (token: string) => void;
@@ -65,6 +66,7 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
         <input className="btn btn-primary btn-md" type='submit' value='Login' />
         <p>{loginError}</p>
     </form>
+ <NavLink className="nav-link" to="/register" >Nincs még fiókod? Regisztrálj</NavLink>
     </div>
 }
 
