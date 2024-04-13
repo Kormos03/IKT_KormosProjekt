@@ -6,7 +6,6 @@ import useAuth from "../Components/useAuth";
 
 
 export function GalleryPage() {
-    const { token, user,error, setToken, setUser, setError } = useAuth();
     const [gallery, setGallery] = useState([]);
     const [backendRoute, setBackendRoute] = useState("http://localhost:3000/images/");
     console.log("gallery:" +gallery)
@@ -17,7 +16,6 @@ export function GalleryPage() {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}`
                 }
             });
             const data = await response.json();
