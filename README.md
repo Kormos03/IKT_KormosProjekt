@@ -3,6 +3,8 @@ Majd Át kell cserálnem a PriceListComp-ba a képeket
 
 A backend API-hoz a leírás: localhost:3000/apidoc 
 
+Térkép:
+A helymeghatározáshoz a react leaflet open source apiját használtam
 
 Biztonsági funkciók:
 - Brute force elleni védelem throttler-el
