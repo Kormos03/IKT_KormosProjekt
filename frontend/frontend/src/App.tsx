@@ -20,7 +20,7 @@ function App() {
     <>
         <Helmet>
             <title>Körmös projekt</title>
-            <link rel="icon" href="katus_logo.jpeg" />
+            <link rel="icon" href="/favicon.ico" />
             <meta name="keywords" content="Körmös projekt" />
             <meta name="author" content="Kormos Áron" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
