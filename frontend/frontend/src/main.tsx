@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async';
 import { PriceListPage } from './pages/PriceListPage.tsx'
 import { GalleryPage } from './pages/GalleryPage.tsx'
 import { ContactPage } from './pages/ContactPage.tsx'
@@ -76,7 +77,9 @@ const router1 = createBrowserRouter([{
 }])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
+  <HelmetProvider>
   <React.StrictMode>
     <RouterProvider router={router1} />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </HelmetProvider>,  
 )
