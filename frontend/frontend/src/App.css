@@ -4,7 +4,14 @@ body {
   height: 100vh;
   background-repeat: no-repeat;
   background-color: lightpink;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 
+}
+
+.footer {
+  margin-top: auto;
 }
 
 .brandLogo {
@@ -102,4 +109,9 @@ body {
   font-size: 16px;
   justify-content: center;
   align-items: center;
+}
+
+body.dark-mode {
+  background-color: #333;
+  color: #fff;
 }

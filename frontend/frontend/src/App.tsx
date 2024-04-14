@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
 import { NavLink, Outlet } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
+import { Footer } from './Components/Footer'
 
 
 function App() {
@@ -33,9 +34,7 @@ function App() {
           <Outlet />
         </main>
       </div>
-      <footer>
-
-      </footer>
+      <Footer/>
 
     </>
   )
