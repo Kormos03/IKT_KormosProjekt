@@ -1,13 +1,12 @@
-body {
+body, #root {
   background-size: cover;
   width: 100vw;
   height: 100vh;
   background-repeat: no-repeat;
-  background-color: lightpink;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
+  flex-grow: 1;
 }
 
 .footer {
@@ -21,6 +20,10 @@ body {
   justify-content: left;
 }
 
+.light{
+  background-color: lightpink;
+  color: #000000;
+}
 
 .dark {
   background-color: #000000;

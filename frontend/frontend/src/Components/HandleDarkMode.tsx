@@ -5,7 +5,7 @@ export function useDarkMode() {
     const darkModeInStorage = localStorage.getItem('darkMode');
     return darkModeInStorage === 'true';
   });
-s
+
   useEffect(() => {
     const darkMode = localStorage.getItem('darkMode') == 'true';
     setIsDarkMode(darkMode);
@@ -14,10 +14,12 @@ s
 
   useEffect(() => {
     if (isDarkMode) {
+      document.body.classList.remove('light');
       document.body.classList.add('dark-mode');
       localStorage.setItem('darkMode', 'true');
     } else {
       document.body.classList.remove('dark-mode');
+      document.body.classList.add('light');
       localStorage.setItem('darkMode', 'false');
     }
   }, [isDarkMode]);
