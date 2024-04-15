@@ -25,7 +25,7 @@ export function BookingForm(){
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
     const navigate = useNavigate();
-    const reservation: IReservation | any = GetReservationForUser();
+    const {reservation} = GetReservationForUser();
 
 // Convert the availableDates array to an object where the keys are the dates in 'YYYY-MM-DD' format
 const highlights = getBooking.map((bookingDate) => {
@@ -255,8 +255,8 @@ const highlights = getBooking.map((bookingDate) => {
         <option key={index} value={time}>{timesToReadableFormat(time)}</option>
         ))}
         </select><br />
-
-        <button className="btn btn-primary btn-lg" type="submit">Foglalás</button>
+        {reservation? <p>Önnek már van lefoglalt időpontja</p> :  <button className="btn btn-primary btn-lg" type="submit">Foglalás</button>}
+       
         <p>{error}</p>
     </form>
     </>

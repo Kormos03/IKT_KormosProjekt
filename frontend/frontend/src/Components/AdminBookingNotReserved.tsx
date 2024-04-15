@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
 import { BookingModel } from "../BookingModel";
 import { useNavigate } from "react-router-dom";
+import { datesToReadableFormatFunc } from "./datesToReadableFormatFunc";
 
 export function AdminBookingNotReserved() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
@@ -91,7 +92,8 @@ const handleCheckboxChange = (bookingId, e) => {
             bookingData.sort((a, b) => new Date(a.dateStart).getTime() - new Date(b.dateStart).getTime()).map((booking: any) => {
                 return (
                     <div key={booking.id}>
-                                          <p>{booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteCheckedBookings(booking.id)} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
+
+                                          <p>{datesToReadableFormatFunc(booking)} <button onClick={() => deleteCheckedBookings(booking.id)} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
 
                     </div>
                 )
