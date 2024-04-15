@@ -82,7 +82,11 @@ body, #root {
 
 }
 
-
+.cardforgallery{
+  color: lightpink;
+  background-color: lightpink;
+  border: 0;
+}
 
 .login{
   display: flex;

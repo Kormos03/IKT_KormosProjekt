@@ -14,7 +14,7 @@ export function PriceListComp(){
         <div className="row">
             {services.map((service, index) => (
                 <div key={index} className="col-md-4 mb-4">
-                    <div className="card">
+                    <div className="card gallery_img">
                         <img src={service.img} className="card-img-top priceListImg" alt={service.name} />
                         <div className="card-body">
                             <h5 className="card-title">{service.name}</h5>

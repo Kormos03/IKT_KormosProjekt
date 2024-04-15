@@ -12,7 +12,7 @@ export function CardComponent({cards}) {
         <div className="row">
           {cards!.map((card, index) => (
             <div className="col-md-4" key={index}>
-              <div className="card">
+              <div className="card cardforgallery">
                   <img src={card.url} alt="" className="card-body gallery_img"/> <br />
 
 
