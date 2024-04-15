@@ -1,6 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function PriceListComp(){
+    const [hoveredCard, setHoveredCard] = useState(-1);
+    const navigate = useNavigate();
     const services = [
         { name: 'Manikűr', price: '3,000 Ft', img: 'https://elitenails.hu/wp-content/uploads/2020/07/japanese-manicure-elite-nails-salon-budapest-district-1-2.jpg' },
         { name: 'Gél lakk', price: '4,500 Ft', img: 'https://nailshouse.hu/wp-content/uploads/2020/12/Gellakk-Egyszinu-1170x658.jpg' },
@@ -10,16 +14,39 @@ export function PriceListComp(){
         { name: 'Extra festés vagy kövek', price: '500 Ft', img:'https://i.ytimg.com/vi/RlYAXoR83PQ/maxresdefault.jpg'},
     ];
 
+    function handleClick(){
+        const service = {name: services[hoveredCard].name, value: toLowerAlphaNumeric(services[hoveredCard].name)}
+        localStorage.setItem('service', JSON.stringify(service));
+        console.log('Foglalás gombra kattintottál', service);
+        navigate('/bookingUser');
+    }
+    
+    function removeAccents(input) {
+        const accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñŰű';
+        const accentsOut = 'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNnUu';
+        return input.split('').map((char, i) => {
+            const accentIndex = accents.indexOf(char);
+            return accentIndex !== -1 ? accentsOut[accentIndex] : char;
+        }).join('');
+    }
+    
+
+    function toLowerAlphaNumeric(input) {
+        const noAccents = removeAccents(input);
+        return noAccents.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
    return (
         <div className="row">
             {services.map((service, index) => (
                 <div key={index} className="col-md-4 mb-4">
-                    <div className="card gallery_img">
+                    <div className="card gallery_img" onMouseEnter={() => { setHoveredCard(index); }} onMouseLeave={() => {setHoveredCard(-1); }}>
                         <img src={service.img} className="card-img-top priceListImg" alt={service.name} />
                         <div className="card-body">
                             <h5 className="card-title">{service.name}</h5>
                             <p className="card-text">{service.price}</p>
-                        </div>
+                            {hoveredCard === index && <button className="btn btn-primary" style={{backgroundColor: 'blue', color: 'white'}} onClick={handleClick}>Foglalás</button>} 
+                            </div>
                     </div>
                 </div>
             ))}

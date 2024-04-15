@@ -9,6 +9,14 @@ body, #root {
   flex-grow: 1;
 }
 
+.card .pricebtn {
+  display: none;
+}
+
+.card:hover .pricebtn {
+  display: block;
+}
+
 .footer {
   margin-top: auto;
 }

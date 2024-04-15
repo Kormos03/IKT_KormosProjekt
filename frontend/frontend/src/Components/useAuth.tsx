@@ -21,7 +21,7 @@ function useAuth() {
         return;
       }
         try{
-          console.log('Token: ', storedToken);
+        //  console.log('Token: ', storedToken);
         const response = await fetch(backendRoute, {
           method: 'GET',
           headers: {

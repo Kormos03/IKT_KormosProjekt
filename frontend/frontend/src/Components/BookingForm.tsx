@@ -6,12 +6,19 @@ import { TimeModel } from "../TimeModel";
 import { DayModifiers, DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
 //This part of the project was difficulty, because of the converts and requests and new components, I have to make a custom modifier for the react-dday-picker component
-export function     BookingForm(){
+
+interface TypeFromLocal{
+    name: string;
+    value: string;
+}
+
+
+export function BookingForm(){
     const { token, user,error, setToken, setUser, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]); //
     const [availableTimes, setAvailableTimes] = useState([]);
     const allofthebookings = [];
-    const [type, setType] = useState('' || null);
+    const [type, setType] = useState('' || {} as TypeFromLocal);
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
@@ -42,11 +49,9 @@ const highlights = getBooking.map((bookingDate) => {
         if (!response.ok) {
             const errorObj = await response.json();
             setError(errorObj.message);
-            console.log('Date in function:',dateInFunction);
             return;
         }
         const bookingObj = await response.json();
-       await console.log('Chosen date:',bookingObj);
        let times = await bookingObj.map((booking: BookingModel) => booking.dateStart);
        //show only the available times, but not the last 4
        times = times.sort().slice(0, -3)
@@ -60,7 +65,27 @@ const highlights = getBooking.map((bookingDate) => {
         return timeToReturn;
     }
 
-    
+    //get the type from the local storage
+    useEffect(() => {
+        const typefromlocal = localStorage.getItem('service');
+        
+        if(typefromlocal){
+        const parsedType = JSON.parse(typefromlocal);
+        if(parsedType.value == "extrafestesvagykovek")
+            {
+                setExtra(true);
+                setType({name: 'Egyéb', value: 'egyeb'});
+                localStorage.removeItem('service');
+                console.log('Típus a bookingformban', parsedType);
+                return;
+            }
+         setType(parsedType as TypeFromLocal);
+          localStorage.removeItem('service');
+          console.log('Típus a bookingformban', parsedType);
+        }
+        
+
+    },[]);
 
     //set the first available time
     useEffect(() => {
@@ -75,7 +100,7 @@ const highlights = getBooking.map((bookingDate) => {
         }
     }, [getBooking]  || [time] || []);
     //ellenőrzés
-    useEffect(() => {
+   /* useEffect(() => {
         console.log(type);
         console.log(extra);
         console.log(date);
@@ -83,7 +108,7 @@ const highlights = getBooking.map((bookingDate) => {
         console.log('availableTimes:',availableTimes);  
         console.log('getBooking:',getBooking);
 
-    }, [type] || [extra] || [date] || [time] || [] || [availableTimes]);
+    }, [type] || [extra] || [date] || [time] || [] || [availableTimes]);*/
 
     //get all dates from backend
     useEffect(() => {
@@ -103,7 +128,6 @@ const highlights = getBooking.map((bookingDate) => {
                 return;
             }
             const bookingObj = await response.json();
-          //  console.log(bookingObj);
             const convertedBookings = convertISOToHTMLDateAndTimeString(bookingObj);
             setGetBooking(convertedBookings);
             
@@ -119,7 +143,6 @@ const highlights = getBooking.map((bookingDate) => {
     function convertISOToHTMLDateAndTimeString(bookings: GetBooking[]) {
         const allofthebookings = [];
         bookings.map((booking) => {
-        //console.log('Booking inside the map: ',booking.dateStart);
         const date = new Date(booking.dateStart);
         const htmlDate = date.toISOString().split('T')[0];
         const time = date.toTimeString().split(' ')[0].substring(0, 5);
@@ -130,26 +153,20 @@ const highlights = getBooking.map((bookingDate) => {
     }
 
     async function sendReservation(e: any) {
-        /*"name":"Betti",
-        "dateStart": "2024-03-13T10:00:00Z",
-        "dateEnd": "2024-03-13T12:00:00Z",
-        "extra":true,
-        "type":"műköröm"*/
         //Error handling
-        if(await type == '' || await typeof type == undefined || await type == null){setError('Nem választottál típust!'); e.preventDefault();  return;}
+        if(await type.value == '' || await typeof type == undefined || await type == null || await type == {} as TypeFromLocal){setError('Nem választottál típust!'); e.preventDefault();  return;}
         if(time == ''){setError('Nem választottál időpontot!');  e.preventDefault(); return;}
         const dateEnd = new Date(time);
-        if(type == 'manikur' || type == 'pedikur' || type == 'akrel'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
+        if(type.value == 'manikur' || type.value == 'pedikur' || type.value == 'gellakk'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
         else{dateEnd.setHours(dateEnd.getHours() + 2);}
         const reservationData = {
             name: user!.name,
             dateStart: time,
             dateEnd: dateEnd.toISOString(),
             extra: extra,
-            type: type,
+            type: type.value,
 
         }
-        console.log('Reservation data:',reservationData);
         const response = await fetch('http://localhost:3000/booking/reserved', {
             method: 'POST',
             headers: {
@@ -170,7 +187,6 @@ const highlights = getBooking.map((bookingDate) => {
     const onDayClick = (day, { selected }) => {
 
             let date = selected ? null : `${day.getFullYear()}-${('0' + (day.getMonth() + 1)).slice(-2)}-${('0' + day.getDate()).slice(-2)}`;
-          //  console.log(`clicked on ${date}`);
             setDate(date?.toString().split('T')[0]); // Convert date to 'yyyy-mm-dd' format
             postRequestForfindAllByDate(date?.toString().split('T')[0]);
     };
@@ -184,20 +200,20 @@ const highlights = getBooking.map((bookingDate) => {
         setType(e.currentTarget.value)
         //PostRequestFor();
     }}>
-        <option value=""></option>
+        <option value={type? type.value : ""}>{type? type.name : ""}</option>
      <option value="manikur">Manikűr</option>
      <option value="pedikur">Pedikűr</option>
      <option disabled>-----------------</option>
-     <option value="zsele">Zselé</option>
-     <option value="akrel">Akril</option>
-     <option value="porcelan">Porcelán</option>
+     <option value="gellakk">Géllakk</option>
+     <option value="mukoromepites">Műköröm építés</option>
+     <option value="mukoromtoltes">Műköröm töltés</option>
      <option disabled>-----------------</option>
      <option value="egyeb">Egyéb</option>
      </select><br />
 
         <div className="form-check form-switch">
         
-        <input className="form-check-input" type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)}/>
+        <input className="form-check-input" type="checkbox" id="extra" name="extra" onChange={ e => e.currentTarget.checked? setExtra(true) : setExtra(false)} checked={extra}/>
         <label htmlFor="extra">Kérsz hozzá extrát? (például: kövek)</label> 
         </div>
         {
