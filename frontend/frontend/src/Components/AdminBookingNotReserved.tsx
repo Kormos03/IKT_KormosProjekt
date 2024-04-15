@@ -97,7 +97,7 @@ return (
                 return (
                     <div key={date}>
                         <Button
-                        className="btn btn-success"
+                            className="btn btn-success"
                             onClick={() => setOpen(prevOpen => ({ ...prevOpen, [date]: !prevOpen[date] }))}
                             aria-controls={`collapse-${date}`}
                             aria-expanded={open[date]}
@@ -108,7 +108,7 @@ return (
                         <Collapse in={open[date]}>
                             <div id={`collapse-${date}`}>
                                 {
-                                    bookings.map((booking: any) => (
+                                    bookings.sort((a, b) => new Date(a.dateStart).getTime() - new Date(b.dateStart).getTime()).map((booking: any) => (
                                         <p key={booking.id}>{datesToReadableFormatFunc(booking)} <button className="btn btn-danger btn-sm" onClick={() => deleteCheckedBookings(booking.id)} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
                                     ))
                                 }

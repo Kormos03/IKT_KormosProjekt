@@ -16,10 +16,15 @@ export function AdminBookingInsert() {
         const endDate = new Date(date);
         const start = timeStart.split(':');
         const end = timeEnd.split(':');
-        startDate.setHours(parseInt(start[0]) + 2, parseInt(start[1]), 0);      //somehow the hours are not correct, so I have to add 1 to the hours
-        endDate.setHours(parseInt(end[0]) + 2, parseInt(end[1]), 0);
-        if (startDate >= endDate) {
-            console.log('A kezdő időpontnak korábbinak kell lennie, mint a befejező időpont!');
+
+        startDate.setHours(parseInt(start[0]) + 2, parseInt(start[1]), 0);      //somehow the hours are not correct, so I have to add 2 to the hours
+        endDate.setHours(parseInt(end[0]) + 2 , parseInt(end[1]), 0);
+        console.log(endDate.getHours() - startDate.getHours())
+        console.log('Start: ', startDate);
+        console.log('End: ', endDate);
+        if (startDate >= endDate || endDate.getHours() - startDate.getHours() < 2 ) {
+            console.log('A kezdő időpontnak korábbinak kell lennie, mint a befejező időpont! A foglalásnak legalább 2 órának kell lennie!');
+            setError('A kezdő időpontnak korábbinak kell lennie, mint a befejező időpont és a foglalásnak legalább 2 órának kell lennie!');
             return;
         }
         const toSendStart = startDate.toISOString();
@@ -60,7 +65,10 @@ export function AdminBookingInsert() {
             setError(errorObj.message);
             return;
         }
-        if(response.ok){navigate(0)}
+        if(response.ok){
+            setError('');
+            navigate(0)
+        }
 
     }
 
