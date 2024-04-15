@@ -1,14 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request} from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
 import { error } from 'console';
+import { UsersService } from 'src/users/users.service';
   //I don't use admin for authentication, I use the bearer token only
 @Controller('booking')
 export class BookingController {
-  constructor(private readonly bookingService: BookingService) { }
+  constructor(private readonly bookingService: BookingService,
+    private readonly userService: UsersService
+  ) { }
 
   //For reserved table
   //This endpoint is for the frontend to create a booking in the reserved table
@@ -16,6 +19,10 @@ export class BookingController {
   @UseGuards(AuthGuard('bearer'))
   createReserved(@Body() createBookingDto: CreateBookingDto) {
     console.log(createBookingDto);
+    if(createBookingDto.type.trim() == "" || createBookingDto.dateStart.trim() == "" || createBookingDto.dateEnd.trim() == "")
+      {
+        throw new error("Nem választottál típust vagy időpontot!");
+      }
     return this.bookingService.createReserved(createBookingDto);
   }
 
@@ -39,9 +46,11 @@ export class BookingController {
   }
 
   //This endpoint is for the frontend to get the available time from the reserved table by ID
-  @Get('/reserved/:id')
-  findOneReserved(@Param('id') id: string) {
-    return this.bookingService.findOne(+id);
+  @Get('/reserved/getone')
+  @UseGuards(AuthGuard('bearer')) 
+  findOneReserved(@Request() req) {
+      const user: User = req.user;
+    return this.bookingService.findOneReserved(user.username);
   }
 
   

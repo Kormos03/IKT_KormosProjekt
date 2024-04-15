@@ -139,16 +139,17 @@ export class BookingService {
 
 
   findOne(id: number) {
+
     if(id==null){throw new Error("Id is null")};
-      return this.prisma.not_Reserved.findUnique({
-        where: { id: id },
+      return this.prisma.not_Reserved.findFirst({
+        where: { id: id},
       })
   }
 
-  findOneReserved(id: number) {
-    if(id==null){throw new Error("Id is null")};
-      return this.prisma.reserved.findUnique({
-        where: { id: id },
+  findOneReserved(name:string) {
+    if(name==null){throw new Error("Id is null")};
+      return this.prisma.reserved.findFirst({
+        where: { name: name},
       })
   }
 
