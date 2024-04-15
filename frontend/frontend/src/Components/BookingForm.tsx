@@ -5,6 +5,7 @@ import { BookingModel } from "../BookingModel";
 import { TimeModel } from "../TimeModel";
 import { DayModifiers, DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
+import GetReservationForUser from "../GetReservationForUser";
 //This part of the project was difficulty, because of the converts and requests and new components, I have to make a custom modifier for the react-dday-picker component
 
 interface TypeFromLocal{
@@ -22,7 +23,7 @@ export function BookingForm(){
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
-
+    const reservation: IReservation = GetReservationForUser().reservation;
 
 // Convert the availableDates array to an object where the keys are the dates in 'YYYY-MM-DD' format
 const highlights = getBooking.map((bookingDate) => {
@@ -100,15 +101,11 @@ const highlights = getBooking.map((bookingDate) => {
         }
     }, [getBooking]  || [time] || []);*/
     //ellenőrzés
-   /* useEffect(() => {
-        console.log(type);
-        console.log(extra);
-        console.log(date);
-        console.log(time);
-        console.log('availableTimes:',availableTimes);  
-        console.log('getBooking:',getBooking);
-
-    }, [type] || [extra] || [date] || [time] || [] || [availableTimes]);*/
+    useEffect(() => {
+        if (reservation) {
+          console.log(reservation);
+        }
+      }, [reservation]);
 
     //get all dates from backend
     useEffect(() => {
@@ -244,8 +241,7 @@ const highlights = getBooking.map((bookingDate) => {
         </select><br />
 
         <p>{error}</p>
-        <button className="btn btn-primary btn-lg" type="submit">Foglalás</button><br />
-
+        {!reservation && <button className="btn btn-primary btn-lg" type="submit">Foglalás</button>}
     </form>
     </>
 }
