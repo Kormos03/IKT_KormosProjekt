@@ -75,12 +75,12 @@ const highlights = getBooking.map((bookingDate) => {
             {
                 setExtra(true);
                 setType({name: 'Egyéb', value: 'egyeb'});
-                localStorage.removeItem('service');
+                //localStorage.removeItem('service');
                 console.log('Típus a bookingformban', parsedType);
                 return;
             }
          setType(parsedType as TypeFromLocal);
-          localStorage.removeItem('service');
+        //  localStorage.removeItem('service');
           console.log('Típus a bookingformban', parsedType);
         }
         
@@ -94,11 +94,11 @@ const highlights = getBooking.map((bookingDate) => {
         }
     }, [availableTimes] || [time] || [] );
     //set the first type
-    useEffect(() => {
+   /* useEffect(() => {
         if (getBooking.length > 0) {
             setType(getBooking[0].type);
         }
-    }, [getBooking]  || [time] || []);
+    }, [getBooking]  || [time] || []);*/
     //ellenőrzés
    /* useEffect(() => {
         console.log(type);
@@ -154,17 +154,19 @@ const highlights = getBooking.map((bookingDate) => {
 
     async function sendReservation(e: any) {
         //Error handling
-        if(await type.value == '' || await typeof type == undefined || await type == null || await type == {} as TypeFromLocal){setError('Nem választottál típust!'); e.preventDefault();  return;}
+        if(type.value.trim() == '' || typeof type == undefined || type == null || type == {}){setError('Nem választottál típust!'); e.preventDefault();  return;}
         if(time == ''){setError('Nem választottál időpontot!');  e.preventDefault(); return;}
         const dateEnd = new Date(time);
         if(type.value == 'manikur' || type.value == 'pedikur' || type.value == 'gellakk'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
         else{dateEnd.setHours(dateEnd.getHours() + 2);}
+        localStorage.removeItem('service');
+        //e.preventDefault();
         const reservationData = {
             name: user!.name,
             dateStart: time,
             dateEnd: dateEnd.toISOString(),
             extra: extra,
-            type: type.value,
+            type: type.value? type.value : type,
 
         }
         const response = await fetch('http://localhost:3000/booking/reserved', {
@@ -197,8 +199,7 @@ const highlights = getBooking.map((bookingDate) => {
     <h1>Foglalás</h1>
     <label htmlFor="type">Típus</label><br />
     <select onChange={ e => {
-        setType(e.currentTarget.value)
-        //PostRequestFor();
+        setType({name: "",value: e.currentTarget.value});
     }}>
         <option value={type? type.value : ""}>{type? type.name : ""}</option>
      <option value="manikur">Manikűr</option>
