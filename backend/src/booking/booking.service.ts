@@ -64,7 +64,7 @@ export class BookingService {
           ],
         },
       });
-      slotsToDelete.forEach(async (slot) => {this.remove(slot.id, false); console.log('Slot deleted: ', slot.id)});
+      slotsToDelete.forEach(async (slot) => {this.removeNotReserved(slot.id); console.log('Slot deleted: ', slot.id)});
 
       //I have to check if the date is in the right format
       if (createBookingDto.dateStart > createBookingDto.dateEnd || createBookingDto.dateStart == null || createBookingDto.dateEnd == null) {
@@ -81,9 +81,8 @@ export class BookingService {
       });
       if(await not_reservedSlotsLowerThanDto.length < 4)
         {
-
           not_reservedSlotsLowerThanDto.map(async (slot) => {
-            this.remove(slot.id, false);
+            this.removeNotReserved(slot.id);
           });
           //this.remove(reservedSlotsLowerThanDto[0].id, false);
         }
@@ -116,7 +115,7 @@ export class BookingService {
     exactDay.setHours(exactDay.getHours() +2);
     notReserved.map((slot) => {
       if(slot.dateStart < exactDay){
-        this.remove(slot.id, false);
+        this.removeNotReserved(slot.id);
         console.log('Slot deleted because, it was in a past: ', slot.id);
       }
     })
@@ -129,7 +128,7 @@ export class BookingService {
     exactDay.setHours(exactDay.getHours() +2);
     reserved.map((slot) => {
       if(slot.dateStart < exactDay){
-        this.remove(slot.id, true);
+        this.removeReserved(slot.name);
         console.log('Slot deleted because, it was in a past: ', slot.id);
       }
     })
@@ -187,25 +186,28 @@ export class BookingService {
   }
 
 
-  async remove(id: number, reserved: boolean) {
-    console.log('id: ', id);
+  async removeReserved(name: string) {
     try {
-        let result;
-        if (reserved) {
-            result = await this.prisma.reserved.delete({
-                where: { id: id },
+            return await this.prisma.reserved.deleteMany({
+                where: { name: name},
             });
-        } else {
-            result = await this.prisma.not_Reserved.delete({
+        }
+    catch (error) {
+        console.error('An error occurred while deleting the record:', error);
+    }
+  }
+  async removeNotReserved(id: number) {
+    try {
+            return await this.prisma.not_Reserved.delete({
                 where: { id: id },
             });
         }
-        console.log('Delete result: ', result);
-        return result;
-    } catch (error) {
-        console.error('An error occurred while deleting the record:', error);
+     catch (error) {
+      throw new Error("An error occurred while deleting the record");
     }
-  }}
+  }
+}
+  
 
 
 function generateHalfHourSlots(dateStart: Date, dateEnd: Date): string[] {

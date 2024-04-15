@@ -33,9 +33,12 @@ export class BookingController {
     return this.bookingService.findAllReserved();
   }
   //This endpoint is for the frontend to delete a booking from the reserved table
-  @Delete('/reserved/:id')
-  removeReserved(@Param('id') id: string) {
-    return this.bookingService.remove(+id, true);
+  @Delete('/reserved/delete')
+  @UseGuards(AuthGuard('bearer')) 
+  removeReserved(@Request() req) {
+    const user: User = req.user;
+    console.log(user.username);
+    return this.bookingService.removeReserved(user.username);
 
   }
   //This endpoint is for the frontend to update a booking in the reserved table
@@ -101,7 +104,7 @@ export class BookingController {
   //This endpoint is for the frontend to delete a booking from the not_reserved table
   @Delete('/not_reserved/:id')
   remove(@Param('id') id: string) {
-    return this.bookingService.remove(+id, false);
+    return this.bookingService.removeNotReserved(+id);
   }
 }
 
