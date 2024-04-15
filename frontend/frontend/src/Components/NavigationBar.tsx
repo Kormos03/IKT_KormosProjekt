@@ -28,7 +28,7 @@ export function NavigationBar() {
 
                     <nav className="navbar navbar-expand-lg bg-body-tertiary">
                         <div className="container-fluid d-flex justify-content-between">
-                            <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" />
+                            <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" onClick={}/>
                             <a className="navbar-brand main_nav_link" href="/">Főoldal</a>
                             
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -38,6 +38,9 @@ export function NavigationBar() {
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+                                <li className="nav-item">
+                                        <NavLink className="nav-link" aria-current="page" to="/gallery">Galéria</NavLink>
+                                    </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link" aria-current="page" to="/pricelist">Árlista</NavLink>
                                     </li>
@@ -45,8 +48,9 @@ export function NavigationBar() {
                                     <button className="nav-link" onClick={handleNavigationForReservation}>Időpontfoglalás</button>
 
                                     </li>
+                                   
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" aria-current="page" to="/gallery">Galéria</NavLink>
+                                        <NavLink className="nav-link" aria-current="page" to="/contact">Kapcsolat</NavLink>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -65,9 +69,7 @@ export function NavigationBar() {
                                                         }</li>
                                         </ul>
                                     </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" aria-current="page" to="/contact">Kapcsolat</NavLink>
-                                    </li>
+                                   
                                 </ul>
                             </div>
                         </div>

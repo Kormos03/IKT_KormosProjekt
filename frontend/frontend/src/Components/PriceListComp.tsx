@@ -12,7 +12,7 @@ export function PriceListComp(){
         { name: 'Műköröm építés', price: '6,000 Ft', img: 'https://heaveninstyle.hu/wp-content/uploads/2023/04/IMG_8627-1080x675.jpg' },
         { name: 'Műköröm töltés', price: '5,000 Ft', img:'https://alexart.hu/ckfinder/userfiles/images/20201015_171347.jpg' },
         { name: 'Pedikűr', price: '4,000 Ft', img:'https://pediklub.hu/wp-content/uploads/2021/06/blog_kepek_14-845x321.jpg' },
-        { name: 'Extra festés vagy kövek', price: '500 Ft', img:'https://i.ytimg.com/vi/RlYAXoR83PQ/maxresdefault.jpg'},
+        { name: 'Extra festés vagy kövek', price: '+500 Ft', img:'https://i.ytimg.com/vi/RlYAXoR83PQ/maxresdefault.jpg'},
     ];
 
     function handleClick(){
