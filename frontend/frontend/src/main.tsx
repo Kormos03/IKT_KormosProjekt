@@ -11,7 +11,6 @@ import { LoginPage } from './pages/LoginPage.tsx'
 import { RegisterPage } from './pages/RegisterPage.tsx'
 import { WelcomePage } from './pages/WelcomePage.tsx'
 import { AdminLoginPage } from './pages/AdminLoginPage.tsx'
-import { AdminPage } from './pages/AdminPage.tsx'
 import { BookingUserPage } from './pages/BookingUserPage.tsx'
 import { ProfilePage } from './pages/ProfilePage.tsx'
 import { AdminGalleryPage } from './pages/AdminGalleryPage.tsx'
@@ -47,10 +46,7 @@ const router1 = createBrowserRouter([{
     },{
       path: 'secret/adminLogin',
       element: <AdminLoginPage />,
-      children:[{
-        path: 'adminPage',
-        element: <AdminPage />
-      },
+      children:[
       {
         path: 'adminProfile',
         element: <AdminProfilePage/>

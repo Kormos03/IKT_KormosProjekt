@@ -21,8 +21,7 @@ export function AdminNavigationBar() {
                     <nav className="navbar navbar-expand-lg bg-body-tertiary">
                         <div className="container-fluid d-flex justify-content-between">
                             <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" />
-                            <NavLink className="navbar-brand main_nav_link" to="/secret/adminlogin/AdminPage">Admin Főoldal</NavLink>
-                            
+                           
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                                 aria-label="Toggle navigation">

@@ -21,6 +21,11 @@ export function NavigationBar() {
     }
 }
 
+function  handleLogoClick(){
+    navigate("/");
+}
+
+
     return (<div>
         <div className="container" id="navBarContainer">
             <div className="row">
@@ -28,7 +33,7 @@ export function NavigationBar() {
 
                     <nav className="navbar navbar-expand-lg bg-body-tertiary">
                         <div className="container-fluid d-flex justify-content-between">
-                            <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" onClick={}/>
+                        <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" onClick={handleLogoClick} />
                             <a className="navbar-brand main_nav_link" href="/">Főoldal</a>
                             
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"

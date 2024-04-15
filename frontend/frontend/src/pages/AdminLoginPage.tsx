@@ -20,20 +20,15 @@ export function AdminLoginPage() {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
-
     }
-    
-
   }, [token]);
-
-
 
   function login(token: string) {
     setToken(token);
     setUser(user);
     localStorage.setItem('token', token);
     console.log('Token:'+ localStorage.getItem('token'));
-    navigate('adminPage');
+    navigate('booking');
   }
 
 

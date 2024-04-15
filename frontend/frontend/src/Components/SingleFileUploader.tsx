@@ -59,7 +59,11 @@ const SingleFileUploader = () => {
 
   return (
     <>
-      <div>
+          <div>
+    <h2>
+        Kép feltöltése
+    </h2>
+
         <label htmlFor="file" className="sr-only">
           Válasszon képet
         </label>

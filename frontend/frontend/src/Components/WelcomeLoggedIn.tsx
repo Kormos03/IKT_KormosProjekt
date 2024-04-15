@@ -50,8 +50,11 @@ export function WelcomeLoggedIn(){
     <p className="lead">A menüsoron keresztül elérheti a galériát, ahol a kész munkákat tekintheti meg.</p>
     <p className="lead">A menüsoron keresztül elérheti a foglalást, ahol foglalhat időpontot.</p><br />
 
-
+    <div className="card">
+        <div className="card-body">
     {reservedTime()}
     <p className="lead">Ha van lefoglalt időpontja, akkor azt 48 órán belül törölheti</p>
+    </div>
+    </div>
     </div>
 }
