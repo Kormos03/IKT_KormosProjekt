@@ -34,6 +34,7 @@ const highlights = getBooking.map((bookingDate) => {
 })
 
 
+
     //post request to get all timestamps for a given date
     async function postRequestForfindAllByDate(dateInFunction: string){
         //I need to send the date in the format of yyyy-mm-dd
@@ -68,6 +69,9 @@ const highlights = getBooking.map((bookingDate) => {
 
     //get the type from the local storage
     useEffect(() => {
+        if(!typeof reservation == undefined){
+            setError("Önnek már van lefoglalt időpontja")
+        }
         const typefromlocal = localStorage.getItem('service');
         
         if(typefromlocal){
@@ -151,11 +155,11 @@ const highlights = getBooking.map((bookingDate) => {
 
     async function sendReservation(e: any) {
         //Error handling
-        if(type.value.trim() == '' || typeof type == undefined || type == null || type == {}){setError('Nem választottál típust!'); e.preventDefault();  return;}
-        if(time == ''){setError('Nem választottál időpontot!');  e.preventDefault(); return;}
+        if(type.value.trim() == '' || typeof type == undefined || type.value == null || typeof type == undefined ){setError('Nem választottál típust!'); e.preventDefault();  return;}
+        if(time == '' ){setError('Nem választottál időpontot!');  e.preventDefault(); return;}
         const dateEnd = new Date(time);
         if(type.value == 'manikur' || type.value == 'pedikur' || type.value == 'gellakk'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
-        else{dateEnd.setHours(dateEnd.getHours() + 2);}
+        else if (type.value == "mukorom epites" || type.value == 'mukorom toltes' || type.value == 'egyeb'){dateEnd.setHours(dateEnd.getHours() + 2);}
         localStorage.removeItem('service');
         //e.preventDefault();
         const reservationData = {
@@ -166,6 +170,7 @@ const highlights = getBooking.map((bookingDate) => {
             type: type.value? type.value : type,
 
         }
+        if(reservationData){
         const response = await fetch('http://localhost:3000/booking/reserved', {
             method: 'POST',
             headers: {
@@ -179,7 +184,10 @@ const highlights = getBooking.map((bookingDate) => {
             const errorObj = await response.json();
             setError(errorObj.message);
             return;
-        }
+        }}
+        else{
+            e.PreventDefault();
+            setError("Hibás adatok")}
     }
 
     // DayPicker component callback to handle day clicks. If the date is not disabled, then it sets the date and sends a post request to get all available times for that date.
@@ -240,8 +248,8 @@ const highlights = getBooking.map((bookingDate) => {
         ))}
         </select><br />
 
+        <button className="btn btn-primary btn-lg" type="submit">Foglalás</button>
         <p>{error}</p>
-        {!reservation && <button className="btn btn-primary btn-lg" type="submit">Foglalás</button>}
     </form>
     </>
 }
