@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
+import { datesToReadableFormatFunc } from "./datesToReadableFormatFunc";
 
 export function AdminBookingReserved() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
@@ -91,8 +92,7 @@ export function AdminBookingReserved() {
             bookingData.sort((a, b) => new Date(a.dateStart).getTime() - new Date(b.dateStart).getTime()).map((booking: any) => {
                 return (
                     <div key={booking.id}>
-                                          <p>{booking.name}: {booking.dateStart} - {booking.dateEnd} <button onClick={() => deleteCheckedBookings(booking.id)} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
-
+                                          <p>{booking.name} - {datesToReadableFormatFunc(booking)} - {booking.type} <button className="btn btn-danger btn-sm" onClick={() => deleteCheckedBookings(booking.id)} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
                     </div>
                 )
             })

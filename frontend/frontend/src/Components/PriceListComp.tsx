@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toLowerAlphaNumeric } from '../toLowerAlphaNumeric';
 
 export function PriceListComp(){
     const [hoveredCard, setHoveredCard] = useState(-1);
@@ -21,21 +22,7 @@ export function PriceListComp(){
         navigate('/bookingUser');
     }
     
-    function removeAccents(input) {
-        const accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñŰű';
-        const accentsOut = 'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNnUu';
-        return input.split('').map((char, i) => {
-            const accentIndex = accents.indexOf(char);
-            return accentIndex !== -1 ? accentsOut[accentIndex] : char;
-        }).join('');
-    }
-    
-
-    function toLowerAlphaNumeric(input) {
-        const noAccents = removeAccents(input);
-        return noAccents.toLowerCase().replace(/[^a-z0-9]/g, '');
-    }
-
+   
    return (
         <div className="row">
             {services.map((service, index) => (
