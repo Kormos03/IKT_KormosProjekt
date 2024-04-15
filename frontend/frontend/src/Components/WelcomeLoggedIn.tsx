@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import GetReservationForUser from "../GetReservationForUser";
 
 export function WelcomeLoggedIn(){
-    const reservation: IReservation = GetReservationForUser().reservation;
+    const reservation: IReservation | any = GetReservationForUser();
 
     const reservedTime = () => {
+        if(!reservation) return <></>
         if(reservation.dateStart && reservation.dateEnd){
             const dateStart = reservation.dateStart.split('T')[0] + " " + (reservation.dateStart.split(':')[0]).split('T')[1] + ':' + reservation.dateStart.split(':')[1];
             const dateEnd = reservation.dateEnd.split('T')[0] + " " + (reservation.dateEnd.split(':')[0]).split('T')[1] + ':' + reservation.dateEnd.split(':')[1];

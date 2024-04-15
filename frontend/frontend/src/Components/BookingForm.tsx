@@ -6,6 +6,7 @@ import { TimeModel } from "../TimeModel";
 import { DayModifiers, DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
 import GetReservationForUser from "../GetReservationForUser";
+import { useNavigate } from "react-router-dom";
 //This part of the project was difficulty, because of the converts and requests and new components, I have to make a custom modifier for the react-dday-picker component
 
 interface TypeFromLocal{
@@ -23,7 +24,8 @@ export function BookingForm(){
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);
-    const reservation: IReservation = GetReservationForUser().reservation;
+    const navigate = useNavigate();
+    const reservation: IReservation | any = GetReservationForUser();
 
 // Convert the availableDates array to an object where the keys are the dates in 'YYYY-MM-DD' format
 const highlights = getBooking.map((bookingDate) => {
@@ -105,11 +107,7 @@ const highlights = getBooking.map((bookingDate) => {
         }
     }, [getBooking]  || [time] || []);*/
     //ellenőrzés
-    useEffect(() => {
-        if (reservation) {
-          console.log(reservation);
-        }
-      }, [reservation]);
+
 
     //get all dates from backend
     useEffect(() => {
@@ -155,13 +153,19 @@ const highlights = getBooking.map((bookingDate) => {
 
     async function sendReservation(e: any) {
         //Error handling
-        if(type.value.trim() == '' || typeof type == undefined || type.value == null || typeof type == undefined ){setError('Nem választottál típust!'); e.preventDefault();  return;}
-        if(time == '' ){setError('Nem választottál időpontot!');  e.preventDefault(); return;}
+
+        await console.log(type.value)
+        e.preventDefault();
+         // Check if type is defined and has a value
+        if (!type || !type.value || type.value.trim() === '') {
+         setError('Nem választottál típust!');
+            return;
+}        if(time == '' ){setError('Nem választottál időpontot!');  return;}
         const dateEnd = new Date(time);
         if(type.value == 'manikur' || type.value == 'pedikur' || type.value == 'gellakk'){dateEnd.setHours(dateEnd.getHours() + 1); dateEnd.setMinutes(dateEnd.getMinutes() + 30);}
-        else if (type.value == "mukorom epites" || type.value == 'mukorom toltes' || type.value == 'egyeb'){dateEnd.setHours(dateEnd.getHours() + 2);}
+        else if (type.value == "mukoromepites" || type.value == 'mukoromtoltes' || type.value == 'egyeb'){dateEnd.setHours(dateEnd.getHours() + 2);}
         localStorage.removeItem('service');
-        //e.preventDefault();
+        
         const reservationData = {
             name: user!.name,
             dateStart: time,
@@ -170,6 +174,7 @@ const highlights = getBooking.map((bookingDate) => {
             type: type.value? type.value : type,
 
         }
+        console.log(reservationData);
         if(reservationData){
         const response = await fetch('http://localhost:3000/booking/reserved', {
             method: 'POST',
@@ -184,10 +189,13 @@ const highlights = getBooking.map((bookingDate) => {
             const errorObj = await response.json();
             setError(errorObj.message);
             return;
+        }
+        if(response.ok){
+            setError('Sikeres foglalás');
+            navigate(0)
         }}
-        else{
-            e.PreventDefault();
-            setError("Hibás adatok")}
+       
+
     }
 
     // DayPicker component callback to handle day clicks. If the date is not disabled, then it sets the date and sends a post request to get all available times for that date.

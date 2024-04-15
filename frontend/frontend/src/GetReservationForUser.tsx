@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 //This component is responsible for getting the reservation for the user
 export function GetReservationForUser() {
-    const [reservation, setReservation] = useState({} as IReservation);
+    const [reservation, setReservation] = useState(null);
     useEffect(() => {
         const tokenFromLocalStorage = localStorage.getItem('token');
         if (tokenFromLocalStorage) {
@@ -22,6 +22,7 @@ export function GetReservationForUser() {
             }
             if(!response.ok){
                 console.log('Hiba a lekérdezés során');
+                setReservation(null);
             }
         }
         fetchData();
