@@ -9,7 +9,7 @@ export function WelcomeLoggedIn(){
     const reservedTime = () => {
         if(reservation == null || typeof reservation == undefined) return <h2>  Még nincs lefoglalt időpontja</h2>
             const dateStart = reservation.dateStart.split('T')[0] + " " + (reservation.dateStart.split(':')[0]).split('T')[1] + ':' + reservation.dateStart.split(':')[1];
-            const dateEnd = reservation.dateEnd.split('T')[0] + " " + (reservation.dateEnd.split(':')[0]).split('T')[1] + ':' + reservation.dateEnd.split(':')[1];
+            const dateEnd =  (reservation.dateEnd.split(':')[0]).split('T')[1] + ':' + reservation.dateEnd.split(':')[1];
             const now = new Date();
             const reservationDate = new Date(reservation.dateStart);
             const diffHours = Math.abs(reservationDate.getTime()- now.getTime()) / (1000 * 60 * 60);
