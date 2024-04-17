@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
+import { groupBy } from 'lodash';
 import { datesToReadableFormatFunc } from "./datesToReadableFormatFunc";
+import { BookingModel } from "../BookingModel";
+import { renderGroupedBookings } from "./renderGroupedBookings";
 
 export function AdminBookingReserved() {
     const { token, user,error, setToken, setUser, setError } = useAuth();
-    const [bookingData, setBookingData] = useState([]);
+    const [bookingData, setBookingData] = useState([] as BookingModel[]);
     const [checkedStates, setCheckedStates] = useState({});
+    const [open, setOpen] = useState({});
     const navigate = useNavigate();
+    const groupedBookings = groupBy(bookingData, booking => new Date(booking.dateStart).toDateString());
+
 
     const handleMasterCheckboxChange = (e) => {
      const isChecked = e.target.checked;
@@ -23,7 +29,7 @@ export function AdminBookingReserved() {
          ...checkedStates,
          [bookingId]: e.target.checked,
      });
- };
+ };  
 
     useEffect(() => {
         async function getAllReserved() {
@@ -46,6 +52,8 @@ export function AdminBookingReserved() {
          }
 
         getAllReserved();
+
+
     }, []);
 
    //delete booking
@@ -88,15 +96,9 @@ export function AdminBookingReserved() {
         <>
         <div className="container login">
         <h1>Lefoglalt időpontok kezelése</h1> Összes kijelölése <input type="checkbox" onChange={handleMasterCheckboxChange} />
-        {
-            bookingData.sort((a, b) => new Date(a.dateStart).getTime() - new Date(b.dateStart).getTime()).map((booking: any) => {
-                return (
-                    <div key={booking.id}>
-                                          <p>{booking.name} - {datesToReadableFormatFunc(booking)} - {booking.type} <button className="btn btn-danger btn-sm" onClick={() => deleteCheckedBookings(booking.id)} >Törlés</button> <input type="checkbox" checked={checkedStates[booking.id] || false} onChange={e => handleCheckboxChange(booking.id, e)} /> </p>
-                    </div>
-                )
-            })
-        }
+       {
+        renderGroupedBookings(groupedBookings, open, setOpen, checkedStates, deleteCheckedBookings, handleCheckboxChange, datesToReadableFormatFunc, true)
+       }
         </div>
         </>
     )

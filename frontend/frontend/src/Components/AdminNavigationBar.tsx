@@ -14,7 +14,7 @@ export function AdminNavigationBar() {
     }
 
     return (<div>
-        <div className="container" id="navBarContainer">
+        <div className="navigationBar" id="navBarContainer">
             <div className="row">
                 <div className="col">
 
