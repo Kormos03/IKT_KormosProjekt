@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { GalleryImg } from "../GalleryImg";
 import { CardComponent } from "../Components/CardComponent";
 import { NavigationBar } from "../Components/NavigationBar";
-import useAuth from "../Components/useAuth";
-
 
 export function GalleryPage() {
     const [gallery, setGallery] = useState([]);
@@ -31,10 +29,10 @@ export function GalleryPage() {
     
     return <>
         <NavigationBar  />
-        <div className="container gallery">
+        <div className="container login main-content">
             <div className="row">
                 <h1 className="col">Képek</h1>
-            </div>
+            </div> <br />
             <div className="row">
             <CardComponent cards={gallery as GalleryImg[]} />
         </div>

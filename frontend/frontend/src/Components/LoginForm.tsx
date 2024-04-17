@@ -55,8 +55,8 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
     }
 
     return <div className="container login">
-    <form onSubmit={login}>
-    <h3>Bejelentkezés</h3>
+      <h3>Bejelentkezés</h3>
+        <form onSubmit={login}>
         <label htmlFor="email">Email cím</label><br />
         <StyledInput type="email" id="email" name="email"  onChange={e => setEmail(e.currentTarget.value)} placeholder="email cím"/><br />
 

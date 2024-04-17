@@ -6,6 +6,8 @@ export function BookingUserPage(){
 
     return <>
     <NavigationBar/>
+    <div className="main-content">
     <BookingForm/>
+    </div>
     </>
 }

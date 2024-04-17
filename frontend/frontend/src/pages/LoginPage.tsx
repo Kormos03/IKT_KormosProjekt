@@ -7,29 +7,7 @@ import { NavigationBar } from "../Components/NavigationBar";
 import useAuth from "../Components/useAuth";
 
 export function LoginPage() {
- //const { token, user,error, setToken, setUser, setError } = useAuth();
   const navigate = useNavigate();
-
- /* useEffect(() => {
-    if(user?.admin || localStorage.getItem('user') == 'true'){
-      setToken('');
-      localStorage.removeItem('token');
-      setUser(null);
-      localStorage.removeItem('user');
-      setError('You are an admin');
-      navigate('/login')
-      return;
-    }},[user] || [] || token)
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);*/
-
-  
-
   
   function login(token: string) {
    // setToken(token);
@@ -40,7 +18,8 @@ export function LoginPage() {
 
     return <>
          <NavigationBar />
+         <div className="main-content">
       <LoginForm onSuccessfulLogin={login} />
-      
+      </div>
     </>
 }

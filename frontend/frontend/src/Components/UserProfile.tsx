@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { User } from "../User";
 import useAuth from "./useAuth";
 
 

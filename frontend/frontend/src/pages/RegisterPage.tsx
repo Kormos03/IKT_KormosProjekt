@@ -6,6 +6,8 @@ export function RegisterPage() {
    // const { token, user,error, setToken, setUser, setError } = useAuth();
     return <>
     <NavigationBar />
+    <div className="main-content">
      <RegistComponent />
+     </div>
     </>
 }

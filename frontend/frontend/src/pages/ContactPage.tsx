@@ -6,9 +6,9 @@ export function ContactPage() {
     const position = [47.497913, 19.040236]; // Budapest coordinates
 
     return <><NavigationBar/>
-    <div className="container login">
+    <div className="container login main-content">
+    <h1>Elérhetőségek</h1>
         <table>
-            <thead>        <h1>Elérhetőségek</h1></thead>
             <tr>
                 <th>Telefon</th>
                 <th>Email</th>

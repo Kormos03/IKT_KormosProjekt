@@ -5,7 +5,7 @@ export function PriceListPage() {
     return (
         <>
             <NavigationBar />
-            <div className="container mt-5">
+            <div className="container main-content">
                 <div className="card shadow-lg">
                     <div className="card-header bg-primary text-white">
                         <h2 className="text-center">Árlista</h2>

@@ -84,8 +84,7 @@ export function RegistComponent(){
 
 
 
-    return <div>
-    <div className="container login">
+    return <div className="container login">
         <h3>Regisztráció</h3>
         <form>
             <label htmlFor="email">Email cím</label><br />
@@ -105,5 +104,4 @@ export function RegistComponent(){
         </form>
         <p>{registError}</p> 
     </div >
-    </div>
 }

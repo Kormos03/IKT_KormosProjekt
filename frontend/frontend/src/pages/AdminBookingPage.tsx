@@ -18,7 +18,6 @@ export function AdminBookingPage() {
         }
     }, []);
     return (<>
-        
         <AdminNavigationBar />
         <div className="container main-content">
             <div className="row">
