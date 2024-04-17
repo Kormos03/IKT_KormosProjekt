@@ -26,7 +26,7 @@ function  handleLogoClick(){
 }
 
 
-    return (<div>
+    return (<div className='navigationBar'>
         <div className="container" id="navBarContainer">
             <div className="row">
                 <div className="col">

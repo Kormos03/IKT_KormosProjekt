@@ -5,6 +5,7 @@ import './App.css'
 import { NavLink, Outlet } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { Footer } from './Components/Footer'
+import { NavigationBar } from './Components/NavigationBar'
 
 
 function App() {
@@ -29,7 +30,9 @@ function App() {
             <meta name="description" content="Körmös projekt" />
         <meta name="description" content="Körmös projekt" />
         </Helmet>
+
         <div className={darkMode ? 'dark' : ''}>
+
         <main className=''>
           <Outlet />
         </main>

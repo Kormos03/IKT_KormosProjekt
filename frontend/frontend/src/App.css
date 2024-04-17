@@ -90,6 +90,14 @@ body, #root {
 
 }
 
+.navigationBar{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  font-size: 1.5em;
+
+}
+
 .cardforgallery{
   color: lightpink;
   background-color: lightpink;

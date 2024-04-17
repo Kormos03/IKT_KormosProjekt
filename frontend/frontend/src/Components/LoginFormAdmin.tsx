@@ -51,7 +51,7 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
 
     return <div className="container">
 
-     <form onSubmit={login}>
+     <form onSubmit={login} className="login">
      <h3>Bejelentkezés Admin</h3>
         Email: <input type='email' onChange={e => setEmail(e.currentTarget.value)} />
         Password: <input type='password' onChange={e => setPass(e.currentTarget.value)} /> <br />
