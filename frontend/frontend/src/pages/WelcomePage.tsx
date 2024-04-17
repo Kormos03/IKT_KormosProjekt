@@ -9,20 +9,16 @@ import { Footer } from "../Components/Footer";
 
 export function WelcomePage() {
   //  const { token, user, error, setToken, setUser, setError } = useAuth();
-  const [isDarkMode, setIsDarkMode] = useDarkMode();
+  const [isDarkMode] = useDarkMode();
     useEffect(() => {
-        const user = localStorage.getItem('user');
+        const user = localStorage.getItem('user')   ;
         if(user){
         console.log(localStorage.getItem('User: '+'user'));
     }
     }, [])
     return  <>
-        <div className="d-flex flex-column min-vh-100">
        <NavigationBar />
-
-
-    <div className="container">
-    <div className="container">
+    <div className="container  main-content">
     <div className="jumbotron mt-5">
         <h1 className="display-4">Üdvözöljük a körmösszalon oldalán!</h1>
         <p className="lead">Széleskörű szolgáltatásainkkal várjuk kedves vendégeinket.</p>
@@ -34,7 +30,5 @@ export function WelcomePage() {
     </div>
 
 </div>
-    </div >
-    </div>
     </>
 }

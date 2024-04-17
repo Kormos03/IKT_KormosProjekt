@@ -10,12 +10,6 @@ import { NavigationBar } from './Components/NavigationBar'
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
-  function toggleDarkMode() {
-    const newDarkMode = !darkMode;
-    localStorage.setItem('darkMode', newDarkMode ? '1' : '0');
-    setDarkMode(newDarkMode);
-
-  }
 
   //A cím megváltoztatásához a Helmet komponenst használjuk
   return (

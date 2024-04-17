@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { validateAdmin } from "./validateAdmin";
+import { useDarkMode } from "./HandleDarkMode";
 
 
 export function AdminNavigationBar() {
+    const [isDarkMode, setIsDarkMode] = useDarkMode();
     const navigate = useNavigate();
     function logout() {
         localStorage.removeItem('token');
@@ -18,7 +20,7 @@ export function AdminNavigationBar() {
             <div className="row">
                 <div className="col">
 
-                    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                    <nav className="navbar navbar-expand-lg">
                         <div className="container-fluid d-flex justify-content-between">
                             <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" />
                            

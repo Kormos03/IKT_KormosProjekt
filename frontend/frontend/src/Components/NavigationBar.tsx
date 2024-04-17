@@ -5,6 +5,7 @@ import useAuth from "./useAuth";
 export function NavigationBar() {
     //const { token, user, error, setToken, setUser, setError } = useAuth();
     const navigate = useNavigate();
+    const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
   
 
    function logout() {
@@ -26,12 +27,12 @@ function  handleLogoClick(){
 }
 
 
-    return (<div className='navigationBar'>
-        <div className="container" id="navBarContainer">
+    return (<>
+        <div className={darkMode ? 'dark navigationBar' : 'navigationBar'} id="navBarContainer">
             <div className="row">
                 <div className="col">
 
-                    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                    <nav className="navbar navbar-expand-lg ">
                         <div className="container-fluid d-flex justify-content-between">
                         <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" onClick={handleLogoClick} />
                             <a className="navbar-brand main_nav_link" href="/">Főoldal</a>
@@ -82,7 +83,7 @@ function  handleLogoClick(){
                 </div>
             </div>
         </div >
-    </div >
+    </>
 
     )
 }

@@ -35,7 +35,7 @@ export function ProfilePage(){
     return (
         <>
         <NavigationBar/>
-        <div className="container">
+        <div className="container main-content">
             {
       user? <UserProfile user={user} /> : null
             }

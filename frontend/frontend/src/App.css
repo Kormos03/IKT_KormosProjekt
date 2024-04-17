@@ -9,6 +9,10 @@ body, #root {
   flex-grow: 1;
 }
 
+.main-content {
+  padding-top: 10%; /* Adjust this value based on the height of your navbar */
+}
+
 .card .pricebtn {
   display: none;
 }
@@ -22,7 +26,7 @@ body, #root {
 }
 
 .brandLogo {
-  width: 10%;
+  width: 5%;
   margin-right: 10vh;
   display: flex;
   justify-content: left;
@@ -74,7 +78,6 @@ body, #root {
   max-width: 300px;
   width: 400px;
   height: 200px; 
-
   object-fit: cover; 
 }
 
@@ -87,7 +90,6 @@ body, #root {
   justify-content: space-evenly;
   width: 100%;
   font-size: 1.5em;
-
 }
 
 .navigationBar{
@@ -97,7 +99,8 @@ body, #root {
   right: 0; /* Stretch it to the right */
   z-index: 1000; /* Make sure it's above other elements */
   width: 100%; /* Make it fill the full width */
-
+  background-color: #ffffff; 
+  color: #ffffff;
 }
 
 .cardforgallery{
@@ -137,6 +140,15 @@ body, #root {
 }
 
 body.dark-mode {
-  background-color: #333;
+  background-color: #333 !important;  
   color: #fff;
+}
+
+.card.dark-mode {
+  background-color: #333333; /* Set the background color to a dark color */
+  color: #ffffff; /* Set the text color to white */
+}
+
+nav{
+  background-color: #ffffff;
 }

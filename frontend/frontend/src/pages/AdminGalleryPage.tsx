@@ -43,8 +43,9 @@ export function AdminGalleryPage() {
     return <>
 
         <AdminNavigationBar />
+        <div className="container gallery main-content">
         <SingleFileUploader />
-        <div className="container gallery">
+
             <div className="row">
                 <h1 className="col">Képek módosítása</h1>
             

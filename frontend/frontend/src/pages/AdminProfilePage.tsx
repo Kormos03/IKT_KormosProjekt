@@ -22,7 +22,7 @@ export function AdminProfilePage(){
     return (
         <>
         <AdminNavigationBar />
-        <div className="container">
+        <div className="container  main-content">
             {
       user? <UserProfile/> : null
             }

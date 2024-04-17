@@ -18,9 +18,9 @@ export function AdminBookingPage() {
         }
     }, []);
     return (<>
-
+        
         <AdminNavigationBar />
-        <div className="container">
+        <div className="container main-content">
             <div className="row">
         <div className="col">
         <AdminBookingNotReserved/>
