@@ -3,30 +3,29 @@ import useAuth from "./useAuth";
 import { BookingModel } from "../BookingModel";
 import { useNavigate } from "react-router-dom";
 import { datesToReadableFormatFunc } from "./datesToReadableFormatFunc";
-import { Button, Collapse } from "react-bootstrap";
 import { groupBy } from 'lodash';
-import { FiChevronDown } from "react-icons/fi";
 import { renderGroupedBookings } from "./renderGroupedBookings";
 
 export function AdminBookingNotReserved() {
-    const { token, user,error, setToken, setUser, setError } = useAuth();
+    const { token } = useAuth();
     const [open, setOpen] = useState({});
     const [bookingData, setBookingData] = useState([] as BookingModel[]);
-   // const [not_reserved_AllChecked, set_Not_reserved_AllChecked] = useState(false);
    const [checkedStates, setCheckedStates] = useState({});
+
    const navigate = useNavigate();
+
    const groupedBookings = groupBy(bookingData, booking => new Date(booking.dateStart).toDateString());
 
-   const handleMasterCheckboxChange = (e) => {
+   const handleMasterCheckboxChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
-    const newCheckedStates = {};
+    const newCheckedStates: { [key: number]: boolean } = {};
     bookingData.forEach((booking) => {
         newCheckedStates[booking.id] = isChecked;
     });
     setCheckedStates(newCheckedStates);
 };
 
-const handleCheckboxChange = (bookingId, e) => {
+const handleCheckboxChange = (bookingId : number, e : React.ChangeEvent<HTMLInputElement>) => {
     setCheckedStates({
         ...checkedStates,
         [bookingId]: e.target.checked,
@@ -93,7 +92,8 @@ const handleCheckboxChange = (bookingId, e) => {
 return (
     <div className="container login">
         <h1>Szabad időpontok kezelése</h1> Összes kijelölése <input type="checkbox" onChange={handleMasterCheckboxChange} />
-        {//This function groups the bookings by date and displays them in a collapsible list
+        {
+        //This function groups the bookings by date and displays them in a collapsible list
             renderGroupedBookings(groupedBookings, open, setOpen, checkedStates, deleteCheckedBookings, handleCheckboxChange, datesToReadableFormatFunc, false)
         }
     </div>

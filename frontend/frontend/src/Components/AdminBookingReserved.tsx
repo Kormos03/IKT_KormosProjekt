@@ -7,30 +7,31 @@ import { BookingModel } from "../BookingModel";
 import { renderGroupedBookings } from "./renderGroupedBookings";
 
 export function AdminBookingReserved() {
-    const { token, user,error, setToken, setUser, setError } = useAuth();
+    const { token } = useAuth();
     const [bookingData, setBookingData] = useState([] as BookingModel[]);
     const [checkedStates, setCheckedStates] = useState({});
     const [open, setOpen] = useState({});
+
     const navigate = useNavigate();
+
     const groupedBookings = groupBy(bookingData, booking => new Date(booking.dateStart).toDateString());
 
-
-    const handleMasterCheckboxChange = (e) => {
+    const handleMasterCheckboxChange = (e : React.ChangeEvent<HTMLInputElement>) => {
      const isChecked = e.target.checked;
-     const newCheckedStates = {};
+     const newCheckedStates: { [key: number]: boolean } = {};
      bookingData.forEach((booking) => {
          newCheckedStates[booking.id] = isChecked;
      });
      setCheckedStates(newCheckedStates);
  };
  
- const handleCheckboxChange = (bookingId, e) => {
+ const handleCheckboxChange = (bookingId : number, e : React.ChangeEvent<HTMLInputElement>) => {
      setCheckedStates({
          ...checkedStates,
          [bookingId]: e.target.checked,
      });
  };  
-
+    
     useEffect(() => {
         async function getAllReserved() {
              const response = await fetch(`http://localhost:3000/booking/reserved/`, {
@@ -48,12 +49,8 @@ export function AdminBookingReserved() {
              }
              const data = await response.json();
             await setBookingData(data);
-
          }
-
         getAllReserved();
-
-
     }, []);
 
    //delete booking
@@ -90,7 +87,6 @@ export function AdminBookingReserved() {
             }}
             navigate(0);
 }
-
 
     return (
         <>

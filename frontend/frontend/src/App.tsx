@@ -1,15 +1,14 @@
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import './App.css'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { Footer } from './Components/Footer'
-import { NavigationBar } from './Components/NavigationBar'
 
 
 function App() {
-  const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
+  const [darkMode] = useState(localStorage.getItem('darkMode') == '1');
 
   //A cím megváltoztatásához a Helmet komponenst használjuk
   return (
