@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { groupBy } from 'lodash';
 import { datesToReadableFormatFunc } from "./datesToReadableFormatFunc";
 import { BookingModel } from "../BookingModel";
 import { renderGroupedBookings } from "./renderGroupedBookings";
+import useAuthAdmin from "./useAuthAdmin";
 
 const API_URL = 'http://localhost:3000/booking/reserved/';
 
 export function AdminBookingReserved() {
-    const { token } = useAuth();
+    const { token } = useAuthAdmin();
     const [bookingData, setBookingData] = useState([] as BookingModel[]);
     const [checkedStates, setCheckedStates] = useState({});
     const [isModalOpen, setIsModalOpen] = useState({});

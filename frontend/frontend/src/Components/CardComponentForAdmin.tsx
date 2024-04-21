@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import useAuth from "./useAuth";
+import useAuthAdmin from "./useAuthAdmin";
 
 const API_URL = "http://localhost:3000/images/";
 
 export function CardComponentForAdmin({cards}: {cards: {url: string, id: number}[]}) {
-  const { token } = useAuth();
+  const { token } = useAuthAdmin();
   const navigate = useNavigate();
    
   async function deleteImage(id: number){

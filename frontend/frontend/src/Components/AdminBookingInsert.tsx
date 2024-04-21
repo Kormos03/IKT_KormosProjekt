@@ -1,9 +1,9 @@
 import { useState } from "react";
-import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
+import useAuthAdmin from "./useAuthAdmin";
 
 export function AdminBookingInsert() {
-    const { token, user,error, setError } = useAuth();
+    const { token, user,error, setError } = useAuthAdmin();
     const [date, setDate] = useState(new Date());
     const [timeStart, setTimeStart] = useState('');
     const [timeEnd, setTimeEnd] = useState('');
