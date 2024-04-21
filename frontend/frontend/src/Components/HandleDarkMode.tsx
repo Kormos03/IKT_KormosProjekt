@@ -11,7 +11,6 @@ export function useDarkMode() {
     setIsDarkMode(darkMode);
   }, []);
 
-
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.remove('light');
