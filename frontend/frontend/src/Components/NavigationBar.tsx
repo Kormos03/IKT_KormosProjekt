@@ -1,42 +1,37 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import useAuth from "./useAuth";
 
 export function NavigationBar() {
-    //const { token, user, error, setToken, setUser, setError } = useAuth();
     const navigate = useNavigate();
-    const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') == '1');
-  
+    const [darkMode] = useState(localStorage.getItem('darkMode') === '1');
 
-   function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userLoggedIn');
-    navigate('/login');
-}
-
-   const handleNavigationForReservation = () => {
-    if(localStorage.getItem('token') == null || localStorage.getItem('token')  == '' || typeof localStorage.getItem('token')  == undefined){
-        navigate("/login");
-    } else{
-        navigate("/bookingUser");
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userLoggedIn');
+        navigate('/login');
     }
-}
 
-function  handleLogoClick(){
-    navigate("/");
-}
+    const handleNavigationForReservation = () => {
+        const token = localStorage.getItem('token');
+        if(!token){
+            navigate("/login");
+        } else{
+            navigate("/bookingUser");
+        }
+    }
 
+    const handleLogoClick = () => {
+        navigate("/");
+    }
 
-    return (<>
+    return (
         <div className={darkMode ? 'dark navigationBar' : 'navigationBar'} id="navBarContainer">
             <div className="row">
                 <div className="col">
-
                     <nav className="navbar navbar-expand-lg ">
                         <div className="container-fluid d-flex justify-content-between">
-                        <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" onClick={handleLogoClick} />
+                            <img className='navbar-brand brandLogo' src="/katus_logo.jpeg" onClick={handleLogoClick} />
                             <a className="navbar-brand main_nav_link" href="/">Főoldal</a>
-                            
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                                 aria-label="Toggle navigation">
@@ -44,17 +39,15 @@ function  handleLogoClick(){
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-                                <li className="nav-item">
+                                    <li className="nav-item">
                                         <NavLink className="nav-link" aria-current="page" to="/gallery">Galéria</NavLink>
                                     </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link" aria-current="page" to="/pricelist">Árlista</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                    <button className="nav-link" onClick={handleNavigationForReservation}>Időpontfoglalás</button>
-
+                                        <button className="nav-link" onClick={handleNavigationForReservation}>Időpontfoglalás</button>
                                     </li>
-                                   
                                     <li className="nav-item">
                                         <NavLink className="nav-link" aria-current="page" to="/contact">Kapcsolat</NavLink>
                                     </li>
@@ -65,25 +58,20 @@ function  handleLogoClick(){
                                         </a>
                                         <ul className="dropdown-menu">
                                             <li>{
-                                                localStorage.getItem('token')  ? <button className="btn btn-lg" onClick={logout}>Kijelentkezés</button> :  <a className="dropdown-item" href="/login">Bejelentkezés</a>  
+                                                localStorage.getItem('token')  ? <button className="btn btn-lg" onClick={logout}>Kijelentkezés</button> :  <NavLink className="dropdown-item" to="/login">Bejelentkezés</NavLink>  
                                                 }</li>
                                             <li>{
                                                localStorage.getItem('token')  ? <NavLink className="dropdown-item" to="/Profile">Profil megtekintése</NavLink>  : <NavLink className="dropdown-item" to="/register">Regisztráció</NavLink>
                                                 }
-                                                </li>
-                                            <li>{   
-                                                        }</li>
+                                            </li>
                                         </ul>
                                     </li>
-                                   
                                 </ul>
                             </div>
                         </div>
                     </nav>
                 </div>
             </div>
-        </div >
-    </>
-
+        </div>
     )
 }

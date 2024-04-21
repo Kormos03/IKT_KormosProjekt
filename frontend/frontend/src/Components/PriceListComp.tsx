@@ -6,6 +6,7 @@ import { toLowerAlphaNumeric } from '../toLowerAlphaNumeric';
 export function PriceListComp(){
     const [hoveredCard, setHoveredCard] = useState(-1);
     const navigate = useNavigate();
+    
     const services = [
         { name: 'Manikűr', price: '3,000 Ft', img: 'https://elitenails.hu/wp-content/uploads/2020/07/japanese-manicure-elite-nails-salon-budapest-district-1-2.jpg' },
         { name: 'Gél lakk', price: '4,500 Ft', img: 'https://nailshouse.hu/wp-content/uploads/2020/12/Gellakk-Egyszinu-1170x658.jpg' },
@@ -21,7 +22,6 @@ export function PriceListComp(){
         console.log('Foglalás gombra kattintottál', service);
         navigate('/bookingUser');
     }
-    
    
    return (
         <div className="row">

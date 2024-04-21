@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { StyledInput } from "./StyledInput";
 
 export function RegistComponent(){
@@ -101,7 +101,8 @@ export function RegistComponent(){
 
             <button className="btn btn-primary btn-lg" type="submit" onClick={registration}>Regisztráció</button><br />
 
-        </form>
+        </form><br />
+        <NavLink className="nav-link" to="/login" >Van már fiókod? Jelentkezz be</NavLink>
         <p>{registError}</p> 
     </div >
 }
