@@ -16,4 +16,4 @@ Meg nem valósult funkciók:
 - Jelszó visszaállítás
 - Email-es autentikáció
 - Email-es értesítés
-- 
+- Mikor a felhasználó törli az időpontját akkor, nem kerül vissza a szabad időpontok közé az időpont
