@@ -43,7 +43,7 @@ export function AdminGalleryPage() {
     return <>
 
         <AdminNavigationBar />
-        <div className="container gallery main-content">
+        <div className="container login gallery main-content">
         <SingleFileUploader />
 
             <div className="row">

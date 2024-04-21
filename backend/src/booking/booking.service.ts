@@ -2,8 +2,6 @@ import { Injectable, Param } from '@nestjs/common';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { PrismaService } from 'src/prisma.service';
-import { removeIfPresent } from 'typedoc/dist/lib/utils';
-
 
 function parseDate(dateString: string): Date {
   const [date, time] = dateString.split(' ');
@@ -116,7 +114,6 @@ export class BookingService {
     notReserved.map((slot) => {
       if(slot.dateStart < exactDay){
         this.removeNotReserved(slot.id);
-        console.log('Slot deleted because, it was in a past: ', slot.id);
       }
     })
     return this.prisma.not_Reserved.findMany();
@@ -129,7 +126,6 @@ export class BookingService {
     reserved.map((slot) => {
       if(slot.dateStart < exactDay){
         this.removeReserved(slot.name);
-        console.log('Slot deleted because, it was in a past: ', slot.id);
       }
     })
       return this.prisma.reserved.findMany();
@@ -139,14 +135,14 @@ export class BookingService {
 
   findOne(id: number) {
 
-    if(id==null){throw new Error("Id is null")};
+    if(id==null){throw new Error("Az id null")};
       return this.prisma.not_Reserved.findFirst({
         where: { id: id},
       })
   }
 
   findOneReserved(name:string) {
-    if(name==null){throw new Error("Id is null")};
+    if(name==null){throw new Error("Az id null")};
       return this.prisma.reserved.findFirst({
         where: { name: name},
       })
@@ -156,7 +152,7 @@ export class BookingService {
   findAllByDateNotReserved(date: string) {
     console.log('date',date)
     if(date==null){throw new Error("Date is null")};
-    if(date.length != 10){throw new Error("Date is not in the right format")}
+    if(date.length != 10){throw new Error("A dátum formátuma nem megfelelő")}
     const targetDate = new Date(date);
     const nextDay = new Date(targetDate);
     nextDay.setDate(targetDate.getDate() + 1);
@@ -193,7 +189,7 @@ export class BookingService {
             });
         }
     catch (error) {
-        console.error('An error occurred while deleting the record:', error);
+      throw new Error("Hiba történt a törlés során");
     }
   }
   async removeNotReserved(id: number) {
@@ -203,7 +199,7 @@ export class BookingService {
             });
         }
      catch (error) {
-      throw new Error("An error occurred while deleting the record");
+      throw new Error("Hiba történt a törlés során");
     }
   }
 }
