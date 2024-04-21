@@ -66,7 +66,7 @@ export function BookingForm(){
             return;
         }
         const bookingObj = await response.json();
-        const convertedBookings = convertISOToHTMLDateAndTimeString(bookingObj);
+        const convertedBookings: any = convertISOToHTMLDateAndTimeString(bookingObj);
         setGetBooking(convertedBookings);
     }
 

@@ -33,7 +33,7 @@ function useAuth() {
                 }
 
                 if (!response.ok) {
-                    setError('An error occurred, try again later');
+                    setError('Hiba történt az autentikáció során');
                     return;
                 }
 
@@ -41,7 +41,7 @@ function useAuth() {
                 setUser(userData);
                 localStorage.setItem('userLoggedIn', '1');
             } catch (err) {
-                setError('An error occurred during authentication');
+                setError('Hiba történt az autentikáció során');
                 console.error(err);
             }
         }
