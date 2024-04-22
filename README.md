@@ -1,8 +1,14 @@
-Ide jön majd a telepítési és a 
-Majd Át kell cserálnem a PriceListComp-ba a képeket
-
 # Telepítési útmutató
+install.bat elindítása
+Ez a script telepít minden szükséges modult.
 
+Elindítás:
+A 
+
+A backend API-hoz az elérés:
+localhost:3000
+
+Minden egyes komponens elején ott van az API_URL konstans, úgyhogy ha változás lenne, akkor mindegyiket át kellene írni.
 
 A backend API-hoz a leírás: localhost:3000/apidoc 
 
