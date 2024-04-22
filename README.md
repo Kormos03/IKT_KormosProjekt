@@ -28,14 +28,14 @@ Minden egyes komponens elején ott van az API_URL konstans, úgyhogy ha változ�
 Térkép:
 A helymeghatározáshoz a react leaflet open source apiját használtam
 
-###Biztonsági funkciók:
+### Biztonsági funkciók:
 - Brute force elleni védelem throttler-el
 - Bearer token autentikáció
 - Clickjacking védelem, helmet frameguard-dal
 - Web crawlers elleni védelem: /public/robots.txt
 - Az admin belépés másik elérésen van, mint a sima user belépés 
 
-###Meg nem valósult funkciók:
+### Meg nem valósult funkciók:
 - Jelszó visszaállítás
 - Token lejárati idejének beállítása (jelenleg nincs lejárati ideje a tokennek)
 - Email-es autentikáció
