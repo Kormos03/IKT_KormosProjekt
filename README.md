@@ -14,6 +14,7 @@ Biztonsági funkciók:
 
 Meg nem valósult funkciók:
 - Jelszó visszaállítás
+- Token lejárati idejének beállítása (jelenleg nincs lejárati ideje a tokennek)
 - Email-es autentikáció
 - Email-es értesítés
 - Mikor a felhasználó törli az időpontját akkor, nem kerül vissza a szabad időpontok közé az időpont

@@ -1,55 +1,32 @@
-import { createContext, useEffect, useState } from "react";
-import { User } from "../User";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { LoginFormAdmin } from "../Components/LoginFormAdmin";
-import useAuth from "../Components/useAuth";
 import useAuthAdmin from "../Components/useAuthAdmin";
 
-export const UserContext = createContext({ user: null as User|null});
-
 export function AdminLoginPage() {
-  const { token, user,error, setToken, setUser, setError } = useAuthAdmin();
-  const [ isLoggedIn, setIsLoggedIn ] = useState('0');
-  const [backendRoute, setBackendRoute] = useState("http://localhost:3000/users/me");
+  const { token, user,error, setToken, setUser, setError } = useAuthAdmin();;
   const navigate = useNavigate();
 
-
-  
-  useEffect(() => {
-
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, [token]);
-
   function login(token: string) {
+    try{
     setToken(token);
     setUser(user);
     localStorage.setItem('token', token);
     console.log('Token:'+ localStorage.getItem('token'));
     navigate('booking');
-  }
-
-
-  function logout() {
-    setToken('');
-    localStorage.removeItem('token');
+    }
+    catch(error){
+      setError('Hiba történt a bejelentkezés során');
+    }
     setError('');
-    setUser(null);
-    localStorage.removeItem('user');
-  }
+    }
 
     return <div className="container login">
-        <UserContext.Provider value={{ user: user}}/>
-
     <Outlet/>
     {
       token ? null : <LoginFormAdmin onSuccessfulLogin={login}/> 
     }        
     {
-      error ? <>{console.log("Error: "+error)}</> : null
+     <p>{error}</p>
     }
-   
     </div >
 }

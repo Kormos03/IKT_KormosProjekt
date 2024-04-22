@@ -14,7 +14,7 @@ function useAuthAdmin() {
         async function loadUserData() {
             const storedToken = localStorage.getItem('token');
             if (!storedToken) {
-                navigate('/');
+                navigate('/secret/adminlogin');
                 return;
             }
 
@@ -31,7 +31,7 @@ function useAuthAdmin() {
                     const userData = await response.json();
                     setUser(userData);
                 } else if (response.status === 401) {
-                    navigate('/');
+                    navigate('/secret/adminlogin');
                 }
             } catch (err) {
                 setError('Hiba történt az autentikáció során');
