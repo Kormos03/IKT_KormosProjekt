@@ -30,7 +30,7 @@ export function CardComponentForAdmin({cards}: {cards: {url: string, id: number}
         {cards.map((card, index) => (
           <div className="col-md-4" key={index}>
             <div className="card">
-              <img src={card.url} alt="" className="card-header gallery_img"/>
+              <img src={card.url} alt="" className="card-header admin_gallery_img"/>
               <input className="btn btn-danger btn-md card-title" type="button" value='Törlés' onClick={() => deleteImage(card.id)}/>
             </div>
           </div>

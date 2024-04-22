@@ -48,7 +48,7 @@ body, #root {
   align-items: center;  
 }
 
-.gallery_img{
+.gallery_img, .admin_gallery_img{
   max-width: 300px;
   width: 400px;
   height: 400px; 
