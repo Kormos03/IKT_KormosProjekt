@@ -3,7 +3,18 @@ install.bat elindítása
 Ez a script telepít minden szükséges modult.
 
 Elindítás:
-A 
+A start.bat elindítása után a http://localhost:5173/ címen lehet elérni az oldalt
+
+User fiók:
+email: user@email.com
+jelszó: test
+
+Az admin felülethez az URL:
+http://localhost:5173/secret/admin login
+
+Admin fiók:
+email: admin@email.com
+jelszó: admin
 
 A backend API-hoz az elérés:
 localhost:3000
@@ -20,6 +31,7 @@ Biztonsági funkciók:
 - Bearer token autentikáció
 - Clickjacking védelem, helmet frameguard-dal
 - Web crawlers elleni védelem: /public/robots.txt
+- Az admin belépés másik elérésen van, mint a sima user belépés 
 
 Meg nem valósult funkciók:
 - Jelszó visszaállítás
