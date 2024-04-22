@@ -1,23 +1,47 @@
-Ide jön majd a telepítési és a 
-Majd Át kell cserálnem a PriceListComp-ba a képeket
+# Telepítési és indítási útmutató
 
-# Telepítési útmutató
-- Az git clone paranccsal klónozzuk le a repót
-- A backend mappában az .env.example fájlt átnevezzük .env-re és át kell állítani az adatbázis nevét, jelszavát és a portot
-- A frontend mappában az .env.example fájlt átnevezzük .env-re és át kell állítani a backend url-jét
+Telepítés:
+install.bat elindítása
+Ez a script telepít minden szükséges modult.
+_____________________________
+Elindítás:
+A start.bat elindítása után a http://localhost:5173/ címen lehet elérni az oldalt
+
+User fiók:
+
+email: user@email.com
+jelszó: test
+
+__________________________
+
+Az admin felülethez az URL:
+http://localhost:5173/secret/adminlogin
+
+Admin fiók:
+
+email: admin@email.com
+jelszó: admin01
+
+### Backend
+
+A backend API-hoz az elérés:
+localhost:3000
 
 A backend API-hoz a leírás: localhost:3000/apidoc 
 
-Térkép:
+Minden egyes komponens elején ott van az API_URL konstans, úgyhogy ha változás lenne a backend elérésnél, akkor mindegyiket át kellene írni.
+
+### Térkép:
 A helymeghatározáshoz a react leaflet open source apiját használtam
 
-Biztonsági funkciók:
+### Biztonsági funkciók:
 - Brute force elleni védelem throttler-el
 - Bearer token autentikáció
 - Clickjacking védelem, helmet frameguard-dal
 - Web crawlers elleni védelem: /public/robots.txt
+- Az admin belépés másik elérésen van, mint a sima user belépés 
 
-Meg nem valósult funkciók:
+### Meg nem valósult funkciók:
 - Jelszó visszaállítás
 - Token lejárati idejének beállítása (jelenleg nincs lejárati ideje a tokennek)
 - Email-es autentikáció
