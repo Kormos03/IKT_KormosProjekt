@@ -1,6 +1,9 @@
 Ide jön majd a telepítési és a 
 Majd Át kell cserálnem a PriceListComp-ba a képeket
 
+# Telepítési útmutató
+
+
 A backend API-hoz a leírás: localhost:3000/apidoc 
 
 Térkép:
