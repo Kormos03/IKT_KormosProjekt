@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Apr 22, 2024 at 03:06 PM
+-- Generation Time: Apr 22, 2024 at 08:01 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.8
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `AdminToken` (
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `userId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -74,8 +74,8 @@ INSERT INTO `AdminToken` (`token`, `userId`) VALUES
 
 CREATE TABLE `Images` (
   `id` int NOT NULL,
-  `url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `url` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -96,10 +96,10 @@ INSERT INTO `Images` (`id`, `url`, `name`) VALUES
 
 CREATE TABLE `Not_Reserved` (
   `id` int NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `dateStart` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `dateEnd` datetime(3) NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `extra` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -136,10 +136,10 @@ INSERT INTO `Not_Reserved` (`id`, `name`, `dateStart`, `dateEnd`, `type`, `extra
 
 CREATE TABLE `Reserved` (
   `id` int NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `dateStart` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `dateEnd` datetime(3) NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `extra` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -150,7 +150,7 @@ CREATE TABLE `Reserved` (
 --
 
 CREATE TABLE `Token` (
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `userId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -213,9 +213,9 @@ INSERT INTO `Token` (`token`, `userId`) VALUES
 
 CREATE TABLE `User` (
   `id` int NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -224,8 +224,8 @@ CREATE TABLE `User` (
 --
 
 INSERT INTO `User` (`id`, `name`, `password`, `email`, `admin`) VALUES
-(1, 'josephaaa', '$argon2i$v=19$m=16,t=2,p=1$cWxvSGxwZXJZemlLejNpZg$lv25tm23gKETvBe6aGBGtw', 'joseph@email.com', 0),
-(2, 'aronkormosAfarmos', '$argon2i$v=19$m=16,t=2,p=1$cWxvSGxwZXJZemlLejNpZg$lv25tm23gKETvBe6aGBGtw', 'aron@email.com', 1);
+(1, 'user', '$argon2i$v=19$m=16,t=2,p=1$cWxvSGxwZXJZemlLejNpZg$lv25tm23gKETvBe6aGBGtw', 'user@email.com', 0),
+(2, 'admin', '$argon2i$v=19$m=16,t=2,p=1$UTFIR3FlUHpTcGlLVnF0aQ$E/aPIh9/qob04omPmpopfg', 'admin@email.com', 1);
 
 -- --------------------------------------------------------
 
@@ -234,11 +234,11 @@ INSERT INTO `User` (`id`, `name`, `password`, `email`, `admin`) VALUES
 --
 
 CREATE TABLE `_prisma_migrations` (
-  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `checksum` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `checksum` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `finished_at` datetime(3) DEFAULT NULL,
-  `migration_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logs` text COLLATE utf8mb4_unicode_ci,
+  `migration_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logs` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `rolled_back_at` datetime(3) DEFAULT NULL,
   `started_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `applied_steps_count` int UNSIGNED NOT NULL DEFAULT '0'
