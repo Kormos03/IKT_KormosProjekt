@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthAdmin from "./useAuthAdmin";
 
+const API_URL = 'http://localhost:3000/booking';
+
 export function AdminBookingInsert() {
     const { token, user,error, setError } = useAuthAdmin();
     const [date, setDate] = useState(new Date());
@@ -46,7 +48,7 @@ export function AdminBookingInsert() {
         
         console.log('user: ', user)
         console.log(bookingData)
-        const response = await fetch('http://localhost:3000/booking', {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

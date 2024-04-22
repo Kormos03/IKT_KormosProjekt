@@ -1,6 +1,5 @@
 import { useDarkMode } from "./HandleDarkMode";
 
-//El kell különíteni kategóriákra a képeket -> Majd a kategóriákra kattintva megjeleníteni a képeket, de ezt már csak a vizsga után fogom megcsinálni
 export function CardComponent({cards: cards}: {cards: {url: string}[]}) {
   const [isDarkMode] = useDarkMode();
 

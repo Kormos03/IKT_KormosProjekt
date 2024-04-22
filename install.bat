@@ -1,7 +1,3 @@
 @echo off
-cd backend
-npm install
-cd..
-cd frontend
-cd frontend
-npm install
+cd backend && npm install && npx prisma generate && cd..
+cd frontend && cd frontend && npm install

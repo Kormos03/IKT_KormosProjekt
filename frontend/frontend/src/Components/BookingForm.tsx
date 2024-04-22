@@ -12,6 +12,9 @@ interface TypeFromLocal{
     value: string;
 }
 
+const API_URL1 = 'http://localhost:3000/booking/not_reserved/';
+const API_URL2 = 'http://localhost:3000/booking/reserved/';
+
 export function BookingForm(){
     const { token, user, error, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]);
@@ -52,7 +55,7 @@ export function BookingForm(){
     }, []);
 
     const getDatesFromBackend = async () => {
-        const response = await fetch('http://localhost:3000/booking/not_reserved/', {
+        const response = await fetch(API_URL1, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -80,7 +83,7 @@ export function BookingForm(){
     }
 
     const postRequestForfindAllByDate = async (dateInFunction: string) => {
-        const response = await fetch('http://localhost:3000/booking/not_reserved/bydate/', {
+        const response = await fetch(API_URL1 + 'bydate/', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -133,7 +136,7 @@ export function BookingForm(){
             type: type.value? type.value : type,
         }
 
-        const response = await fetch('http://localhost:3000/booking/reserved', {
+        const response = await fetch(API_URL2, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

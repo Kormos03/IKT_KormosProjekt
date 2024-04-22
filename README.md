@@ -2,7 +2,9 @@ Ide jön majd a telepítési és a
 Majd Át kell cserálnem a PriceListComp-ba a képeket
 
 # Telepítési útmutató
-
+- Az git clone paranccsal klónozzuk le a repót
+- A backend mappában az .env.example fájlt átnevezzük .env-re és át kell állítani az adatbázis nevét, jelszavát és a portot
+- A frontend mappában az .env.example fájlt átnevezzük .env-re és át kell állítani a backend url-jét
 
 A backend API-hoz a leírás: localhost:3000/apidoc 
 
