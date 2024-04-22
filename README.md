@@ -12,7 +12,7 @@ email: user@email.com
 jelszó: test
 
 Az admin felülethez az URL:
-http://localhost:5173/secret/admin login
+http://localhost:5173/secret/adminlogin
 
 Admin fiók:
 email: admin@email.com
