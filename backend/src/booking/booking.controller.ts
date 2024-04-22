@@ -39,8 +39,8 @@ export class BookingController {
   @UseGuards(AuthGuard('bearer')) 
   removeReserved(@Request() req) {
     const user: User = req.user;
-    console.log(user.username);
-    return this.bookingService.removeReserved(user.username);
+    console.log(user.name);
+    return this.bookingService.removeReserved(user.name);
   }
 
 
@@ -53,7 +53,7 @@ export class BookingController {
   @UseGuards(AuthGuard('bearer')) 
   findOneReserved(@Request() req) {
     const user: User = req.user;
-    return this.bookingService.findOneReserved(user.username);
+    return this.bookingService.findOneReserved(user.name);
   }
 
   @Post()

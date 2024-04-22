@@ -213,7 +213,7 @@ INSERT INTO `Token` (`token`, `userId`) VALUES
 
 CREATE TABLE `User` (
   `id` int NOT NULL,
-  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0'
@@ -223,7 +223,7 @@ CREATE TABLE `User` (
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`id`, `username`, `password`, `email`, `admin`) VALUES
+INSERT INTO `User` (`id`, `name`, `password`, `email`, `admin`) VALUES
 (1, 'josephaaa', '$argon2i$v=19$m=16,t=2,p=1$cWxvSGxwZXJZemlLejNpZg$lv25tm23gKETvBe6aGBGtw', 'joseph@email.com', 0),
 (2, 'aronkormosAfarmos', '$argon2i$v=19$m=16,t=2,p=1$cWxvSGxwZXJZemlLejNpZg$lv25tm23gKETvBe6aGBGtw', 'aron@email.com', 1);
 

@@ -19,7 +19,7 @@ export class UsersController {
     const user: User = req.user;
     return {
       email: user.email,
-      name: user.username,
+      name: user.name,
       admin: user.admin,
     }
   }
@@ -33,7 +33,7 @@ export class UsersController {
     }
     return {
       email: user.email,
-      name: user.username,
+      name: user.name,
       admin: user.admin,
     }
   }

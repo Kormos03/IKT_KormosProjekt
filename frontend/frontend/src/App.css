@@ -19,6 +19,7 @@ body, #root {
 
 .card:hover .pricebtn {
   display: block;
+  
 }
 
 .footer {
@@ -70,8 +71,8 @@ body, #root {
 
 .priceListImg{
   max-width: 300px;
-  width: 400px;
-  height: 200px; 
+  width: 380px;
+  height: 300px; 
   object-fit: cover; 
 }
 
@@ -87,12 +88,12 @@ body, #root {
 }
 
 .navigationBar{
-  position: fixed; /* Fix the position of the navbar */
-  top: 0; /* Position it at the top */
-  left: 0; /* Position it at the left */
-  right: 0; /* Stretch it to the right */
-  z-index: 1000; /* Make sure it's above other elements */
-  width: 100%; /* Make it fill the full width */
+  position: fixed;
+  top: 0;
+  left: 0; 
+  right: 0; 
+  z-index: 1000; 
+  width: 100%; 
   background-color: #ffffff; 
   color: #ffffff;
 }
