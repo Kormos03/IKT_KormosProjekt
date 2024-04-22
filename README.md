@@ -3,7 +3,7 @@
 Telepítés:
 install.bat elindítása
 Ez a script telepít minden szükséges modult.
-
+_____________________________
 Elindítás:
 A start.bat elindítása után a http://localhost:5173/ címen lehet elérni az oldalt
 
