@@ -3,13 +3,14 @@ import { GalleryImg } from "../GalleryImg";
 import { CardComponent } from "../Components/CardComponent";
 import { NavigationBar } from "../Components/NavigationBar";
 
+const API_URL = 'http://localhost:3000/images/';
+
 export function GalleryPage() {
     const [gallery, setGallery] = useState([]);
-    const [backendRoute, setBackendRoute] = useState("http://localhost:3000/images/");
-    console.log("gallery:" +gallery)
+
     async function fetchGallery() {
         try {
-            const response = await fetch(backendRoute, {
+            const response = await fetch(API_URL, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,27 +19,38 @@ export function GalleryPage() {
             });
             const data = await response.json();
             setGallery(data);
-        } catch (error) {
+        } catch (error : any) {
             throw new Error(error.message);
         }
     }
 
     useEffect(() => {
+        async function fetchGallery() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                });
+                const data = await response.json();
+                setGallery(data);
+            } catch (error : any) {
+                throw new Error(error.message);
+            }
+        }
         fetchGallery();
     }, []);
     
-    return <>
-        <NavigationBar  />
-        <div className="container login main-content">
-            <div className="row">
-                <h1 className="col">Képek</h1>
-            </div> <br />
-            <div className="row">
-            <CardComponent cards={gallery as GalleryImg[]} />
-        </div>
-
-      
-        </div>
+    return (
+        <>
+            <NavigationBar />
+            <div className="container login main-content">
+                <h1>Képek</h1> <br />
+                <CardComponent cards={gallery as GalleryImg[]} />
+            </div>
         </>
+    );
 }
 
