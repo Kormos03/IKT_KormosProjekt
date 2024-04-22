@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User } from '../User';
+import { User } from '../assets/User';
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = 'http://localhost:3000/users/me';

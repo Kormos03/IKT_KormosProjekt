@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GalleryImg } from "../GalleryImg";
+import { GalleryImg } from "../assets/GalleryImg";
 import { CardComponent } from "../Components/CardComponent";
 import { NavigationBar } from "../Components/NavigationBar";
 

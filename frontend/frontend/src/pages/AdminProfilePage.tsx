@@ -1,6 +1,6 @@
 import { UserProfile } from "../Components/UserProfile";
-import { AdminNavigationBar } from "../Components/AdminNavigationBar";
-import useAuthAdmin from "../Components/useAuthAdmin";
+import { AdminNavigationBar } from "../Components/AdminComponents/AdminNavigationBar";
+import useAuthAdmin from "../Components/AdminComponents/useAuthAdmin";
 
 export function AdminProfilePage(){
   const { user, error} = useAuthAdmin();

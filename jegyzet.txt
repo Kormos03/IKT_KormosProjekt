@@ -1,7 +1,3 @@
-The auth instead of repeat every time in a new page, I should make a function.
-Change vscode time format from pm/am to 00:00!
-Get all free bookings by date
-Make auth for every endpoint that needs it (example: bookings)
 Make the translations for the frontend
 
 

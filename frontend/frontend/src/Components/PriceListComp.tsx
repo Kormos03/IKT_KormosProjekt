@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toLowerAlphaNumeric } from '../toLowerAlphaNumeric';
+import { toLowerAlphaNumeric } from '../assets/toLowerAlphaNumeric';
 
 export function PriceListComp(){
     const [hoveredCard, setHoveredCard] = useState(-1);

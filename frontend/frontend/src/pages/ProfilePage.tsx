@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserProfile } from "../Components/UserProfile";
-import { User } from "../User";
+import { User } from "../assets/User";
 import { NavLink, useNavigate } from "react-router-dom";
 import { NavigationBar } from "../Components/NavigationBar";
 import useAuth from "../Components/useAuth";

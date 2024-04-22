@@ -1,4 +1,4 @@
-import { BookingModel } from "../BookingModel";
+import { BookingModel } from "./BookingModel";
 
 export function datesToReadableFormatFunc(reservation: BookingModel) {
     const dateStart = reservation.dateStart.split('T')[0] + " " + (reservation.dateStart.split(':')[0]).split('T')[1] + ':' + reservation.dateStart.split(':')[1];

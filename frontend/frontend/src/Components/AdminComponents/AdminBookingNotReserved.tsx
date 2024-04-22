@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { groupBy } from 'lodash';
-import { datesToReadableFormatFunc } from "./datesToReadableFormatFunc";
-import { BookingModel } from "../BookingModel";
+import { datesToReadableFormatFunc } from "../../assets/datesToReadableFormatFunc";
+import { BookingModel } from "../../assets/BookingModel";
 import { renderGroupedBookings } from "./renderGroupedBookings";
 import useAuthAdmin from "./useAuthAdmin";
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { groupBy } from 'lodash';
-import { datesToReadableFormatFunc } from "./datesToReadableFormatFunc";
-import { BookingModel } from "../BookingModel";
+import { datesToReadableFormatFunc } from "../../assets/datesToReadableFormatFunc";
+import { BookingModel } from "../../assets/BookingModel";
 import { renderGroupedBookings } from "./renderGroupedBookings";
 import useAuthAdmin from "./useAuthAdmin";
 
@@ -74,7 +74,7 @@ export function AdminBookingReserved() {
     }
 
     async function deleteBooking(bookingId: string | BookingModel) {
-        const response = await fetch(API_URL + bookingId, {
+        const response = await fetch(API_URL + 'id/' + bookingId, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',

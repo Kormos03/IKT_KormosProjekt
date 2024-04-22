@@ -182,8 +182,12 @@ export class BookingService {
   }
 
 
-  async removeReserved(name: string) {
+  async removeReserved(name: string, id?: number) {
     try {
+      if (id) {
+        return await this.prisma.reserved.delete({
+          where: { id: id },
+        });}
             return await this.prisma.reserved.deleteMany({
                 where: { name: name},
             });
@@ -192,6 +196,7 @@ export class BookingService {
       throw new Error("Hiba történt a törlés során");
     }
   }
+
   async removeNotReserved(id: number) {
     try {
             return await this.prisma.not_Reserved.delete({

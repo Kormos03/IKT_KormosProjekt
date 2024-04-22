@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useAuth from "./useAuth";
+import useAuth from "../useAuth";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = 'http://localhost:3000/images/fileupload';

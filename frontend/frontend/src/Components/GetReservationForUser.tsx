@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-//This component is responsible for getting the reservation for the user
 export function GetReservationForUser() {
     const [reservation, setReservation] = useState(null as IReservation | null);
     useEffect(() => {

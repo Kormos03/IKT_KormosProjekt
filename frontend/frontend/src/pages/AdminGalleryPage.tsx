@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { AdminNavigationBar } from "../Components/AdminNavigationBar";
-import { GalleryImg } from "../GalleryImg";
-import { CardComponentForAdmin } from "../Components/CardComponentForAdmin";
-import SingleFileUploader from "../Components/SingleFileUploader";
-import useAuthAdmin from "../Components/useAuthAdmin";
+import { AdminNavigationBar } from "../Components/AdminComponents/AdminNavigationBar";
+import { GalleryImg } from "../assets/GalleryImg";
+import { CardComponentForAdmin } from "../Components/AdminComponents/CardComponentForAdmin";
+import SingleFileUploader from "../Components/AdminComponents/SingleFileUploader";
+import useAuthAdmin from "../Components/AdminComponents/useAuthAdmin";
 
 const API_URL = 'http://localhost:3000/images';
 

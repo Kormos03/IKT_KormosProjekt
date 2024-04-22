@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { LoginFormAdmin } from "../Components/LoginFormAdmin";
-import useAuthAdmin from "../Components/useAuthAdmin";
+import { LoginFormAdmin } from "../Components/AdminComponents/LoginFormAdmin";
+import useAuthAdmin from "../Components/AdminComponents/useAuthAdmin";
 
 export function AdminLoginPage() {
     const { token, user, error, setToken, setUser, setError } = useAuthAdmin();

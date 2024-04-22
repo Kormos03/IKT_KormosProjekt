@@ -1,4 +1,4 @@
-import GetReservationForUser from "../GetReservationForUser";
+import GetReservationForUser from "./GetReservationForUser";
 import { useNavigate } from "react-router-dom";
 
 export function WelcomeLoggedIn() {

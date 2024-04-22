@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { GetBooking } from "../GetBooking";
+import { GetBooking } from "../assets/GetBooking";
 import useAuth from "./useAuth";
-import { BookingModel } from "../BookingModel";
+import { BookingModel } from "../assets/BookingModel";
 import { DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
-import GetReservationForUser from "../GetReservationForUser";
+import GetReservationForUser from "./GetReservationForUser";
 import { useNavigate } from "react-router-dom";
 
 interface TypeFromLocal{

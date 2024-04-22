@@ -1,7 +1,7 @@
-import { AdminNavigationBar } from "../Components/AdminNavigationBar";
-import { AdminBookingInsert } from "../Components/AdminBookingInsert";
-import { AdminBookingNotReserved } from "../Components/AdminBookingNotReserved";
-import { AdminBookingReserved } from "../Components/AdminBookingReserved";
+import { AdminNavigationBar } from "../Components/AdminComponents/AdminNavigationBar";
+import { AdminBookingInsert } from "../Components/AdminComponents/AdminBookingInsert";
+import { AdminBookingNotReserved } from "../Components/AdminComponents/AdminBookingNotReserved";
+import { AdminBookingReserved } from "../Components/AdminComponents/AdminBookingReserved";
 
 export function AdminBookingPage() {
     return (
