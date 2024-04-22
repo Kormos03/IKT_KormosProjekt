@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 export function ContactPage() {
-    const position = [47.497913, 19.040236]; // Budapest coordinates
+  const position: [number, number] = [47.497913, 19.040236];
 
     return <><NavigationBar/>
     <div className="container login main-content">
@@ -22,16 +22,17 @@ export function ContactPage() {
         <br />
         <p>Helyszín: <a href="https://www.google.com/maps?q=47.497913,19.040236" target="_blank">Budapest.</a></p>
         <MapContainer center={position} zoom={20} style={{ height: "30vh", width: "30%" }}>
+          
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <Marker position={position}>
         <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
+          <p>Körmösszalon helye</p>
         </Popup>
       </Marker>
     </MapContainer>
     </div >
     </>
-}
+  }

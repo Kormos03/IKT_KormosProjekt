@@ -1,6 +1,5 @@
 import { BookingForm } from "../Components/BookingForm";
-import { NavigationBar } from "../Components/NavigationBar"
-import useAuth from "../Components/useAuth";
+import { NavigationBar } from "../Components/NavigationBar";
 
 export function BookingUserPage(){
 
