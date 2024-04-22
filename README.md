@@ -48,3 +48,5 @@ A helymeghatározáshoz a react leaflet open source apiját használtam
 - Email-es értesítés
 - Mikor a felhasználó törli az időpontját akkor, nem kerül vissza a szabad időpontok közé az időpont
 - Az admin nem tudja módosítani az árakat
+
+A .env fáljt alapesetben nem szabad feltölteni, viszont most az egyszerűség kedvéért fel lett rakva.
