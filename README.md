@@ -20,7 +20,7 @@ http://localhost:5173/secret/adminlogin
 Admin fiók:
 
 email: admin@email.com
-jelszó: admin
+jelszó: admin01
 
 ### Backend
 
