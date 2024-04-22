@@ -183,31 +183,30 @@ export class BookingService {
 
 
   async removeReserved(name: string, id?: number) {
-    try {
       if (id) {
+        if(await this.prisma.reserved.findFirst({where: {id: id}}) == null)
+          {
+            return
+          }
         return await this.prisma.reserved.delete({
           where: { id: id },
         });}
+        if(await this.prisma.reserved.findFirst({where: {name: name}}) == null)
+          {
+            return
+          }
             return await this.prisma.reserved.deleteMany({
                 where: { name: name},
             });
         }
-    catch (error) {
-      throw new Error("Hiba történt a törlés során");
-    }
-  }
+  
 
   async removeNotReserved(id: number) {
-    try {
-            return await this.prisma.not_Reserved.delete({
+       return await this.prisma.not_Reserved.delete({
                 where: { id: id },
             });
+          }
         }
-     catch (error) {
-      throw new Error("Hiba történt a törlés során");
-    }
-  }
-}
   
 
 
