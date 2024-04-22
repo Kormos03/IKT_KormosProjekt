@@ -12,6 +12,7 @@ User fiók:
 email: user@email.com
 jelszó: test
 
+__________________________
 
 Az admin felülethez az URL:
 http://localhost:5173/secret/adminlogin
