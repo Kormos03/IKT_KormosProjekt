@@ -62,7 +62,7 @@ export class BookingService {
           ],
         },
       });
-      slotsToDelete.forEach(async (slot) => {this.removeNotReserved(slot.id); console.log('Slot deleted: ', slot.id)});
+      slotsToDelete.forEach(async (slot) => {this.removeNotReserved(slot.id);});
 
       //I have to check if the date is in the right format
       if (createBookingDto.dateStart > createBookingDto.dateEnd || createBookingDto.dateStart == null || createBookingDto.dateEnd == null) {
@@ -111,6 +111,14 @@ export class BookingService {
     const notReserved = await this.prisma.not_Reserved.findMany();
     const exactDay = new Date();
     exactDay.setHours(exactDay.getHours() +2);
+
+    if(notReserved.length == 0){
+      return
+    }
+
+    if(notReserved.length <= 2){
+      this.removeNotReserved(notReserved[0].id);
+    }
     notReserved.map((slot) => {
       if(slot.dateStart < exactDay){
         this.removeNotReserved(slot.id);
@@ -123,6 +131,10 @@ export class BookingService {
     const reserved = await this.prisma.reserved.findMany();
     const exactDay = new Date();
     exactDay.setHours(exactDay.getHours() +2);
+
+    if(reserved.length == 0){
+      return
+    }
     reserved.map((slot) => {
       if(slot.dateStart < exactDay){
         this.removeReserved(slot.name);
@@ -150,7 +162,6 @@ export class BookingService {
 
   //This function is for the frontend to get the available times for a given date
   findAllByDateNotReserved(date: string) {
-    console.log('date',date)
     if(date==null){throw new Error("Date is null")};
     if(date.length != 10){throw new Error("A dátum formátuma nem megfelelő")}
     const targetDate = new Date(date);
@@ -167,6 +178,7 @@ export class BookingService {
   }
 
   update(id: number, updateBookingDto: UpdateBookingDto, reserved: boolean) {
+    if(id==null){throw new Error("Az id null")};
     if (reserved) {
       return this.prisma.reserved.update({
         where: { id: id },
@@ -202,6 +214,10 @@ export class BookingService {
   
 
   async removeNotReserved(id: number) {
+    if(await this.prisma.not_Reserved.findFirst({where: {id: id}}) == null)
+      {
+        return
+      }
        return await this.prisma.not_Reserved.delete({
                 where: { id: id },
             });

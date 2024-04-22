@@ -18,11 +18,9 @@ export function GetReservationForUser() {
             });
             if(response.ok){
                 const user = await response.json();
-                console.log(user)
                 setReservation(user as IReservation);
             }
             else{
-                console.log('Hiba a lekérdezés során');
                 setReservation(null);
             }
         }

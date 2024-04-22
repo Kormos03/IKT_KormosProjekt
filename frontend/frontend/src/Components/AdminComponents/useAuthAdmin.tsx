@@ -33,6 +33,9 @@ function useAuthAdmin() {
                 } else if (response.status === 401) {
                     navigate('/secret/adminlogin');
                 }
+                else{
+                    localStorage.removeItem('token');
+                }
             } catch (err) {
                 setError('Hiba történt az autentikáció során');
             }

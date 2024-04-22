@@ -31,6 +31,7 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
         if (!response.ok || response.status === 500) {
             const errorObj = await response.json();
             setLoginError(errorObj.message);
+            localStorage.removeItem('token');
             return;
         }
 
