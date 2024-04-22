@@ -18,6 +18,8 @@ Admin fiók:
 email: admin@email.com
 jelszó: admin
 
+### Backend
+
 A backend API-hoz az elérés:
 localhost:3000
 
@@ -25,7 +27,7 @@ A backend API-hoz a leírás: localhost:3000/apidoc
 
 Minden egyes komponens elején ott van az API_URL konstans, úgyhogy ha változás lenne a backend elérésnél, akkor mindegyiket át kellene írni.
 
-Térkép:
+### Térkép:
 A helymeghatározáshoz a react leaflet open source apiját használtam
 
 ### Biztonsági funkciók:
