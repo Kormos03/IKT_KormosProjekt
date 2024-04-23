@@ -1,5 +1,0 @@
-Make the translations for the frontend
-
-
-DateTime format: ISO 8601
-example: 2024-03-13T10:00:00Z
