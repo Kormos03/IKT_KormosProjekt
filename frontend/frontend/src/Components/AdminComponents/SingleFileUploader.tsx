@@ -15,11 +15,24 @@ const SingleFileUploader = () => {
         }
     };
 
+    const isValidFileUploaded=(file : File)=>{
+      const validExtensions = ['png','jpeg','jpg']
+      const fileExtension = file.type.split('/')[1]
+      return validExtensions.includes(fileExtension)
+    }
+
     const handleUpload = async () => {
         if (file) {
             try {
+             
                 const formData = new FormData();
                 formData.append('file', file);
+
+                const fileForValidation = file;
+                if(!isValidFileUploaded(fileForValidation)){
+                  window.alert("Hibás fájlformátum! Kérem válasszon png, jpeg vagy jpg formátumú fájlt!");
+                  return;
+                }
 
                 const result = await fetch(API_URL, {
                     method: "POST",
