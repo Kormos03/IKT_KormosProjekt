@@ -22,6 +22,8 @@ Admin fiók:
 email: admin@email.com
 jelszó: admin01
 
+__________________________
+
 ### Használati útmutató
 - Mikor az oldal betöltődik, akkor a főoldalon lehetőség van a bejelenkezésre, regisztrációra.
 - Az oldal tetején található a navigációssáv, ahol a főoldal, a galéria, az árak, foglalás, a kapcsolat és a profil találhtó, ami egy lenyíló ablak, ahol lehetőség van választani a bejelentkezésre és a regisztrációra.
@@ -42,8 +44,7 @@ A backend API-hoz a leírás: localhost:3000/apidoc
 
 Minden egyes komponens elején ott van az API_URL konstans, úgyhogy ha változás lenne a backend elérésnél, akkor mindegyiket át kellene írni.
 
-### Térkép:
-A helymeghatározáshoz a react leaflet open source apiját használtam
+__________________________
 
 ### Biztonsági funkciók:
 - Brute force elleni védelem throttler-el
@@ -51,6 +52,8 @@ A helymeghatározáshoz a react leaflet open source apiját használtam
 - Clickjacking védelem, helmet frameguard-dal
 - Web crawlers elleni védelem: /public/robots.txt
 - Az admin belépés másik elérésen van, mint a sima user belépés 
+
+__________________________
 
 ### Meg nem valósult funkciók:
 - Jelszó visszaállítás
