@@ -1,11 +1,9 @@
 # Telepítési és indítási útmutató
 
 Telepítés:
-1. PowerShell vagy Command Prompt megnyitása
-2. A `cd` paranccsal navigálj a mappába, ahova telepíteni szeretnéd a programot
-3. `git clone https://github.com/Kormos03/IKT_KormosProjekt.git`
-4. `cd IKT_KormosProjekt`
-5. install.bat elindítása
+1. A fálj kezelőben `SHIFT + jobb klikk` a mappán belül, majd rá kell kattintani az `Powershell megnyitása itt` opcióra
+2. Be kell másolni: `git clone https://github.com/Kormos03/IKT_KormosProjekt.git`
+3. Az IKT_KormosProjekt mappán belül, `install.bat` elindítása.
 Ez a script telepít minden szükséges modult.
 
 __________________________
