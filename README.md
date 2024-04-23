@@ -1,30 +1,17 @@
 # Telepítési és indítási útmutató
 
 Telepítés:
-install.bat elindítása
+1. PowerShell vagy Command Prompt megnyitása
+2. A `cd` paranccsal navigálj a mappába, ahol a projekt található
+3. git clone https://github.com/Kormos03/IKT_KormosProjekt.git
+4. cd IKT_KormosProjekt
+5. install.bat elindítása
 Ez a script telepít minden szükséges modult.
-_____________________________
-Elindítás:
-A start.bat elindítása után a http://localhost:5173/ címen lehet elérni az oldalt
-
-User fiók:
-
-email: user@email.com
-jelszó: test
-
-__________________________
-
-Az admin felülethez az URL:
-http://localhost:5173/secret/adminlogin
-
-Admin fiók:
-
-email: admin@email.com
-jelszó: admin01
 
 __________________________
 
 ### Használati útmutató
+Először is a start.bat fájlt kell elindítani, hogy elinduljon a backend és a frontend is. A backend a 3000-es porton, a frontend pedig a 5173-as porton fog futni. A frontend elindítása után a http://localhost:5173/ címen lehet elérni az oldalt.
 - Mikor az oldal betöltődik, akkor a főoldalon lehetőség van a bejelenkezésre, regisztrációra.
 - Az oldal tetején található a navigációssáv, ahol a főoldal, a galéria, az árak, foglalás, a kapcsolat és a profil találhtó, ami egy lenyíló ablak, ahol lehetőség van választani a bejelentkezésre és a regisztrációra.
 - A főoldalon található egy rövid leírás az oldalról, és a lefoglalt időpontról, bejelentkezés után.
@@ -34,6 +21,21 @@ __________________________
 - A kapcsolat menüpontban található az admin telefonszáma és email címe, ahol a felhasználók felvehetik a kapcsolatot az adminnal. A szalon helyzetét is meg lehet nézni a térképen, amely szintén ezen az oldalon található.
 . A profil fülre kattintva, ha a felhasználó be van jelentkezve, választhat a kijelentkezés és a profil szerkesztése között. A profil szerkesztése menüpontban a felhasználó megváltoztathatja a nevét.
 - A profil fülre kattintva, ha a felhasználó nincs be jelentkezve, választhat a bejelentkezés és a regisztráció között.
+
+Az admin felülethez az URL:
+http://localhost:5173/secret/adminlogin
+
+__________________________
+
+User fiók:
+email: user@email.com
+jelszó: test
+
+
+Admin fiók:
+email: admin@email.com
+jelszó: admin01
+
 
 __________________________
 
