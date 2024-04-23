@@ -22,6 +22,17 @@ Admin fiók:
 email: admin@email.com
 jelszó: admin01
 
+### Használati útmutató
+- Mikor az oldal betöltődik, akkor a főoldalon lehetőség van a bejelenkezésre, regisztrációra.
+- Az oldal tetején található a navigációssáv, ahol a főoldal, a galéria, az árak, foglalás, a kapcsolat és a profil találhtó, ami egy lenyíló ablak, ahol lehetőség van választani a bejelentkezésre és a regisztrációra.
+- A főoldalon található egy rövid leírás az oldalról, és a lefoglalt időpontról, bejelentkezés után.
+- A galériában találhatóak a képek, amiket a felhasználók megtekinthetnek. Az admin tud képeket hozzáadni és törölni.
+- Az árak menüpontban találhatóak az árak, amelyekre az egér fölé helyezve megjelenik egy gomb, amire kattintva lehetőség van a foglalásra.
+- A foglalás menüpontban lehetőség van a foglalásra, ahol a felhasználó kiválaszthatja az időpontot és a szolgáltatást, amit szeretne igénybe venni.
+- A kapcsolat menüpontban található az admin telefonszáma és email címe, ahol a felhasználók felvehetik a kapcsolatot az adminnal. A szalon helyzetét is meg lehet nézni a térképen, amely szintén ezen az oldalon található.
+. A profil fülre kattintva, ha a felhasználó be van jelentkezve, választhat a kijelentkezés és a profil szerkesztése között. A profil szerkesztése menüpontban a felhasználó megváltoztathatja a nevét.
+- A profil fülre kattintva, ha a felhasználó nincs be jelentkezve, választhat a bejelentkezés és a regisztráció között.
+
 ### Backend
 
 A backend API-hoz az elérés:
