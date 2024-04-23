@@ -3,7 +3,7 @@
 Telepítés:
 1. A fálj kezelőben `SHIFT + jobb klikk` a mappán belül, majd rá kell kattintani az `Powershell megnyitása itt` opcióra
 2. Be kell másolni: `git clone https://github.com/Kormos03/IKT_KormosProjekt.git`
-3. Az IKT_KormosProjekt mappán belül, `install.bat` elindítása
+3. Az IKT_KormosProjekt mappán belül, `install.bat` elindítása.
 Ez a script telepít minden szükséges modult.
 
 __________________________
