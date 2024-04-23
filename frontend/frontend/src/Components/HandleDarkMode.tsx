@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export function useDarkMode() {
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const darkModeInStorage = localStorage.getItem('darkMode');
     return darkModeInStorage === 'true';
@@ -12,6 +13,7 @@ export function useDarkMode() {
   }, []);
 
   useEffect(() => {
+    
     if (isDarkMode) {
       document.body.classList.remove('light');
       document.body.classList.add('dark-mode');
@@ -21,7 +23,7 @@ export function useDarkMode() {
       document.body.classList.add('light');
       localStorage.setItem('darkMode', 'false');
     }
-  }, [isDarkMode]);
+  }, [isDarkMode] || []);
 
   return [isDarkMode, setIsDarkMode];
 }
