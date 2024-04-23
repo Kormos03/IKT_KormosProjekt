@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
-import useAuth from "./useAuth";
+import useAuthAdmin from "./AdminComponents/useAuthAdmin";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = 'http://localhost:3000/users/';
 
 export function UserProfile() {
-    const { token, user: userFromAuth, setError } = useAuth();
+    const { token, user: userFromAuth, error, setError } = useAuthAdmin();
     const [user, setUser] = useState(userFromAuth);
     const [modify, setModify] = useState(false);
     const [isNameChanged, setIsNameChanged] = useState(false);
+    const navigate = useNavigate();
 
     const changeProfile = async () => {
         setModify(!modify);
         if (modify && isNameChanged) {
+            if(!user || !user.name) {
+                window.alert("A név nem lehet üres");  
+                navigate(0);
+                return;
+            }
             const modifyauthorization = window.confirm('Biztosan módosítja a profilját?');
-            if (!modifyauthorization || !isNameChanged) return;
+            if (!modifyauthorization || !isNameChanged) {
+                return;
+            }
         }
         if (modify && user && user.name && user.email) {
             const response = await fetch(API_URL + user.email, {
@@ -56,6 +65,7 @@ export function UserProfile() {
             {user?.admin && <strong>Jogosultság: <p>Admin</p></strong>}
     
             <input type="button" value="Profil szerkesztése" onClick={changeProfile} />
+            <p>{error}</p>
         </div>
     );
 }
