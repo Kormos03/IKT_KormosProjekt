@@ -1,5 +1,3 @@
-Tesztek:
-
 # Felhaználói felület tesztelése:
 
 ## A regisztráció gombra kattintva a rendszer a következőket teszi:

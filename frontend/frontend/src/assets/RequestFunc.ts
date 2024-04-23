@@ -6,7 +6,7 @@
 //It needs to make more requests to the server.
 
 
-export async function RequestFunc(method, route, token?, body){
+export async function RequestFunc(method: any, route: any, body: any, token? : any){
     if(token){
         const response = await fetch(route, {
             method: method,
@@ -18,6 +18,7 @@ export async function RequestFunc(method, route, token?, body){
             body: JSON.stringify(body)
     
         })
+        response;
     }
     const response = await fetch(route, {
         method: method,
