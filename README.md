@@ -35,6 +35,8 @@ __________________________
 . A profil fülre kattintva, ha a felhasználó be van jelentkezve, választhat a kijelentkezés és a profil szerkesztése között. A profil szerkesztése menüpontban a felhasználó megváltoztathatja a nevét.
 - A profil fülre kattintva, ha a felhasználó nincs be jelentkezve, választhat a bejelentkezés és a regisztráció között.
 
+__________________________
+
 ### Backend
 
 A backend API-hoz az elérés:
