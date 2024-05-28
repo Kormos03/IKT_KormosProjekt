@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import useAuth from "../useAuth";
 import { useNavigate } from "react-router-dom";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/images/fileupload';
+const API_URL = GLOBAL_API_URL + '/images/fileupload';
 
 const SingleFileUploader = () => {
     const { token } = useAuth();

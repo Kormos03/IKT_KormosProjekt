@@ -1,12 +1,15 @@
+import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
 import GetReservationForUser from "./GetReservationForUser";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+
+const API_URL = GLOBAL_API_URL + "/booking/reserved/delete";
 
 export function WelcomeLoggedIn() {
     const navigate = useNavigate();
     const { reservation } = GetReservationForUser();
 
     const reservedTime = () => {
-        if (!reservation) return <h2>Még nincs lefoglalt időpontja</h2>;
+        if (!reservation) return <NavLink className="bookFromWelcomePage" to="/bookingUser">Még nincs lefoglalt időpontja</NavLink>;
 
         const dateStart = reservation.dateStart.split('T')[0] + " " + (reservation.dateStart.split(':')[0]).split('T')[1] + ':' + reservation.dateStart.split(':')[1];
         const dateEnd = (reservation.dateEnd.split(':')[0]).split('T')[1] + ':' + reservation.dateEnd.split(':')[1];
@@ -25,7 +28,7 @@ export function WelcomeLoggedIn() {
 
     async function deleteReservation() {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/booking/reserved/delete', {
+        const response = await fetch(API_URL, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',

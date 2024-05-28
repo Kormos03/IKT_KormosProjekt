@@ -6,14 +6,15 @@ import { DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
 import GetReservationForUser from "./GetReservationForUser";
 import { useNavigate } from "react-router-dom";
+import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
 
 interface TypeFromLocal{
     name: string;
     value: string;
 }
 
-const API_URL1 = 'http://localhost:3000/booking/not_reserved/';
-const API_URL2 = 'http://localhost:3000/booking/reserved/';
+const API_URL1 = GLOBAL_API_URL + '/booking/not_reserved/';
+const API_URL2 = GLOBAL_API_URL + '/booking/reserved/';
 
 export function BookingForm(){
     const { token, user, error, setError } = useAuth();

@@ -148,6 +148,16 @@ body.dark-mode {
   color: #ffffff; /* Set the text color to white */
 }
 
+.bookFromWelcomePage{
+  font-size: xx-large;
+  text-decoration: none;
+  color: #3d3d3d;
+}
+.bookFromWelcomePage:hover{
+  color: black;
+  text-decoration: underline;
+}
+
 nav{
   background-color: #ffffff;
 }

@@ -1,8 +1,9 @@
 import { FormEvent, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { StyledInput } from "./StyledInput";
+import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/users/regist';
+const API_URL = GLOBAL_API_URL + '/users/regist';
 
 export function RegistComponent() {
     const [email, setEmail] = useState('');

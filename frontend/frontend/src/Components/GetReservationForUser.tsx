@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/booking/reserved/getone';
+const API_URL = GLOBAL_API_URL + '/booking/reserved/getone';
 
 export function GetReservationForUser() {
     const [reservation, setReservation] = useState(null as IReservation | null);

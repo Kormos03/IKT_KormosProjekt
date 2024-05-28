@@ -1,12 +1,14 @@
 import { FormEvent, useState } from "react";
 import { StyledInput } from "./StyledInput";
 import { NavLink } from "react-router-dom";
+import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
 
 interface Props {
     onSuccessfulLogin: (token: string) => void;
 }
 
-const API_URL = "http://localhost:3000/auth/login";
+//const API_URL = "http://localhost:3000/auth/login";
+const API_URL = `${GLOBAL_API_URL}/auth/login`;
 
 export function LoginForm({ onSuccessfulLogin }: Props) {
     const [email, setEmail] = useState('');
@@ -34,6 +36,7 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
             },
             body: JSON.stringify(loginData),
         });
+
         if (!response.ok) {
             const errorObj = await response.json();
             setLoginError(errorObj.message);

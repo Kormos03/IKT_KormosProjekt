@@ -1,10 +1,12 @@
 import { FormEvent, useState } from "react";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 
 interface Props {
     onSuccessfulLogin: (token: string) => void;
 }
 
-const API_URL = "http://localhost:3000/auth/katus/admin/login";
+//const API_URL = "http://localhost:3000/auth/katus/admin/login";
+const API_URL = `${GLOBAL_API_URL}/auth/katus/admin/login`;
 
 export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
     const [email, setEmail] = useState('');

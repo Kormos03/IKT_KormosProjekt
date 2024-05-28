@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import useAuthAdmin from "./AdminComponents/useAuthAdmin";
 import { useNavigate } from "react-router-dom";
+import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/users/';
+const API_URL = GLOBAL_API_URL + '/users/';
 
 export function UserProfile() {
     const { token, user: userFromAuth, error, setError } = useAuthAdmin();
