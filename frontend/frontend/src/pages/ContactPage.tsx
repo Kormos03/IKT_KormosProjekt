@@ -1,9 +1,10 @@
 import { NavigationBar } from "../Components/NavigationBar";
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { NavLink } from "react-router-dom";
 
 export function ContactPage() {
-  const position: [number, number] = [47.497913, 19.040236];
+  const position: [number, number] = [47.51469716233609, 18.934041252937167]; 
 
     return <>
     <NavigationBar/>
@@ -11,8 +12,8 @@ export function ContactPage() {
     <h1>Elérhetőségek</h1>
         <table>
             <tr>
-                <th>Telefon</th>
-                <th>Email</th>
+                <th><h2>Telefon</h2></th>
+                <th><h2>Email</h2></th>
             </tr>
             <tr>
                 <td>(+36) 30 123 4567</td>
@@ -20,7 +21,7 @@ export function ContactPage() {
             </tr>
         </table>
         <br />
-        <p>Helyszín: <a href="https://www.google.com/maps?q=47.497913,19.040236" target="_blank">Budapest.</a></p>
+        <h2>Helyszín: <NavLink className="bookFromWelcomePage" to={`https://www.google.com/maps?q=Budakeszi, Fő u. 74, 2092`} target="_blank">Budakeszi, Fő u. 74, 2092</NavLink></h2>
         <MapContainer center={position} zoom={20} style={{ height: "50vh", width: "40%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -28,7 +29,7 @@ export function ContactPage() {
       />
       <Marker position={position}>
         <Popup>
-          <p>Körmösszalon helye</p>
+          <p>Budakeszi, Fő u. 74, 2092</p>
         </Popup>
       </Marker>
     </MapContainer>
