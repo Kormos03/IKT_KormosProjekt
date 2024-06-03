@@ -27,7 +27,7 @@ export class AuthController {
     }
 
     return {
-      token: await this.authService.generateTokenFor(user)
+      token: await this.authService.generateTokenFor(user, loginDto.loggedIn)
     }
   }
 
@@ -44,7 +44,7 @@ export class AuthController {
     if(await !user.admin){
       throw new UnauthorizedException('Nincs jogosultságod ehhez a művelethez!');
     }
-    const adminToken = await this.authService.generateTokenFor(user);
+    const adminToken = await this.authService.generateTokenFor(user, loginDto.loggedIn);
   
     return {
       token: await adminToken

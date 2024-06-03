@@ -7,8 +7,12 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class AuthService {
   constructor (private readonly db: PrismaService) {}
-
-  async generateTokenFor(user: User) {
+  
+  async generateTokenFor(user: User, loggedIn: boolean) {
+    let expiration = new Date(Date.now() + 1000 * 60 * 60 * 24); // 1 day in milliseconds
+    if(loggedIn){
+      expiration = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30); // 30 days in milliseconds
+    }
     const randomBuffer = randomBytes(32);
     const randomString = randomBuffer.toString('hex');
 
@@ -16,6 +20,7 @@ export class AuthService {
       data: {
         token: randomString,
         userId: user.id,
+        expiration: expiration
       }
     })
 

@@ -18,7 +18,8 @@ export class ImagesService {
     return this.db.images.create({
       data: {
         url: createImageDto.url,
-        name: correctname
+        name: correctname,
+        type: createImageDto.type
       }
     });
   }
