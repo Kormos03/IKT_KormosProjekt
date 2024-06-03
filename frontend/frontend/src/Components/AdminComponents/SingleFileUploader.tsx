@@ -9,7 +9,7 @@ const SingleFileUploader = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const [file, setFile] = useState<File | null>(null);
-    const [type, setType] = useState('zsele');
+    const [type, setType] = useState('zsele'); //send a post request with the type of the image to the /images/ endpoint
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
