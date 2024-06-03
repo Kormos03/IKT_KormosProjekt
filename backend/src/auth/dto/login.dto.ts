@@ -25,6 +25,6 @@ export class LoginDto {
     description: 'Be marad-e jelentkezve a felhasználó 1 hónapig, ellenkező esetben 1 napig',
     example: 'true'
 })
-  loggedIn: boolean;
+  rememberMe: boolean;
 }
 

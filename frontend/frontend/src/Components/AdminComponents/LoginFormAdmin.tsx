@@ -1,5 +1,6 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     onSuccessfulLogin: (token: string) => void;
@@ -12,6 +13,9 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [loginError, setLoginError] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+
+   
 
     async function login(e: FormEvent) {
         e.preventDefault();
@@ -19,6 +23,7 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
         const loginData = {
             email: email,
             password: pass,
+            rememberMe: rememberMe
         }
         
         const response = await fetch(API_URL, {
@@ -48,12 +53,19 @@ export function LoginFormAdmin({ onSuccessfulLogin }: Props) {
         setPass('');
     }
 
+    const handleRememberMe = () => {
+        setRememberMe(!rememberMe);
+    }
+
     return (
         <div className="container">
             <form onSubmit={login} className="login">
                 <h3>Bejelentkezés Admin</h3>
                 Email: <input type='email' onChange={e => setEmail(e.currentTarget.value)} />
                 Password: <input type='password' onChange={e => setPass(e.currentTarget.value)} /> <br />
+                <div className="form-check">
+                <label className="form-check-label"><input className="form-check-input" type='checkbox' onChange={() => handleRememberMe()}/>Bejelentkezve maradok</label>
+                </div>
                 <input className="btn btn-primary btn-md" type='submit' value='Login' />
                 <p>{loginError}</p>
             </form>

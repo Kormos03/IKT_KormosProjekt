@@ -32,10 +32,7 @@ function useAuthAdmin() {
                     const userData = await response.json();
                     setUser(userData);
                 } else if (response.status === 401) {
-                    navigate('/secret/adminlogin');
-                }
-                else{
-                    localStorage.removeItem('token');
+                    navigate('/');
                 }
             } catch (err) {
                 setError('Hiba történt az autentikáció során');

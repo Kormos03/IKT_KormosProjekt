@@ -27,6 +27,7 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
         const loginData = {
             email: email,
             password: pass,
+            rememberMe: rememberMe,
         }
 
         const response = await fetch(API_URL, {

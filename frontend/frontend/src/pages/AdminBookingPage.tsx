@@ -2,8 +2,11 @@ import { AdminNavigationBar } from "../Components/AdminComponents/AdminNavigatio
 import { AdminBookingInsert } from "../Components/AdminComponents/AdminBookingInsert";
 import { AdminBookingNotReserved } from "../Components/AdminComponents/AdminBookingNotReserved";
 import { AdminBookingReserved } from "../Components/AdminComponents/AdminBookingReserved";
+import useAuthAdmin from "../Components/AdminComponents/useAuthAdmin";
 
 export function AdminBookingPage() {
+  useAuthAdmin();
+
     return (
         <>
             <AdminNavigationBar />

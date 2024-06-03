@@ -9,6 +9,7 @@ const SingleFileUploader = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const [file, setFile] = useState<File | null>(null);
+    const [type, setType] = useState('zsele');
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -75,6 +76,14 @@ const SingleFileUploader = () => {
             <li>Típus: {file.type}</li>
             <li>Méret: {file.size} bytes</li>
           </ul>
+          <label className="">Típus:
+          <select name="type" id="" className="form-select" onChange={(e) => setType(e.currentTarget.value)}>
+            <option value="zsele">Zselé</option>
+            <option value="gellakk">Géllakk</option>
+            <option value="porcelan">Porcelán</option>
+            <option value="manikur">Manikűr</option>
+          </select>
+          </label>
         </section>
       )}
 
