@@ -14,6 +14,7 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [loginError, setLoginError] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
 
     async function login(e: FormEvent) {
         e.preventDefault();
@@ -50,6 +51,10 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
         setPass('');
     }
 
+    const handleRememberMe = () => {
+        setRememberMe(!rememberMe);
+    }
+
     return (
         <div className="container login">
             <h3>Bejelentkezés</h3>
@@ -58,7 +63,10 @@ export function LoginForm({ onSuccessfulLogin }: Props) {
                 <StyledInput type="email" id="email" name="email"  onChange={e => setEmail(e.currentTarget.value)} placeholder="email cím"/><br />
                 <label htmlFor="password">Jelszó</label><br />
                 <StyledInput type="password" id="password" name="password"  onChange={e => setPass(e.currentTarget.value)} placeholder="jelszó"/><br />
-                <input className="btn btn-primary btn-md" type='submit' value='Login' />
+                <div className="form-check">
+                <label className="form-check-label"><input className="form-check-input" type='checkbox' onChange={() => handleRememberMe()}/>Bejelentkezve maradok</label>
+                </div>
+                <input className="btn btn-primary btn-md btnLogin" type='submit' value='Bejelentkezés' />
                 <p>{loginError}</p>
             </form>
             <NavLink className="nav-link" to="/register" >Nincs még fiókod? Regisztrálj</NavLink>
