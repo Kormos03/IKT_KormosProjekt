@@ -15,8 +15,6 @@ export class TokenStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException();
     }
     
-    // Ha a tokenhez van lejárati idő, azt is itt tudjuk ellenőrizni
-    // Pl. "validUntil" oszlop segítségével
     return user;
   }
 }

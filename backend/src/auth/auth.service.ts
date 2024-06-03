@@ -40,4 +40,14 @@ export class AuthService {
       where: { id: tokenObj.userId }
     })
   }
+
+async tokenCleanup() {
+  await this.db.token.deleteMany({
+    where: {
+      expiration: {
+        lt: new Date()
+      }
+    }
+  })  
+}
 }
