@@ -25,7 +25,8 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   });
 
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  //I had to change the static path to the public folder because the images were not displayed
+  app.useStaticAssets(join(__dirname, '..', '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('ejs');
 

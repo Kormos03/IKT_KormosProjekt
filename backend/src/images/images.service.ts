@@ -3,8 +3,9 @@ import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { PrismaService } from 'src/prisma.service';
 import { GLOBAL_API_URL } from 'GLOBAL_API_URL';
-
-const API_URL = GLOBAL_API_URL + '/images';
+  //http://localhost:3000/images/0.jpeg the db before
+  //http://localhost:3000/images/1.jpeg
+const API_URL = GLOBAL_API_URL + '/images/';
 
 @Injectable()
 export class ImagesService {

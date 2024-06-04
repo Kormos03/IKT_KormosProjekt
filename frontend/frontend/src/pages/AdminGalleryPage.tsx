@@ -20,10 +20,12 @@ export function AdminGalleryPage() {
 
     useEffect(() => {
         async function loadImages() {
+            
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 setGallery(data);
+                console.log(data)
             } catch (error: any) {
                 throw new Error(error.message);
             }

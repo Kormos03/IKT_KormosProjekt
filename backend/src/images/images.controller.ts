@@ -55,7 +55,7 @@ export class ImagesController {
       const fileforsave = file
       fileforsave.originalname = await filename
       console.log('file after name change:', await fileforsave);
-      const savePath = path.join(__dirname, '..','..', 'public', 'images', fileforsave.originalname);
+      const savePath = path.join(__dirname, '..','..', '..', 'public', 'images', fileforsave.originalname);
       writeFileSync(savePath, file.buffer);
 
       console.log(`File saved at ${savePath}`);
