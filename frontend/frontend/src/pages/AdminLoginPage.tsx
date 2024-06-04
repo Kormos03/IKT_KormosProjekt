@@ -9,11 +9,7 @@ export function AdminLoginPage() {
 
     useEffect(() => {
         console.log('useEffect');
-        const token = localStorage.getItem('token');
-        if (token) {
-            user?.admin ? navigate('secret/adminlogin/booking') :
-           navigate('/'); 
-        }
+       
     }, []);
 
     function login(token: string) {

@@ -1,0 +1,54 @@
+const router1 = createBrowserRouter([{
+  path: '/',
+  element: <App />,
+  children: [
+    {
+      path: '',
+      element: <WelcomePage />
+    },
+    {
+      path: 'pricelist',
+      element: <PriceListPage />
+    },
+    {
+      path: 'gallery',
+      element: <GalleryPage />
+    }, {
+      path: 'contact',
+      element: <ContactPage />
+    }, {
+      path: 'login',
+      element: <LoginPage />,
+
+    }, {
+      path: 'register',
+      element: <RegisterPage />
+
+    },{
+      path: 'secret/adminLogin',
+      element: <AdminLoginPage />,
+      children:[
+      {
+        path: 'adminProfile',
+        element: <AdminProfilePage/>
+      },
+    {
+      path: 'gallery',
+      element: <AdminGalleryPage/>
+    },
+  {
+    path: 'booking',
+    element: <AdminBookingPage/>
+  }]
+    },
+    {
+      path: 'bookingUser',
+      element: <BookingUserPage />
+    },
+    {
+      path: 'Profile',
+      element: <ProfilePage />
+    },
+  ]
+
+}])

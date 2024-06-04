@@ -14,6 +14,7 @@ function useAuthAdmin() {
     useEffect(() => {
         async function loadUserData() {
             const storedToken = localStorage.getItem('token');
+            //if there is no token, navigate to the login page
             if (!storedToken) {
                 navigate('/secret/adminlogin');
                 return;
@@ -27,13 +28,22 @@ function useAuthAdmin() {
                         'Authorization': `Bearer ${storedToken}`,
                     }
                 });
-
+                //if the user is an admin, then navigate to the booking page
                 if (response.ok) {
                     const userData = await response.json();
                     setUser(userData);
-                } else if (response.status === 401) {
+                } 
+                //if the user is not an admin, then navigate to the root page
+                else if (response.status === 401) {
                     console.error('Unauthorized');
-                    //navigate('/');
+                    navigate('/');
+                }
+                else if (response.status === 500) {
+                    console.error('Unauthorized');
+                    navigate('/');
+                }
+                if(response.ok && location.pathname == '/secret/adminlogin'){
+                    navigate('/secret/adminlogin/booking');
                 }
             } catch (err) {
                 setError('Hiba történt az autentikáció során');
@@ -41,7 +51,7 @@ function useAuthAdmin() {
         }
 
         loadUserData();
-    }, [token]);
+    }, [token, navigate]);
 
     return { token, user, error, setToken, setUser, setError };
 }
