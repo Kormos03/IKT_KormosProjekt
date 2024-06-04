@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 import useAuth from "./useAuth";
 
 const API_URL = GLOBAL_API_URL + '/users/';

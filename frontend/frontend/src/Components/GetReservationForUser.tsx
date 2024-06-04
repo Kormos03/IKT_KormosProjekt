@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 
 const API_URL = GLOBAL_API_URL + '/booking/reserved/getone';
 

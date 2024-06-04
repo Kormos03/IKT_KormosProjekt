@@ -6,7 +6,7 @@ import { DayPicker } from "react-day-picker";
 import 'react-day-picker/dist/style.css';
 import GetReservationForUser from "./GetReservationForUser";
 import { useNavigate } from "react-router-dom";
-import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 
 interface TypeFromLocal{
     name: string;

@@ -44,8 +44,11 @@ export class ImagesController {
   @Post('fileupload')
   @UseGuards(AuthGuard('bearer'))
   @UseInterceptors(FileInterceptor('file')) // 'file' should match the name you used in formData.append() in your client-side code
-  async uploadFile(@UploadedFile() file) {
+  async uploadFile(@UploadedFile() file, @Body('typeofnail') typeofnail: string) {
+    
     console.log(file);
+    console.log("Typeofnail: ",typeofnail); 
+
     //this service is to save the image to the server
     const filename  = this.imagesService.createImageName(file.originalname);
 
@@ -58,9 +61,10 @@ export class ImagesController {
       console.log(`File saved at ${savePath}`);
       
       //this service is to save the image to the database
-      return this.imagesService.create(fileforsave);
+     return this.imagesService.create(fileforsave, typeofnail);
   }
   
+
 
   //This endpoint is for the frontend to get all images
   @Get()

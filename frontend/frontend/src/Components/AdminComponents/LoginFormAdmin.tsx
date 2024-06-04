@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
+import { GLOBAL_API_URL } from "../../../GLOBAL_API_URL";
 import { useNavigate } from "react-router-dom";
 
 interface Props {

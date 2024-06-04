@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useAuth from "../useAuth";
 import { useNavigate } from "react-router-dom";
-import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
+import { GLOBAL_API_URL } from "../../../GLOBAL_API_URL";
 
 const API_URL = GLOBAL_API_URL + '/images/fileupload';
 
@@ -9,7 +9,7 @@ const SingleFileUploader = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const [file, setFile] = useState<File | null>(null);
-    const [type, setType] = useState('zsele'); //fieldname of the file for transfer
+    const [typeofnail, setTypeofnail] = useState('zsele'); //fieldname of the file for transfer
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -28,14 +28,18 @@ const SingleFileUploader = () => {
             try {
              
                 const formData = new FormData();
-                formData.append(type, file);
+                formData.append('file', file);
+                formData.append('typeofnail', typeofnail);
 
                 const fileForValidation = file;
                 if(!isValidFileUploaded(fileForValidation)){
                   window.alert("Hibás fájlformátum! Kérem válasszon png, jpeg vagy jpg formátumú fájlt!");
                   return;
                 }
-
+                //filedname of the file for transfer
+                for (let key of formData.keys()) {
+                  console.log(key);
+              }
                 const result = await fetch(API_URL, {
                     method: "POST",
                     headers: {
@@ -77,7 +81,7 @@ const SingleFileUploader = () => {
             <li>Méret: {file.size} bytes</li>
           </ul>
           <label className="">Típus:
-          <select name="type" id="" className="form-select" onChange={(e) => setType(e.currentTarget.value)}>
+          <select name="type" id="" className="form-select" onChange={(e) => setTypeofnail(e.currentTarget.value)}>
             <option value="zsele">Zselé</option>
             <option value="gellakk">Géllakk</option>
             <option value="porcelan">Porcelán</option>

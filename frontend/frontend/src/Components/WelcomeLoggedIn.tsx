@@ -1,4 +1,4 @@
-import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 import GetReservationForUser from "./GetReservationForUser";
 import { NavLink, useNavigate } from "react-router-dom";
 

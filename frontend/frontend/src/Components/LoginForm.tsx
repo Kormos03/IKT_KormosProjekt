@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { StyledInput } from "./StyledInput";
 import { NavLink } from "react-router-dom";
-import { GLOBAL_API_URL } from "../GLOBAL_API_URL";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 
 interface Props {
     onSuccessfulLogin: (token: string) => void;
