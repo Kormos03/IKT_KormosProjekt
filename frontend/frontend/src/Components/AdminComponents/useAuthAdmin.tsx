@@ -32,7 +32,8 @@ function useAuthAdmin() {
                     const userData = await response.json();
                     setUser(userData);
                 } else if (response.status === 401) {
-                    navigate('/');
+                    console.error('Unauthorized');
+                    //navigate('/');
                 }
             } catch (err) {
                 setError('Hiba történt az autentikáció során');
@@ -40,7 +41,7 @@ function useAuthAdmin() {
         }
 
         loadUserData();
-    }, [token, navigate]);
+    }, [token]);
 
     return { token, user, error, setToken, setUser, setError };
 }

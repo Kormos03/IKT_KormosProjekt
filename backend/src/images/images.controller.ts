@@ -33,11 +33,11 @@ export class ImagesController {
   constructor(private imagesService: ImagesService) {}
 
   //This endpoint is for the frontend to create an image, admin only
-  @Post()
+  /*@Post()
   @UseGuards(AuthGuard('bearer'))
   create(@Body() createImageDto: CreateImageDto) {
     return this.imagesService.create(createImageDto);
-  }
+  }*/
 
 
   //This endpoint is for the frontend to upload an image to the server, and the database admin only
@@ -46,6 +46,7 @@ export class ImagesController {
   @UseInterceptors(FileInterceptor('file')) // 'file' should match the name you used in formData.append() in your client-side code
   async uploadFile(@UploadedFile() file) {
     console.log(file);
+    //this service is to save the image to the server
     const filename  = this.imagesService.createImageName(file.originalname);
 
       const fileforsave = file
@@ -56,6 +57,7 @@ export class ImagesController {
 
       console.log(`File saved at ${savePath}`);
       
+      //this service is to save the image to the database
       return this.imagesService.create(fileforsave);
   }
   

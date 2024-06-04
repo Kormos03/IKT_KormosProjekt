@@ -40,7 +40,6 @@ function useAuth() {
 
                 const userData = await response.json() as User;
                 setUser(userData);
-                localStorage.setItem('userLoggedIn', '1');
             } catch (err) {
                 setError('Hiba történt az autentikáció során');
                 console.error(err);

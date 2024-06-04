@@ -9,7 +9,7 @@ const SingleFileUploader = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const [file, setFile] = useState<File | null>(null);
-    const [type, setType] = useState('zsele'); //send a post request with the type of the image to the /images/ endpoint
+    const [type, setType] = useState('zsele'); //fieldname of the file for transfer
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -28,7 +28,7 @@ const SingleFileUploader = () => {
             try {
              
                 const formData = new FormData();
-                formData.append('file', file);
+                formData.append(type, file);
 
                 const fileForValidation = file;
                 if(!isValidFileUploaded(fileForValidation)){
