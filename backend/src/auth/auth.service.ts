@@ -54,15 +54,16 @@ async tokenCleanup() {
 
 async sendMail(emailTo: string, subject: string, text: string) {
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.ethereal.email',
+    port: 587,
     auth: {
-      user: 'gamedaysaron@gmail.com',
-      pass: '2003aqa6erURe',
+        user: 'kitty12@ethereal.email',
+        pass: '7dwhh2Z8qcPWAbJma9'
     },
   });
 
   let mailOptions = {
-    from: 'gamedaysaron@gmail.com',
+    from: process.env.EMAIL_USER,
     to: emailTo,
     subject: subject,
     text: text,
