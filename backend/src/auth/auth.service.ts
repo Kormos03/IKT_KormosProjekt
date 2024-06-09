@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AuthService {
-  constructor (private readonly db: PrismaService) {}
+  constructor (private readonly db: PrismaService  ) {}
   
   async generateTokenFor(user: User, loggedIn: boolean) {
     let expiration = new Date(Date.now() + 1000 * 60 * 60 * 24); // 1 day in milliseconds
@@ -23,7 +23,6 @@ export class AuthService {
         expiration: expiration
       }
     })
-
     return randomString;
   }
 

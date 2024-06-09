@@ -6,7 +6,7 @@ import { TokenStrategy } from './token.strategy';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [ UsersModule ],
+  imports: [ UsersModule],
   controllers: [AuthController],
   providers: [AuthService, PrismaService, TokenStrategy],
 })

@@ -9,14 +9,20 @@ import { join } from 'path';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
+import * as fs from 'fs';
 
+const cspConfig = JSON.parse(fs.readFileSync('/csp.json', 'utf8'));
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(helmet.frameguard({ action: 'deny' }));   //a module to prevent clickjacking
-  //I had to increase the limit of the body parser to 100mb because the images were too big
-  //app.use(bodyParser.json({limit: '100mb'}));
-  //pp.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+  app.use(helmet.xssFilter());  //a module to prevent cross-site scripting attacks
+  app.use(helmet.noSniff());  //a module to prevent browsers from trying to guess (“sniff”) the MIME type
+  app.use(helmet.hidePoweredBy());  //a module to remove the X-Powered-By header
+  app.use(helmet.hsts({maxAge: 31536000, includeSubDomains: true}));  //a module to set the Strict-Transport-Security header
+  app.use(helmet.ieNoOpen());  //a module to set the X-Download-Options header
+  app.use(helmet.dnsPrefetchControl());  //a module to control browser DNS prefetching
+  app.use(helmet.contentSecurityPolicy({directives: cspConfig}) as any);  //a module to set the Content-Security-Policy header
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
