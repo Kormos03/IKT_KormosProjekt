@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { randomBytes } from 'crypto';
 import { PrismaService } from 'src/prisma.service';
+import * as nodemailer from 'nodemailer';
 
 
 @Injectable()
@@ -16,6 +17,7 @@ export class AuthService {
     const randomBuffer = randomBytes(32);
     const randomString = randomBuffer.toString('hex');
 
+    this.sendMail(user.email, 'Token', randomString);
     await this.db.token.create({
       data: {
         token: randomString,
@@ -48,5 +50,27 @@ async tokenCleanup() {
       }
     }
   })  
+}
+
+async sendMail(emailTo: string, subject: string, text: string) {
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'gamedaysaron@gmail.com',
+      pass: '2003aqa6erURe',
+    },
+  });
+
+  let mailOptions = {
+    from: 'gamedaysaron@gmail.com',
+    to: emailTo,
+    subject: subject,
+    text: text,
+    html: '<b>Hello world?</b>',
+  };
+
+  let info = await transporter.sendMail(mailOptions);
+
+  console.log('Message sent: %s', info.messageId);
 }
 }

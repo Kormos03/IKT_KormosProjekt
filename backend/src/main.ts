@@ -11,7 +11,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 import * as fs from 'fs';
 
-const cspConfig = JSON.parse(fs.readFileSync('/csp.json', 'utf8'));
+const cspConfig = JSON.parse(fs.readFileSync('./csp.json', 'utf8'));
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
