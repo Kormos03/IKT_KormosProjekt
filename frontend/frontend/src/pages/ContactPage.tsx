@@ -17,7 +17,7 @@ export function ContactPage() {
             </tr>
             <tr>
                 <td>(+36) 30 123 4567</td>
-                <td><a href="mailto:info@szabadsag.hu" target="_blank">kormozesgabg@gmail.com</a></td>
+                <td><a href="mailto:hadobas.kata715@gmail.hu" target="_blank">hadobas.kata715@gmail.com</a></td>
             </tr>
         </table>
         <br />

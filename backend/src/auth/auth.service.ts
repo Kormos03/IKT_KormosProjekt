@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 import { randomBytes } from 'crypto';
 import { PrismaService } from 'src/prisma.service';
 import * as nodemailer from 'nodemailer';
+import * as Mailjet from 'node-mailjet';
 
 
 @Injectable()
@@ -53,18 +54,20 @@ async tokenCleanup() {
 }
 
 async sendMail(emailTo: string, subject: string, text: string) {
+  console.log('Email service:', process.env.EMAIL_SERVICE, 'Email port:', process.env.EMAIL_PORT, 'Email user:', process.env.EMAIL_USER, 'Email pass:', process.env.EMAIL_PASS)
+  const mailjet = Mailjet.apiConnect(process.env.MAILJET_API_KEY, process.env.MAILJET_SECRET_KEY)
   let transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    host: process.env.EMAIL_SERVICE,
+    port: process.env.EMAIL_PORT,
     auth: {
-        user: 'kitty12@ethereal.email',
-        pass: '7dwhh2Z8qcPWAbJma9'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     },
   });
 
   let mailOptions = {
     from: process.env.EMAIL_USER,
-    to: emailTo,
+    to: "norayaplap@gmail.com",
     subject: subject,
     text: text,
     html: '<b>Hello world?</b>',
