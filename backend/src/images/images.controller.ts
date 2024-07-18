@@ -33,38 +33,32 @@ export class ImagesController {
   constructor(private imagesService: ImagesService) {}
 
   //This endpoint is for the frontend to create an image, admin only
-  /*@Post()
+  @Post()
   @UseGuards(AuthGuard('bearer'))
   create(@Body() createImageDto: CreateImageDto) {
     return this.imagesService.create(createImageDto);
-  }*/
+  }
 
 
   //This endpoint is for the frontend to upload an image to the server, and the database admin only
   @Post('fileupload')
   @UseGuards(AuthGuard('bearer'))
   @UseInterceptors(FileInterceptor('file')) // 'file' should match the name you used in formData.append() in your client-side code
-  async uploadFile(@UploadedFile() file, @Body('typeofnail') typeofnail: string) {
-    
+  async uploadFile(@UploadedFile() file) {
     console.log(file);
-    console.log("Typeofnail: ",typeofnail); 
-
-    //this service is to save the image to the server
     const filename  = this.imagesService.createImageName(file.originalname);
 
       const fileforsave = file
       fileforsave.originalname = await filename
       console.log('file after name change:', await fileforsave);
-      const savePath = path.join(__dirname, '..','..', '..', 'public', 'images', fileforsave.originalname);
+      const savePath = path.join(__dirname, '..','..', 'public', 'images', fileforsave.originalname);
       writeFileSync(savePath, file.buffer);
 
       console.log(`File saved at ${savePath}`);
       
-      //this service is to save the image to the database
-     return this.imagesService.create(fileforsave, typeofnail);
+      return this.imagesService.create(fileforsave);
   }
   
-
 
   //This endpoint is for the frontend to get all images
   @Get()

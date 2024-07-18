@@ -17,7 +17,6 @@ export class UsersController {
   @UseGuards(AuthGuard('bearer'))
   me(@Request() req) {
     const user: User = req.user;
-    this.authService.tokenCleanup();
     return {
       email: user.email,
       name: user.name,
@@ -32,7 +31,6 @@ export class UsersController {
     if (!user.admin) {
       throw new Error('Nincs jogosultságod ehhez a művelethez!');
     }
-    this.authService.tokenCleanup();
     return {
       email: user.email,
       name: user.name,
@@ -45,7 +43,7 @@ export class UsersController {
   try {
     const generatedUser = await this.usersService.registration(createUserDto);
     return {
-      token: await this.authService.generateTokenFor(generatedUser, false)
+      token: await this.authService.generateTokenFor(generatedUser)
     }
 } catch (error) {
     console.log(error);
