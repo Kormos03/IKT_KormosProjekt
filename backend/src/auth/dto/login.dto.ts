@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsString, Length, NotContains, contains } from "class-validator";
+import { IsBoolean, IsEmail, IsString, Length, NotContains, contains } from "class-validator";
 
 export class LoginDto {
   @IsString()
@@ -19,5 +19,12 @@ export class LoginDto {
     example: 'test'
 })
   password: string;
+
+  @IsBoolean({ message: 'A loggedIn mező csak boolean típus lehet!'})
+  @ApiProperty({
+    description: 'Be marad-e jelentkezve a felhasználó 1 hónapig, ellenkező esetben 1 napig',
+    example: 'true'
+})
+  rememberMe: boolean;
 }
 

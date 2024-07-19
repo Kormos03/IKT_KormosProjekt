@@ -42,11 +42,14 @@ model User {
 
 model Token {
   token String @id
+  expiration DateTime
   user User @relation( fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 }
+//I don't even use this model, but I'm afraid to delete it
 model AdminToken {
   token String @id
+  expiration DateTime
   user User @relation( fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 }
@@ -55,5 +58,6 @@ model Images{
   id Int @id @default(autoincrement())
   url String?
   name String @unique
+  type String
 }
 
