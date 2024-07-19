@@ -2,28 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { PrismaService } from 'src/prisma.service';
-import { GLOBAL_API_URL } from 'GLOBAL_API_URL';
-  //http://localhost:3000/images/0.jpeg the db before
-  //http://localhost:3000/images/1.jpeg
-const API_URL = GLOBAL_API_URL + '/images/';
 
 @Injectable()
 export class ImagesService {
  constructor( private readonly db : PrismaService) {}
  
-  create(createImageDto: any, typeofnail: string) {
+  create(createImageDto: any) {
+    //If the url is not provided, then the url will be the localhost url
     if (!createImageDto.url) {
-      createImageDto.url = API_URL + createImageDto.originalname;
+      createImageDto.url = "http://localhost:3000/images/" + createImageDto.originalname;
     }
-    console.log('CreateImageDto:', createImageDto);
     //The name of the image is provided with the .jpeg extension, so we need to remove it to save it to the database
     const correctname = createImageDto.originalname.split(".")[0];
     //The image is saved to the database
     return this.db.images.create({
       data: {
         url: createImageDto.url,
-        name: correctname,
-        type: typeofnail
+        name: correctname
       }
     });
   }

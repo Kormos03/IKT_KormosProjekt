@@ -23,7 +23,4 @@ export class CreateImageDto {
     })
     name: any;  
 
-    @IsNotEmpty({ message: 'A kép típusának megadása kötelező' })
-    type: string;
-
 }
