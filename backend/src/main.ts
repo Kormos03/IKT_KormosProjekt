@@ -31,7 +31,7 @@ async function bootstrap() {
   });
 
   //I had to change the static path to the public folder because the images were not displayed
-  app.useStaticAssets(join(__dirname, '..', '..', '..', 'frontend', 'frontend', 'dist'));
+  app.useStaticAssets(join(__dirname, '..', '..', '..', 'frontend', 'dist'));
   app.useStaticAssets(join(__dirname, '..', '..', 'public'));
 
   app.setBaseViewsDir(join(__dirname, '..', 'views'));

@@ -13,10 +13,6 @@ import { join } from 'path';
 
 @Module({
   imports: [   
-    /*ServeStaticModule.forRoot({
-    rootPath: join(__dirname, '..', '..', 'frontend', 'frontend', 'dist'), // path to your React build directory
-    exclude: ['/api*'], // Exclude API routes
-  }),*/
   BookingModule,
   ImagesModule, 
   PublicModule,
