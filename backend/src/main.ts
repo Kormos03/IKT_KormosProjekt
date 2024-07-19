@@ -5,10 +5,9 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import * as helmet from 'helmet';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
+import  { join } from 'path';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as bodyParser from 'body-parser';
 import * as fs from 'fs';
 
 const cspConfig = JSON.parse(fs.readFileSync('./csp.json', 'utf8'));
@@ -32,7 +31,9 @@ async function bootstrap() {
   });
 
   //I had to change the static path to the public folder because the images were not displayed
+  app.useStaticAssets(join(__dirname, '..', '..', '..', 'frontend', 'frontend', 'dist'));
   app.useStaticAssets(join(__dirname, '..', '..', 'public'));
+
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('ejs');
 

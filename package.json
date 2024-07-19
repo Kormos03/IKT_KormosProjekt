@@ -1,0 +1,13 @@
+{
+    "name": "kormos-website",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "frontend-build": "cd frontend && cd frontend && npm run build",
+      "backend-build": "cd backend && npm run build",
+      "backend-run": "cd backend && npm run start:prod",
+      "start": "npm run frontend-build && npm run backend-build && npm run backend-run"
+    }
+  }

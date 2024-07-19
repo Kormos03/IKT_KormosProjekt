@@ -8,9 +8,16 @@ import { PublicModule } from './PublicModule';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [BookingModule,
+  imports: [   
+    /*ServeStaticModule.forRoot({
+    rootPath: join(__dirname, '..', '..', 'frontend', 'frontend', 'dist'), // path to your React build directory
+    exclude: ['/api*'], // Exclude API routes
+  }),*/
+  BookingModule,
   ImagesModule, 
   PublicModule,
   AuthModule,
