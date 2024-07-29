@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,7 +17,7 @@ model Not_Reserved {
   dateEnd   DateTime
   type      String
   extra     Boolean  @default(false)
-  @@unique([dateStart, dateEnd])
+    @@unique([dateStart, dateEnd])
 }
 
 model Reserved {
@@ -27,37 +27,37 @@ model Reserved {
   dateEnd   DateTime
   type      String
   extra     Boolean  @default(false)
-  @@unique([dateStart, dateEnd])
+    @@unique([dateStart, dateEnd])
 }
 
 model User {
-  id          Int          @id @default(autoincrement())
-  name        String
-  password    String
-  email       String       @unique
-  admin       Boolean      @default(false)
-  tokens      Token[]
+  id Int @id @default(autoincrement())
+  name String
+  password String
+  email    String @unique
+  admin    Boolean @default(false)
+  tokens   Token[]
   adminTokens AdminToken[]
 }
 
 model Token {
-  token      String    @id
+  token String @id
   expiration DateTime
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     Int
+  user User @relation( fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 }
-
-// I don't even use this model, but I'm afraid to delete it
+//I don't even use this model, but I'm afraid to delete it
 model AdminToken {
-  token      String    @id
+  token String @id
   expiration DateTime
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     Int
+  user User @relation( fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 }
 
-model Images {
-  id    Int     @id @default(autoincrement())
-  url   String?
-  name  String  @unique
-  type  String
+model Images{
+  id Int @id @default(autoincrement())
+  url String?
+  name String @unique
+  type String
 }
+
