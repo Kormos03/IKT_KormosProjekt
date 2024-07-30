@@ -17,6 +17,7 @@ export class UsersController {
   @UseGuards(AuthGuard('bearer'))
   me(@Request() req) {
     const user: User = req.user;
+    console.log("Authorizing: ", user);
     this.authService.tokenCleanup();
     return {
       email: user.email,
@@ -65,18 +66,8 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
-  }
-
   @Patch(':email')
   update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(email, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
   }
 }

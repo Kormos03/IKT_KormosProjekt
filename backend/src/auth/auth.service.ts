@@ -16,11 +16,18 @@ export class AuthService {
     const randomBuffer = randomBytes(32);
     const randomString = randomBuffer.toString('hex');
 
+    await this.db.token.create({
+      data: {
+        token: randomString,
+        userId: user.id,
+        expiration: expiration,
+      },
+    });
+    console.log("generating token for: ", user);
     return randomString;
   }
   
   async findUserByToken(token: string) {
-    console.log(`Searching for token: ${token}`);
     const tokenObj = await this.db.token.findUnique({
       where: { token }
     })

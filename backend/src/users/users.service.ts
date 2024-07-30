@@ -54,10 +54,6 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
   update(email: string, updateUserDto: UpdateUserDto) {
     return this.db.user.update({
       where: {email: updateUserDto.email},
@@ -66,9 +62,5 @@ export class UsersService {
         email: updateUserDto.email,
       }
     })
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
   }
 }
