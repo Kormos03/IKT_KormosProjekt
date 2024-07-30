@@ -49,6 +49,10 @@ async function bootstrap() {
 const document = SwaggerModule.createDocument(app, docConfig);
 SwaggerModule.setup('apidoc', app, document);
 
+app.use('*', (req, res) => {
+  res.sendFile(join(__dirname, '..', '..', '..', 'frontend', 'dist', 'index.html'));
+});
+
   //await app.listen(process.env.PORT || 3000);
   await app.listen(3000, '0.0.0.0'); // Bind to all network interfaces
 
