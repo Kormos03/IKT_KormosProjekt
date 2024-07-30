@@ -20,6 +20,7 @@ export class AuthService {
   }
   
   async findUserByToken(token: string) {
+    console.log(`Searching for token: ${token}`);
     const tokenObj = await this.db.token.findUnique({
       where: { token }
     })
