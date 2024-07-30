@@ -22,10 +22,11 @@ async function bootstrap() {
   app.use(helmet.ieNoOpen());  //a module to set the X-Download-Options header
   app.use(helmet.dnsPrefetchControl());  //a module to control browser DNS prefetching
   app.use(helmet.contentSecurityPolicy({directives: cspConfig}) as any);  //a module to set the Content-Security-Policy header
+  
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'X-Requested-With'],
     preflightContinue: false,
     optionsSuccessStatus: 204,
   });
