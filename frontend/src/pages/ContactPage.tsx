@@ -1,6 +1,7 @@
 import { NavigationBar } from "../Components/NavigationBar";
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+
 import { NavLink } from "react-router-dom";
 
 export function ContactPage() {
