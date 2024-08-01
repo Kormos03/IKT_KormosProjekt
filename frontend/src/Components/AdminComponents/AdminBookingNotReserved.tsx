@@ -5,8 +5,9 @@ import { datesToReadableFormatFunc } from "../../assets/datesToReadableFormatFun
 import { BookingModel } from "../../assets/BookingModel";
 import { renderGroupedBookings } from "./renderGroupedBookings";
 import useAuthAdmin from "./useAuthAdmin";
+import { GLOBAL_API_URL } from "../../../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/booking/not_reserved/';
+const API_URL = GLOBAL_API_URL +  '/booking/not_reserved/';
 
 export function AdminBookingNotReserved() {
     const { token } = useAuthAdmin();

@@ -59,6 +59,7 @@ export class BookingController {
   @Post()
   @UseGuards(AuthGuard('bearer'))
   async create(@Body() createBookingDto: CreateBookingDto) {
+    console.log("Reservation is happening")
     if (createBookingDto.admin) {
       const result = await this.bookingService.create(createBookingDto);
       if (result === "Booking already exists") {

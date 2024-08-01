@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthAdmin from "./useAuthAdmin";
+import { GLOBAL_API_URL } from "../../../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/booking';
+const API_URL = GLOBAL_API_URL +  '/booking';
 
 export function AdminBookingInsert() {
     const { token, user,error, setError } = useAuthAdmin();

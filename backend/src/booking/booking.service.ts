@@ -31,6 +31,7 @@ export class BookingService {
         //We need to convert the date to ISO string to store it in the database, because this is the right format for the Prisma ORM
         const intoTheTableStart = start.toISOString();
         const intoTheTableEnd = end.toISOString();
+        console.log("the startdate is: ", intoTheTableStart);
         return this.prisma.not_Reserved.create({
           data: {
             name: createBookingDto.name,
