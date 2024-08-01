@@ -50,12 +50,19 @@ async function bootstrap() {
 const document = SwaggerModule.createDocument(app, docConfig);
 SwaggerModule.setup('apidoc', app, document);
 
-app.use('*', (req, res) => {
-  res.sendFile(join(__dirname, '..', '..', '..', 'frontend', 'dist', 'index.html'));
+ // Define a prefix for your API routes
+ app.setGlobalPrefix('api');
+
+ // Wildcard route to serve index.html for all non-API routes
+ app.use((req, res, next) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(join(__dirname, '..', '..', '..', 'frontend', 'dist', 'index.html'));
+  } else {
+    next();
+  }
 });
 
   //await app.listen(process.env.PORT || 3000);
   await app.listen(3000, '0.0.0.0'); // Bind to all network interfaces
-
 }
 bootstrap();
