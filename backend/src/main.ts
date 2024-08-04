@@ -21,7 +21,7 @@ async function bootstrap() {
   app.use(helmet.hsts({maxAge: 31536000, includeSubDomains: true}));  //a module to set the Strict-Transport-Security header
   app.use(helmet.ieNoOpen());  //a module to set the X-Download-Options header
   app.use(helmet.dnsPrefetchControl());  //a module to control browser DNS prefetching
-  app.use(helmet.contentSecurityPolicy({directives: cspConfig}) as any);  //a module to set the Content-Security-Policy header
+  //app.use(helmet.contentSecurityPolicy({directives: cspConfig}) as any);  //a module to set the Content-Security-Policy header(I commented this, because I couldn't connect from ip address with this policy)
   
   app.enableCors({
     origin: '*',
@@ -61,7 +61,7 @@ SwaggerModule.setup('apidoc', app, document);
     next();
   }
 });
-
+app.enableCors();
   //await app.listen(process.env.PORT || 3000);
   await app.listen(3000, '0.0.0.0'); // Bind to all network interfaces
 }

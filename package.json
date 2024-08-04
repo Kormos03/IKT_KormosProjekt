@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "update-api-url": "bash ./global_api_update_url.sh",
     "dev": "vite",
     "frontend-build": "cd frontend && npm i && npm run build",
     "backend-build": "cd backend && npm i && npm run build",
     "backend-run": "cd backend && npm run start:prod",
-    "start": "npm run frontend-build && npm run backend-build && npm run backend-run"
+    "start": "npm run update-api-url && npm run frontend-build && npm run backend-build && npm run backend-run"
   }
 }
