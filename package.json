@@ -4,13 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "update-api-url": "bash ./global_api_update_url.sh",
+    "cleanup-linux": "cd backend && rm -rf node_modules && rm package-lock.json && cd .. && cd frontend && rm -rf node_modules && rm package-lock.json && cd ..",
+    "cleanup-windows": "cd backend && rmdir /s /q node_modules && del package-lock.json && cd .. && cd frontend && rmdir /s /q node_modules && del package-lock.json && cd ..",    "update-api-url": "bash ./global_api_update_url.sh",
     "dev": "vite",
     "frontend-build": "cd frontend && npm i && npm run build",
     "backend-build": "cd backend && npm i && npm run build",
     "backend-run": "cd backend && npm run start:prod",
     "start": "npm run frontend-build && npm run backend-build && npm run backend-run",
     "start-linux": "npm run update-api-url && npm run frontend-build && npm run backend-build && npm run backend-run"
-  
 }
 }
