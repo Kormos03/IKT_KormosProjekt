@@ -1,5 +1,5 @@
 
-//Sulihoz kellett
+//Sulihoz kellett, régi
 # Telepítési és indítási útmutató
 
 Telepítés:
