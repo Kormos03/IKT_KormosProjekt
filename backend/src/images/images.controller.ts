@@ -74,7 +74,6 @@ export class ImagesController {
 
   //This endpoint is for the frontend to get an image by name, admin only
   @Get(':name')
-  @UseGuards(AuthGuard('bearer'))
   findOne(@Param('name') name: string) {
     return this.imagesService.findOne(name);
   }
