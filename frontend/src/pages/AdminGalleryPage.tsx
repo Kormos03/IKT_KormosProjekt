@@ -4,8 +4,9 @@ import { GalleryImg } from "../assets/GalleryImg";
 import { CardComponentForAdmin } from "../Components/AdminComponents/CardComponentForAdmin";
 import SingleFileUploader from "../Components/AdminComponents/SingleFileUploader";
 import useAuthAdmin from "../Components/AdminComponents/useAuthAdmin";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/images';
+const API_URL = GLOBAL_API_URL +'/images';
 
 export function AdminGalleryPage() {
     const { token, setToken } = useAuthAdmin();

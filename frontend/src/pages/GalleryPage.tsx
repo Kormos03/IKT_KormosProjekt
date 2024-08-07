@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { GalleryImg } from "../assets/GalleryImg";
 import { CardComponent } from "../Components/CardComponent";
 import { NavigationBar } from "../Components/NavigationBar";
+import { GLOBAL_API_URL } from "../../GLOBAL_API_URL";
 
-const API_URL = 'http://localhost:3000/images/';
+const API_URL = GLOBAL_API_URL + '/images/';
 
 export function GalleryPage() {
     const [gallery, setGallery] = useState([]);
