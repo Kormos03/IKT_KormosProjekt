@@ -32,9 +32,9 @@ export class ImagesService {
     return this.db.images.findMany();
   }
 
-  findOne(id) {
+  findOne(name) {
     return this.db.images.findFirst({
-      where: {id}
+      where: {name}
     });
   }
 
