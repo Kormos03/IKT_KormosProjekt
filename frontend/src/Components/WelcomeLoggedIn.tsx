@@ -55,7 +55,7 @@ export function WelcomeLoggedIn() {
                 <div className="card">
                     <div className="card-body">
                         {reservedTime()}
-                        <p className="lead">Ha van lefoglalt időpontja, akkor azt 48 órán belül törölheti</p>
+                        <p className="lead">Ha van lefoglalt időpontja, akkor azt 48 órán kívűl törölheti</p>
                     </div>
                 </div>
             </div>
