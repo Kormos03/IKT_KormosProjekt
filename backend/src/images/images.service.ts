@@ -22,7 +22,7 @@ export class ImagesService {
     return this.db.images.create({
       data: {
         url: createImageDto.url,
-        name: correctname,
+        name: correctname,  
         type: typeofnail
       }
     });
@@ -32,21 +32,22 @@ export class ImagesService {
     return this.db.images.findMany();
   }
 
-  findOne(name) {
+  findOne(Ogid: string) {
+const id = parseInt(Ogid)
     return this.db.images.findFirst({
-      where: {name}
+      where: {id}
     });
   }
 
-  update(name: string, updateImageDto: UpdateImageDto) {
+  update(id: any, updateImageDto: UpdateImageDto) {
     return this.db.images.update({
-      where: {name},
+      where: {id},
       data: updateImageDto
     });
   }
 
-  remove(id: number) {
-    
+  remove(Ogid: string) {
+    const id = parseInt(Ogid)
     return this.db.images.delete({
       where: {id}
     });
@@ -67,12 +68,13 @@ export class ImagesService {
   }
  //This function is helping the createImage function to get the highest name from the database and return the correct name
   async getTheHighestName(){ 
-    let tempImagename = '';
+    let tempImagename;
       const lastImage = await this.db.images.findMany();
   await lastImage.map((image) => {
     tempImagename = image.name;
   });
-  return (parseInt(tempImagename) + 1);
+  const correctName = parseInt(tempImagename) + 1;
+  return (correctName);
   }
 }
 

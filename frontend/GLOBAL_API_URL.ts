@@ -1,1 +1,1 @@
-export const GLOBAL_API_URL = "https://salon.katus-nail-artist.hu/api";
+export const GLOBAL_API_URL = "http://localhost:3000/api";
