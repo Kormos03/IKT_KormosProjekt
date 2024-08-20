@@ -14,8 +14,8 @@ export function CardComponentForAdmin({cards}: {cards: {url: string, id: number}
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
-      }
-      //body: JSON.stringify({id: id})
+      },
+      body: JSON.stringify({id: id})
     })
     if((await response).ok){
       console.log('Sikeres törlés')

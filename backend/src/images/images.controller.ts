@@ -73,28 +73,30 @@ export class ImagesController {
   }
 
   //This endpoint is for the frontend to get an image by name, admin only
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.imagesService.findOne(id);
+  @Get(':name')
+  findOne(@Param('name') name: string) {
+    return this.imagesService.findOne(name);
   }
 
   //This endpoint is for the frontend to update an image by name, admin only
-  @Patch(':id')
+  @Patch(':name')
   @UseGuards(AuthGuard('bearer'))
-  update(@Param('id') id: number, @Body() updateImageDto: UpdateImageDto) {
-    return this.imagesService.update(id, updateImageDto);
+  update(@Param('name') name: string, @Body() updateImageDto: UpdateImageDto) {
+    return this.imagesService.update(name, updateImageDto);
   }
 
   //This endpoint is for the frontend to delete an image by name, admin only
   @Delete(':id')
   @UseGuards(AuthGuard('bearer'))
   async  remove(@Param('id') id: string) {
-    const therecord = await this.imagesService.findOne(id); //This is to get the name of the image
+
+    const parsedId = parseInt(id);
+    const therecord = await this.imagesService.findOne(parsedId); //This is to get the name of the image
     console.log('therecord:', await therecord);
     const filePath = await join(__dirname, '..', '..', 'public', 'images', therecord.name + '.jpeg');
     try {
       fs.unlinkSync(filePath);
-      return this.imagesService.remove(id);
+      return this.imagesService.remove(parsedId);
       //file removed
     }
     catch(err) {
