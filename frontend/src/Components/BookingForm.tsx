@@ -20,7 +20,7 @@ export function BookingForm(){
     const { token, user, error, setError } = useAuth();
     const [getBooking, setGetBooking] = useState([] as GetBooking[]);
     const [availableTimes, setAvailableTimes] = useState([]);
-    const [type, setType] = useState('' || {} as TypeFromLocal);
+    const [type, setType] = useState({} as TypeFromLocal);
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [extra, setExtra] = useState(false);

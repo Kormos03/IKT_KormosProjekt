@@ -17,7 +17,7 @@ export function AdminGalleryPage() {
         if (storedToken) {
             setToken(storedToken);
         }
-    }, [] || token);
+    }, [token]);
 
     useEffect(() => {
         async function loadImages() {

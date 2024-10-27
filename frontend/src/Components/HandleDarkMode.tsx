@@ -23,7 +23,7 @@ export function useDarkMode() {
       document.body.classList.add('light');
       localStorage.setItem('darkMode', 'false');
     }
-  }, [isDarkMode] || []);
+  }, []);
 
   return [isDarkMode, setIsDarkMode];
 }
